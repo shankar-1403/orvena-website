@@ -22,7 +22,7 @@ const principles = [
 
 export default function Vision() {
   return (
-    <section id="vision" className="bg-[#f7f3ef] py-24 lg:py-32">
+    <section id="vision" className="bg-pale py-24 lg:py-32">
       <Container>
         <Reveal>
           <div className="grid items-end gap-8 lg:grid-cols-[1fr_minmax(0,380px)]">
@@ -31,7 +31,7 @@ export default function Vision() {
               <h2 className="mt-4 text-[36px] font-extrabold leading-[1.08] tracking-[-0.04em] text-navy sm:text-[48px] lg:text-[56px]">
                 The Future of Healthcare
                 <span className="mt-1 block">
-                  Is <span className="text-teal">Connected.</span>
+                  Is <span className="text-accent">Connected.</span>
                 </span>
               </h2>
             </div>
@@ -42,7 +42,7 @@ export default function Vision() {
         </Reveal>
 
         <Reveal delay={0.08}>
-          <blockquote className="mt-12 max-w-4xl border-l-2 border-teal pl-6 sm:pl-8">
+          <blockquote className="mt-12 max-w-4xl border-l-2 border-accent pl-6 sm:pl-8">
             <p className="text-[20px] font-medium leading-9 tracking-[-0.02em] text-navy sm:text-[24px] sm:leading-10">
               To create a globally connected healthcare ecosystem where patients receive
               the right care, at the right time, from the right provider — powered by
@@ -54,7 +54,7 @@ export default function Vision() {
         <div className="mt-14 grid gap-8 border-t border-line pt-10 sm:grid-cols-3 sm:gap-10">
           {principles.map((item, index) => (
             <Reveal key={item.code} delay={0.06 * index}>
-              <p className="text-[12px] font-semibold tracking-[0.18em] text-teal">{item.code}</p>
+              <p className="text-[12px] font-semibold tracking-[0.18em] text-accent">{item.code}</p>
               <h3 className="mt-3 text-xl font-semibold tracking-tight text-navy">{item.title}</h3>
               <p className="mt-2 text-[15px] leading-7 text-muted">{item.text}</p>
             </Reveal>

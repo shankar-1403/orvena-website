@@ -74,6 +74,7 @@ export const navLinks = [
   { label: 'Patient OS', href: '#patient-os' },
   { label: 'Doctors', href: '#doctors' },
   { label: 'Technology', href: '#technology' },
+  { label: 'Contact', href: '#contact' },
 ]
 
 export const stats = [

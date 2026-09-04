@@ -1,6 +1,5 @@
 import Navbar from './components/Navbar'
 import Hero from './components/Hero'
-import TrustStats from './components/TrustStats'
 import About from './components/About'
 import Services from './components/Services'
 import PatientOperatingSystem from './components/PatientOperatingSystem'
@@ -14,6 +13,7 @@ import Vision from './components/Vision'
 import Contact from './components/Contact'
 import Footer from './components/Footer'
 import MobileCTA from './components/MobileCTA'
+import ScrollToTop from './components/ScrollToTop'
 
 export default function App() {
   return (
@@ -27,7 +27,6 @@ export default function App() {
       <Navbar />
       <main id="main">
         <Hero />
-        <TrustStats />
         <About />
         <Services />
         <PatientOperatingSystem />
@@ -42,6 +41,7 @@ export default function App() {
       </main>
       <Footer />
       <MobileCTA />
+      <ScrollToTop />
     </div>
   )
 }

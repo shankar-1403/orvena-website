@@ -1,6 +1,6 @@
-import { useId, useState } from 'react'
+import { useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
-import { ArrowUpRight, Clock3, Hospital, MapPin, Plane } from 'lucide-react'
+import { ArrowUpRight, Hospital, Plane } from 'lucide-react'
 import Button from './ui/Button'
 import Container from './ui/Container'
 import Reveal from './ui/Reveal'
@@ -11,9 +11,6 @@ const regions = [
   {
     id: 'india',
     name: 'India',
-    x: 258,
-    y: 198,
-    hub: true,
     city: 'Mumbai · Delhi · Chennai',
     route: 'Care destination',
     time: 'On ground',
@@ -24,8 +21,6 @@ const regions = [
   {
     id: 'middle-east',
     name: 'Middle East',
-    x: 214,
-    y: 176,
     city: 'Dubai · Riyadh · Doha',
     route: 'DXB → BOM',
     time: '3h 15m',
@@ -36,8 +31,6 @@ const regions = [
   {
     id: 'africa',
     name: 'Africa',
-    x: 176,
-    y: 214,
     city: 'Nairobi · Lagos · Cairo',
     route: 'NBO → BOM',
     time: '6h 40m',
@@ -48,8 +41,6 @@ const regions = [
   {
     id: 'southeast-asia',
     name: 'Southeast Asia',
-    x: 292,
-    y: 208,
     city: 'Singapore · Jakarta · Bangkok',
     route: 'SIN → BOM',
     time: '5h 20m',
@@ -60,8 +51,6 @@ const regions = [
   {
     id: 'international',
     name: 'International',
-    x: 118,
-    y: 158,
     city: 'London · New York · Toronto',
     route: 'LHR → BOM',
     time: '9h 10m',
@@ -89,106 +78,13 @@ const supports = [
   },
 ]
 
-function Globe({ active }) {
-  const clipId = `globe-${useId().replaceAll(':', '')}`
-  const hub = regions[0]
-  const origin = active.hub ? null : active
-
-  return (
-    <div className="relative mx-auto aspect-square w-full max-w-[540px]">
-      <div className="absolute inset-[10%] rounded-full bg-[radial-gradient(circle_at_32%_28%,#1a3348_0%,#071a2b_52%,#041018_100%)]" />
-      <div
-        className="absolute inset-[10%] rounded-full"
-        style={{
-          boxShadow:
-            'inset -36px -24px 60px rgba(0,0,0,0.45), inset 16px 12px 28px rgba(255,255,255,0.06), 0 0 0 1px rgba(255,255,255,0.08)',
-        }}
-      />
-      <div className="absolute inset-0 rounded-full border border-white/8" />
-      <div className="globe-orbit absolute inset-[4%] rounded-full border border-dashed border-white/12" />
-
-      <svg viewBox="0 0 400 400" className="relative h-full w-full" aria-hidden="true">
-        <defs>
-          <clipPath id={clipId}>
-            <circle cx="200" cy="200" r="152" />
-          </clipPath>
-        </defs>
-
-        <g clipPath={`url(#${clipId})`}>
-          {[-70, -35, 0, 35, 70].map((offset) => (
-            <ellipse
-              key={`m-${offset}`}
-              cx={200 + offset * 0.5}
-              cy="200"
-              rx={Math.max(22, 152 - Math.abs(offset) * 0.82)}
-              ry="152"
-              fill="none"
-              stroke="rgba(255,255,255,0.14)"
-              strokeWidth="0.8"
-            />
-          ))}
-          {[-50, 0, 50].map((offset) => (
-            <ellipse
-              key={`l-${offset}`}
-              cx="200"
-              cy={200 + offset}
-              rx="152"
-              ry={Math.max(18, 48 - Math.abs(offset) * 0.22)}
-              fill="none"
-              stroke="rgba(255,255,255,0.12)"
-              strokeWidth="0.8"
-            />
-          ))}
-        </g>
-
-        {origin ? (
-          <path
-            d={`M${origin.x} ${origin.y} Q ${(origin.x + hub.x) / 2} ${Math.min(origin.y, hub.y) - 46} ${hub.x} ${hub.y}`}
-            fill="none"
-            stroke="#EA580C"
-            strokeWidth="1.8"
-            className="arc-flow"
-          />
-        ) : null}
-
-        <circle cx={hub.x} cy={hub.y} r="18" fill="none" stroke="#EA580C" strokeWidth="1" className="animate-pulse-ring" />
-        <circle cx={hub.x} cy={hub.y} r="5.5" fill="#FB923C" />
-
-        {origin ? (
-          <>
-            <circle cx={origin.x} cy={origin.y} r="11" fill="rgba(234,88,12,0.22)" />
-            <circle cx={origin.x} cy={origin.y} r="4.5" fill="#EA580C" />
-          </>
-        ) : null}
-      </svg>
-
-      <div className="pointer-events-none absolute left-[59%] top-[46%] -translate-y-1/2 rounded-full bg-navy/80 px-3 py-1 text-[10px] font-semibold tracking-[0.18em] text-white backdrop-blur-sm">
-        INDIA
-      </div>
-
-      <AnimatePresence mode="wait">
-        <motion.div
-          key={active.id}
-          initial={{ opacity: 0, y: 8 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: 6 }}
-          transition={{ duration: 0.28 }}
-          className="absolute right-[6%] top-[16%] rounded-full border border-white/12 bg-navy/70 px-3.5 py-1.5 text-[12px] font-semibold text-mint backdrop-blur-md"
-        >
-          {active.time}
-        </motion.div>
-      </AnimatePresence>
-    </div>
-  )
-}
-
 export default function GlobalHealthcare() {
   const [activeId, setActiveId] = useState('middle-east')
   const active = regions.find((region) => region.id === activeId) ?? regions[1]
   const { ref, value } = useCountUp(15)
 
   return (
-    <section id="global" className="bg-[#f7f3ef] py-24 lg:py-32">
+    <section id="global" className="bg-pale py-24 lg:py-32">
       <Container>
         <Reveal>
           <SectionHeader
@@ -201,76 +97,72 @@ export default function GlobalHealthcare() {
         <Reveal delay={0.08} className="mt-14">
           <div className="relative">
             <div className="overflow-hidden rounded-[36px] bg-navy text-white shadow-lift">
-              <div className="grid lg:grid-cols-[minmax(0,0.92fr)_minmax(0,1.08fr)]">
-                <div className="flex flex-col justify-center p-8 sm:p-10 lg:p-14 lg:pr-6">
-                  <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-mint/70">
-                    Route to care
-                  </p>
+              <div className="px-8 pb-20 pt-10 sm:px-10 sm:pt-12 lg:px-14 lg:pb-24 lg:pt-14">
+                <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-mint/70">
+                  Route to care
+                </p>
 
-                  <AnimatePresence mode="wait">
-                    <motion.div
-                      key={active.id}
-                      initial={{ opacity: 0, y: 10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: 8 }}
-                      transition={{ duration: 0.3 }}
-                    >
-                      <h3 className="mt-4 text-[40px] font-extrabold tracking-[-0.04em] sm:text-5xl">
-                        {active.name}
-                      </h3>
-                      <p className="mt-4 max-w-[36ch] text-[15px] leading-7 text-white/65">
-                        {active.copy}
-                      </p>
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key={active.id}
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: 8 }}
+                    transition={{ duration: 0.3 }}
+                    className="mt-4"
+                  >
+                    <div className="flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between lg:gap-16">
+                      <div className="max-w-xl">
+                        <h3 className="text-[40px] font-extrabold tracking-[-0.04em] sm:text-5xl">
+                          {active.name}
+                        </h3>
+                        <p className="mt-4 text-[15px] leading-7 text-white/65">
+                          {active.copy}
+                        </p>
 
-                      <div className="mt-8 grid grid-cols-2 gap-3">
-                        <div className="rounded-2xl border border-white/10 p-4">
-                          <MapPin className="h-4 w-4 text-mint" />
-                          <p className="mt-3 text-sm font-semibold leading-6">{active.city}</p>
-                          <p className="mt-1 text-[12px] text-white/45">{active.hospitals}</p>
-                        </div>
-                        <div className="rounded-2xl border border-white/10 p-4">
-                          <Clock3 className="h-4 w-4 text-mint" />
-                          <p className="mt-3 text-sm font-semibold">{active.time}</p>
-                          <p className="mt-1 text-[12px] text-white/45">{active.route}</p>
+                        <p className="mt-6 text-sm text-white/50">
+                          <span className="text-white/80">{active.city}</span>
+                          <span className="mx-2 text-white/25">·</span>
+                          {active.hospitals}
+                          <span className="mx-2 text-white/25">·</span>
+                          {active.time} {active.route}
+                        </p>
+
+                        <div className="mt-5 flex flex-wrap gap-2">
+                          {active.specialties.map((item) => (
+                            <span
+                              key={item}
+                              className="rounded-full border border-white/12 px-3 py-1 text-[11px] font-medium text-white/80"
+                            >
+                              {item}
+                            </span>
+                          ))}
                         </div>
                       </div>
 
-                      <div className="mt-5 flex flex-wrap gap-2">
-                        {active.specialties.map((item) => (
-                          <span
-                            key={item}
-                            className="rounded-full border border-white/12 px-3 py-1 text-[11px] font-medium text-white/80"
-                          >
-                            {item}
-                          </span>
-                        ))}
+                      <div className="flex shrink-0 flex-wrap items-end gap-10 lg:gap-12">
+                        <div ref={ref}>
+                          <p className="text-4xl font-extrabold tracking-tight">
+                            {Math.round(value)}+
+                          </p>
+                          <p className="mt-1 text-[11px] font-semibold uppercase tracking-[0.16em] text-white/40">
+                            Countries reached
+                          </p>
+                        </div>
+                        <div>
+                          <p className="text-4xl font-extrabold tracking-tight">50+</p>
+                          <p className="mt-1 text-[11px] font-semibold uppercase tracking-[0.16em] text-white/40">
+                            Hospital partners
+                          </p>
+                        </div>
                       </div>
-                    </motion.div>
-                  </AnimatePresence>
-
-                  <div className="mt-10 flex flex-wrap items-end gap-10">
-                    <div ref={ref}>
-                      <p className="text-4xl font-extrabold tracking-tight">{Math.round(value)}+</p>
-                      <p className="mt-1 text-[11px] font-semibold uppercase tracking-[0.16em] text-white/40">
-                        Countries reached
-                      </p>
                     </div>
-                    <div>
-                      <p className="text-4xl font-extrabold tracking-tight">50+</p>
-                      <p className="mt-1 text-[11px] font-semibold uppercase tracking-[0.16em] text-white/40">
-                        Hospital partners
-                      </p>
-                    </div>
-                  </div>
+                  </motion.div>
+                </AnimatePresence>
 
-                  <Button href="#medical-tourism" variant="light" className="mt-8 w-fit">
-                    Explore Medical Tourism
-                  </Button>
-                </div>
-
-                <div className="relative flex items-center justify-center px-6 pb-24 pt-4 lg:min-h-[560px] lg:px-8 lg:pb-28 lg:pt-8">
-                  <Globe active={active} />
-                </div>
+                <Button href="#medical-tourism" variant="light" className="mt-10 w-fit">
+                  Explore Medical Tourism
+                </Button>
               </div>
             </div>
 
@@ -278,7 +170,7 @@ export default function GlobalHealthcare() {
               <div
                 role="tablist"
                 aria-label="Care regions"
-                className="flex gap-1 overflow-x-auto rounded-full bg-navy p-1.5 shadow-lift ring-1 ring-white/10 no-scrollbar"
+                className="flex gap-1 overflow-x-auto rounded-full bg-navy p-1.5 shadow-lift ring-1 ring-white/10 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
               >
                 {regions.map((region) => {
                   const on = region.id === activeId
@@ -310,7 +202,7 @@ export default function GlobalHealthcare() {
             return (
               <Reveal key={item.title} delay={0.06 * index}>
                 <article className="h-full rounded-[28px] border border-line bg-white p-7">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-mint-soft text-teal">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-mint-soft text-accent">
                     <Icon className="h-4 w-4" />
                   </div>
                   <h3 className="mt-5 text-lg font-semibold tracking-tight text-navy">{item.title}</h3>

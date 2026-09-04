@@ -56,7 +56,10 @@ export default function Contact() {
   }
 
   return (
-    <section id="contact" className="contact-mesh relative overflow-hidden py-24 text-white lg:py-32">
+    <section
+      id="contact"
+      className="relative overflow-hidden bg-[radial-gradient(ellipse_38%_42%_at_92%_88%,rgba(217,95,20,0.22),transparent_72%),radial-gradient(ellipse_32%_28%_at_8%_12%,rgba(19,96,116,0.18),transparent_64%),linear-gradient(180deg,#0b4156_0%,#062a38_100%)] py-24 text-white lg:py-32"
+    >
       <Container>
         <div className="grid items-start gap-14 lg:grid-cols-[0.95fr_1.05fr]">
           <Reveal>

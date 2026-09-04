@@ -1,158 +1,170 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
 import { ArrowUpRight } from 'lucide-react'
 import { images } from '../data/images'
 import Container from './ui/Container'
 import Eyebrow from './ui/Eyebrow'
 import Reveal from './ui/Reveal'
 
-const network = [
+const roles = [
   {
     id: 'patients',
-    title: 'Patients',
+    word: 'Patients',
     text: 'Clarity before every major medical decision.',
+    image: images.patientCare,
   },
   {
     id: 'doctors',
-    title: 'Doctors',
+    word: 'Doctors',
     text: 'Verified specialists across leading disciplines.',
+    image: images.patientCare,
   },
   {
     id: 'hospitals',
-    title: 'Hospitals',
+    word: 'Hospitals',
     text: 'Coordinated access to centres of excellence.',
+    image: images.specialistReview,
   },
   {
     id: 'corporations',
-    title: 'Corporations',
+    word: 'Corporations',
     text: 'Workforce wellness designed around real risk.',
+    image: images.specialistReview,
   },
   {
     id: 'technology',
-    title: 'Technology',
+    word: 'Technology',
     text: 'Records, intelligence and care in one ecosystem.',
+    image: images.specialistReview,
   },
 ]
 
+const INTERVAL_MS = 3200
+
 export default function About() {
-  const [active, setActive] = useState(network[0])
+  const [index, setIndex] = useState(0)
+  const [paused, setPaused] = useState(false)
+  const reduceMotion = useReducedMotion()
+  const active = roles[index]
+
+  useEffect(() => {
+    if (paused || reduceMotion) return undefined
+    const id = window.setInterval(() => {
+      setIndex((current) => (current + 1) % roles.length)
+    }, INTERVAL_MS)
+    return () => window.clearInterval(id)
+  }, [paused, reduceMotion])
 
   return (
-    <section id="about" className="overflow-hidden bg-[#f7f3ef] py-24 lg:py-32">
+    <section id="about" className="overflow-hidden bg-white py-12 lg:py-14">
       <Container>
-        <div className="grid items-start gap-12 lg:grid-cols-[0.92fr_1.08fr] lg:gap-8">
-          <div className="lg:sticky lg:top-28">
-            <Reveal>
-              <Eyebrow>About</Eyebrow>
-              <h2 className="mt-5 font-extrabold leading-[0.92] tracking-[-0.055em] text-navy">
-                <span className="block text-[42px] sm:text-[56px] lg:text-[72px]">A Smarter</span>
-                <span className="mt-1 block text-[42px] text-teal sm:text-[56px] lg:text-[72px]">
-                  Way
-                </span>
-                <span className="mt-2 block max-w-[10ch] text-[28px] font-semibold leading-[1.15] tracking-[-0.04em] text-navy/80 sm:text-[34px]">
-                  to Navigate Healthcare.
-                </span>
-              </h2>
-            </Reveal>
+        <Reveal>
+          <div
+            className="relative"
+            onMouseEnter={() => setPaused(true)}
+            onMouseLeave={() => setPaused(false)}
+          >
+            <div className="grid items-center gap-6 lg:grid-cols-[1fr_1.05fr] lg:gap-10">
+              <div>
+                <Eyebrow>About</Eyebrow>
 
-            <Reveal delay={0.12}>
-              <p className="mt-8 max-w-[42ch] text-[17px] leading-8 text-muted">
-                Orvena is transforming healthcare through an intelligent, connected and
-                patient-first ecosystem — bringing patients, providers, hospitals, corporations
-                and technology together in one place.
-              </p>
-              <a
-                href="#patient-os"
-                className="group mt-8 inline-flex items-center gap-2 text-[15px] font-semibold text-navy"
-              >
-                Discover Orvena
-                <ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-              </a>
-            </Reveal>
-          </div>
-
-          <Reveal delay={0.1}>
-            <div className="relative min-h-[540px] lg:min-h-[640px]">
-              <div className="absolute right-0 top-0 h-[78%] w-[78%] overflow-hidden rounded-[40px]">
-                <img
-                  src={images.specialistReview}
-                  alt="Specialists collaborating across the Orvena network"
-                  className="h-full w-full object-cover"
-                  loading="lazy"
-                  width={900}
-                  height={1100}
-                />
-                <div className="absolute inset-0 bg-navy/25 mix-blend-multiply" />
-              </div>
-
-              <div className="absolute bottom-[8%] left-0 h-[46%] w-[48%] overflow-hidden rounded-[32px] border-[6px] border-[#f7f3ef] shadow-lift">
-                <img
-                  src={images.patientCare}
-                  alt="Patient-centered care"
-                  className="h-full w-full object-cover"
-                  loading="lazy"
-                  width={640}
-                  height={800}
-                />
-              </div>
-
-              <div className="absolute right-4 top-6 w-[min(100%,220px)] rounded-[24px] border border-white/20 bg-[#071a2b]/80 p-4 text-white backdrop-blur-md sm:right-8 sm:top-10">
-                <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-mint/80">
-                  Connected by
-                </p>
-                <p className="mt-1 text-lg font-semibold">Orvena</p>
-                <ul className="mt-4 space-y-1.5">
-                  {network.map((item, index) => {
-                    const on = item.id === active.id
-                    return (
-                      <li key={item.id}>
-                        <button
-                          type="button"
-                          onMouseEnter={() => setActive(item)}
-                          onFocus={() => setActive(item)}
-                          onClick={() => setActive(item)}
-                          className={`flex w-full items-center gap-3 rounded-full px-2 py-1.5 text-left text-[13px] transition-colors ${
-                            on ? 'bg-white/10 text-white' : 'text-white/55 hover:text-white'
-                          }`}
-                          aria-pressed={on}
+                <h2 className="mt-3 text-[30px] font-extrabold leading-[1.05] tracking-[-0.045em] text-navy sm:text-[38px] lg:text-[44px]">
+                  <span className="block">A smarter way for</span>
+                  <span className="mt-0.5 flex flex-wrap items-baseline gap-x-2.5">
+                    <span className="relative inline-flex min-h-[1.15em] min-w-[8ch] items-baseline overflow-hidden">
+                      <AnimatePresence mode="wait">
+                        <motion.span
+                          key={active.id}
+                          initial={reduceMotion ? false : { y: '85%', opacity: 0 }}
+                          animate={{ y: '0%', opacity: 1 }}
+                          exit={reduceMotion ? undefined : { y: '-85%', opacity: 0 }}
+                          transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+                          className="absolute left-0 top-0 text-accent"
                         >
-                          <span className={`text-[10px] tracking-[0.14em] ${on ? 'text-mint' : 'text-white/30'}`}>
-                            0{index + 1}
-                          </span>
-                          {item.title}
-                        </button>
-                      </li>
-                    )
-                  })}
-                </ul>
+                          {active.word}
+                        </motion.span>
+                      </AnimatePresence>
+                      <span className="invisible" aria-hidden="true">
+                        Corporations
+                      </span>
+                    </span>
+                    <span className="text-navy/75">to navigate care.</span>
+                  </span>
+                </h2>
+
+                <div className="mt-4 min-h-[2.75rem]">
+                  <AnimatePresence mode="wait">
+                    <motion.p
+                      key={active.id}
+                      initial={reduceMotion ? false : { opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={reduceMotion ? undefined : { opacity: 0, y: -6 }}
+                      transition={{ duration: 0.3 }}
+                      className="max-w-[34ch] text-[14px] leading-6 text-muted"
+                    >
+                      {active.text}
+                    </motion.p>
+                  </AnimatePresence>
+                </div>
+
+                <div className="mt-5 flex items-center gap-4">
+                  <div className="flex gap-1.5" role="tablist" aria-label="Connected roles">
+                    {roles.map((role, i) => (
+                      <button
+                        key={role.id}
+                        type="button"
+                        role="tab"
+                        aria-label={role.word}
+                        aria-selected={i === index}
+                        onClick={() => setIndex(i)}
+                        className={`h-1.5 rounded-full transition-all duration-300 ${
+                          i === index ? 'w-6 bg-accent' : 'w-1.5 bg-navy/15 hover:bg-navy/30'
+                        }`}
+                      />
+                    ))}
+                  </div>
+                  <a
+                    href="#patient-os"
+                    className="group inline-flex items-center gap-1.5 text-[13px] font-semibold text-navy"
+                  >
+                    Discover Orvena
+                    <ArrowUpRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                  </a>
+                </div>
               </div>
 
-              <div className="absolute bottom-3 left-[52%] right-2 rounded-2xl bg-white/90 px-4 py-3 shadow-card backdrop-blur-md sm:left-[50%]">
-                <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-teal">
-                  {active.title}
-                </p>
-                <p className="mt-1 text-sm leading-6 text-navy">{active.text}</p>
+              <div className="relative aspect-[16/10] overflow-hidden rounded-[24px] sm:aspect-[2/1] lg:aspect-[16/11] lg:rounded-[28px]">
+                <AnimatePresence mode="wait">
+                  <motion.img
+                    key={active.id}
+                    src={active.image}
+                    alt={`${active.word} in the Orvena care network`}
+                    initial={reduceMotion ? false : { opacity: 0, scale: 1.06 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={reduceMotion ? undefined : { opacity: 0 }}
+                    transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+                    className="absolute inset-0 h-full w-full object-cover"
+                    loading="lazy"
+                    width={1200}
+                    height={750}
+                  />
+                </AnimatePresence>
+                <div className="absolute inset-0 bg-gradient-to-t from-navy/40 via-transparent to-transparent" />
+
+                {!reduceMotion && !paused ? (
+                  <motion.div
+                    key={`progress-${active.id}`}
+                    className="absolute bottom-0 left-0 h-0.5 origin-left bg-accent"
+                    initial={{ scaleX: 0 }}
+                    animate={{ scaleX: 1 }}
+                    transition={{ duration: INTERVAL_MS / 1000, ease: 'linear' }}
+                  />
+                ) : null}
               </div>
             </div>
-          </Reveal>
-        </div>
-      </Container>
-
-      <div className="mt-20 bg-navy text-white">
-        <Container className="py-10 lg:py-12">
-          <div className="flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
-            <p className="max-w-[18ch] text-[28px] font-semibold leading-tight tracking-[-0.03em] sm:text-[34px]">
-              Medical Expertise
-              <span className="mx-3 font-light text-mint">+</span>
-              Technology
-              <span className="mx-3 font-light text-mint">+</span>
-              Personalized Care
-            </p>
-            <p className="max-w-[36ch] text-sm leading-7 text-white/60">
-              So people receive the right care, at the right time, with clarity at every step.
-            </p>
           </div>
-        </Container>
-      </div>
+        </Reveal>
+      </Container>
     </section>
   )
 }

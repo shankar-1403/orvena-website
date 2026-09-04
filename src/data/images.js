@@ -2,7 +2,6 @@ const u = (id, w = 1200) =>
   `https://images.unsplash.com/${id}?auto=format&fit=crop&w=${w}&q=80`
 
 export const images = {
-  heroBanner: u('photo-1516549655169-df83a0774514', 2400),
   heroClinician: u('photo-1576091160550-2173dba999ef', 1400),
   specialistReview: u('photo-1551076805-e1869033e561', 900),
   patientCare: u('photo-1576091160399-112ba8d25d1d', 900),

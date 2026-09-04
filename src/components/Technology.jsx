@@ -54,7 +54,7 @@ export default function Technology() {
   const [activeId, setActiveId] = useState('cms')
 
   return (
-    <section id="technology" className="relative overflow-hidden bg-[#061018] py-24 text-white lg:py-32">
+    <section id="technology" className="relative overflow-hidden bg-midnight py-24 text-white lg:py-32">
       <Container className="relative">
         <Reveal>
           <SectionHeader

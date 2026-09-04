@@ -52,7 +52,7 @@ function PatientOSConsole() {
   }, [active])
 
   return (
-    <div className="overflow-hidden rounded-[32px] border border-white/10 bg-[#07141d] shadow-lift">
+    <div className="overflow-hidden rounded-[32px] border border-white/10 bg-navy shadow-lift">
       <div className="flex items-center justify-between border-b border-white/10 px-5 py-4 sm:px-6">
         <div className="flex items-center gap-3">
           <span className="flex gap-1.5" aria-hidden="true">
@@ -71,7 +71,7 @@ function PatientOSConsole() {
       </div>
 
       <div className="grid lg:grid-cols-[220px_1fr]">
-        <nav className="flex gap-2 overflow-x-auto no-scrollbar border-b border-white/10 p-3 lg:block lg:overflow-visible lg:border-b-0 lg:border-r lg:p-4" aria-label="Patient OS sources">
+        <nav className="flex gap-2 overflow-x-auto border-b border-white/10 p-3 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden lg:block lg:overflow-visible lg:border-b-0 lg:border-r lg:p-4" aria-label="Patient OS sources">
           {sources.map((source) => {
             const Icon = source.icon
             const on = active === source.id
@@ -147,7 +147,7 @@ function PatientOSConsole() {
 
       <div className="grid gap-px border-t border-white/10 bg-white/10 sm:grid-cols-5">
         {stages.map((stage, index) => (
-          <div key={stage.title} className="bg-[#07141d] px-4 py-4">
+          <div key={stage.title} className="bg-navy px-4 py-4">
             <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-mint/60">
               0{index + 1}
             </p>
@@ -162,7 +162,7 @@ function PatientOSConsole() {
 
 export default function PatientOperatingSystem() {
   return (
-    <section id="patient-os" className="relative overflow-hidden bg-[#061018] py-24 text-white lg:py-32">
+    <section id="patient-os" className="relative overflow-hidden bg-midnight py-24 text-white lg:py-32">
       <div className="pointer-events-none absolute inset-0">
         <div className="absolute left-[-8%] top-[-18%] h-[280px] w-[280px] rounded-full bg-mint/8 blur-[110px]" />
         <div className="absolute bottom-[-12%] right-[-6%] h-[240px] w-[240px] rounded-full bg-accent/10 blur-[100px]" />

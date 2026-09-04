@@ -60,13 +60,13 @@ export default function PatientJourney() {
             <svg viewBox="0 0 1100 90" className="h-full w-full" fill="none" aria-hidden="true">
               <path
                 d="M40 48 C 180 48, 230 12, 360 48 S 560 84, 700 48 S 860 12, 1060 48"
-                stroke="#E8E0D8"
+                stroke="#D4DEE2"
                 strokeWidth="3"
                 strokeLinecap="round"
               />
               <motion.path
                 d="M40 48 C 180 48, 230 12, 360 48 S 560 84, 700 48 S 860 12, 1060 48"
-                stroke="#C2410C"
+                stroke="#D95F14"
                 strokeWidth="3"
                 strokeLinecap="round"
                 style={{ pathLength }}
@@ -80,9 +80,9 @@ export default function PatientJourney() {
               return (
                 <Reveal key={step.num} delay={0.08 * index} className={step.align === 'bottom' ? 'lg:mt-24' : 'lg:mb-24'}>
                   <article className="relative rounded-[28px] bg-pale p-6">
-                    <span className="absolute -top-3 left-6 hidden h-6 w-6 rounded-full border-4 border-white bg-teal lg:block" />
+                    <span className="absolute -top-3 left-6 hidden h-6 w-6 rounded-full border-4 border-white bg-accent lg:block" />
                     <div className="flex items-center justify-between">
-                      <span className="inline-flex h-11 w-11 items-center justify-center rounded-2xl bg-white text-teal shadow-card">
+                      <span className="inline-flex h-11 w-11 items-center justify-center rounded-2xl bg-white text-accent shadow-card">
                         <Icon className="h-5 w-5" />
                       </span>
                       <span className="text-[28px] font-extrabold tracking-tight text-navy/15">

@@ -3,10 +3,10 @@ import { motion } from 'framer-motion'
 
 const variants = {
   primary:
-    'bg-navy text-white hover:bg-midnight shadow-soft',
+    'bg-accent text-white hover:bg-accent-deep shadow-soft',
   secondary:
-    'bg-white text-navy border border-navy/10 hover:border-teal/40 hover:text-teal',
-  ghost: 'bg-transparent text-teal px-1 py-1 hover:text-midnight',
+    'bg-white text-navy border border-navy/10 hover:border-accent/40 hover:text-accent',
+  ghost: 'bg-transparent text-accent px-1 py-1 hover:text-navy',
   light: 'bg-white text-navy hover:bg-mint-soft',
   outline:
     'border border-white/25 bg-white/5 text-white hover:bg-white/12',

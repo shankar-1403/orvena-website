@@ -33,7 +33,7 @@ export default function Doctors() {
   }
 
   return (
-    <section id="doctors" className="bg-[#f7f3ef] py-24 lg:py-32">
+    <section id="doctors" className="bg-pale py-24 lg:py-32">
       <Container>
         <Reveal>
           <SectionHeader
@@ -50,7 +50,7 @@ export default function Doctors() {
                     type="button"
                     onClick={() => selectFilter(item)}
                     className={`rounded-full px-4 py-2 text-[13px] font-semibold transition-colors ${
-                      on ? 'bg-teal text-white' : 'bg-white text-navy/70 hover:text-navy'
+                      on ? 'bg-accent text-white' : 'bg-white text-navy/70 hover:text-navy'
                     }`}
                     aria-pressed={on}
                   >

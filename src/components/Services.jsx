@@ -32,7 +32,7 @@ export default function Services() {
   }
 
   return (
-    <section id="services" className="bg-[#f7f3ef] py-24 lg:py-32">
+    <section id="services" className="bg-pale py-24 lg:py-32">
       {services.map((service) => (
         <div key={service.id} id={service.id} className="h-0 w-0 overflow-hidden" />
       ))}
@@ -62,13 +62,13 @@ export default function Services() {
                     aria-current={on ? 'true' : undefined}
                     className={`rounded-2xl px-4 py-3 text-left transition-colors lg:rounded-none lg:border-l-2 lg:px-5 lg:py-5 ${
                       on
-                        ? 'bg-white text-navy shadow-card lg:border-teal lg:bg-transparent lg:shadow-none'
+                        ? 'bg-white text-navy shadow-card lg:border-accent lg:bg-transparent lg:shadow-none'
                         : 'text-muted hover:bg-white/70 lg:border-transparent lg:hover:bg-transparent lg:hover:text-navy'
                     }`}
                   >
                     <span
                       className={`block text-[11px] font-semibold tracking-[0.18em] ${
-                        on ? 'text-teal' : 'text-muted/80'
+                        on ? 'text-accent' : 'text-muted/80'
                       }`}
                     >
                       {service.number}
@@ -98,7 +98,7 @@ export default function Services() {
                       {active.number}
                     </span>
 
-                    <p className="text-[12px] font-semibold uppercase tracking-[0.22em] text-teal">
+                    <p className="text-[12px] font-semibold uppercase tracking-[0.22em] text-accent">
                       {active.name}
                     </p>
                     <h3 className="relative mt-4 max-w-[14ch] text-[32px] font-extrabold leading-[1.08] tracking-[-0.04em] text-navy sm:text-[44px]">
@@ -126,25 +126,25 @@ export default function Services() {
                     <div className="relative mt-8 flex flex-wrap items-center gap-4">
                       <Button href={active.href}>{active.cta}</Button>
                       {active.highlight ? (
-                        <p className="text-sm font-semibold text-teal">{active.highlight}</p>
+                        <p className="text-sm font-semibold text-accent">{active.highlight}</p>
                       ) : null}
                     </div>
                   </div>
 
                   <div className="border-t border-line bg-mint-soft px-7 py-5 sm:px-10 lg:px-12">
-                    <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-teal">
+                    <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-accent">
                       How it works
                     </p>
                     <div className="relative mt-5">
                       <span
                         aria-hidden="true"
-                        className="absolute left-1.5 right-8 top-1.5 hidden h-px bg-teal/20 sm:block"
+                        className="absolute left-1.5 right-8 top-1.5 hidden h-px bg-accent/20 sm:block"
                       />
                       <ol className="grid grid-cols-2 gap-4 sm:grid-cols-4">
                         {active.steps.map((step, index) => (
                           <li key={step} className="relative">
                             <span className="relative z-[1] flex h-3 w-3 items-center justify-center rounded-full bg-mint-soft">
-                              <span className="h-1.5 w-1.5 rounded-full bg-teal" />
+                              <span className="h-1.5 w-1.5 rounded-full bg-accent" />
                             </span>
                             <p className="mt-3 text-[13px] font-semibold leading-5 text-navy">{step}</p>
                             <p className="mt-0.5 text-[11px] text-muted">0{index + 1}</p>

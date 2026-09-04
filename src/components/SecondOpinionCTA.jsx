@@ -9,10 +9,10 @@ function DocumentVisual() {
       <div className="absolute -right-4 top-6 h-full w-full rounded-[28px] bg-navy/10" />
       <div className="relative rounded-[28px] bg-white p-7 shadow-lift">
         <div className="flex items-center justify-between border-b border-line pb-4">
-          <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-teal">
+          <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-accent">
             Medical second opinion
           </p>
-          <span className="rounded-full bg-mint-soft px-2.5 py-1 text-[10px] font-semibold text-teal">
+          <span className="rounded-full bg-mint-soft px-2.5 py-1 text-[10px] font-semibold text-accent">
             Confidential
           </span>
         </div>
@@ -41,7 +41,7 @@ function DocumentVisual() {
 
 export default function SecondOpinionCTA() {
   return (
-    <section className="bg-[#fff4ea] py-24 lg:py-32">
+    <section className="bg-mint-soft py-24 lg:py-32">
       <Container>
         <div className="grid items-center gap-14 lg:grid-cols-2">
           <Reveal>
