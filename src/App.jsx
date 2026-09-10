@@ -1,47 +1,32 @@
-import Navbar from './components/Navbar'
-import Hero from './components/Hero'
-import About from './components/About'
-import Services from './components/Services'
-import PatientOperatingSystem from './components/PatientOperatingSystem'
-import WhyOrvena from './components/WhyOrvena'
-import Doctors from './components/Doctors'
-import Technology from './components/Technology'
-import GlobalHealthcare from './components/GlobalHealthcare'
-import PatientJourney from './components/PatientJourney'
-import SecondOpinionCTA from './components/SecondOpinionCTA'
-import Vision from './components/Vision'
-import Contact from './components/Contact'
-import Footer from './components/Footer'
-import MobileCTA from './components/MobileCTA'
-import ScrollToTop from './components/ScrollToTop'
+import { Route, Routes } from 'react-router-dom'
+import Layout from './components/Layout'
+import AboutPage from './pages/AboutPage'
+import ContactPage from './pages/ContactPage'
+import DoctorsPage from './pages/DoctorsPage'
+import HomePage from './pages/HomePage'
+import NotFoundPage from './pages/NotFoundPage'
+import PatientOSPage from './pages/PatientOSPage'
+import PrivacyPage from './pages/PrivacyPage'
+import ServicesPage from './pages/ServicesPage'
+import TechnologyPage from './pages/TechnologyPage'
+import TermsPage from './pages/TermsPage'
 
 export default function App() {
   return (
-    <div className="min-h-svh bg-white text-ink">
-      <a
-        href="#main"
-        className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[60] focus:rounded-full focus:bg-white focus:px-4 focus:py-2 focus:text-navy"
-      >
-        Skip to content
-      </a>
-      <Navbar />
-      <main id="main">
-        <Hero />
-        <About />
-        <Services />
-        <PatientOperatingSystem />
-        <WhyOrvena />
-        <Doctors />
-        <Technology />
-        <GlobalHealthcare />
-        <PatientJourney />
-        <SecondOpinionCTA />
-        <Vision />
-        <Contact />
-      </main>
-      <Footer />
-      <MobileCTA />
-      <ScrollToTop />
-    </div>
+    <Routes>
+      <Route element={<Layout />}>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/about" element={<AboutPage />} />
+        <Route path="/services" element={<ServicesPage />} />
+        <Route path="/services/:serviceId" element={<ServicesPage />} />
+        <Route path="/patient-os" element={<PatientOSPage />} />
+        <Route path="/doctors" element={<DoctorsPage />} />
+        <Route path="/technology" element={<TechnologyPage />} />
+        <Route path="/contact" element={<ContactPage />} />
+        <Route path="/privacy" element={<PrivacyPage />} />
+        <Route path="/terms" element={<TermsPage />} />
+        <Route path="*" element={<NotFoundPage />} />
+      </Route>
+    </Routes>
   )
 }

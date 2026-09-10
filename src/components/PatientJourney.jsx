@@ -3,6 +3,7 @@ import { useRef } from 'react'
 import { MessageCircle, Stethoscope, ClipboardList, HeartHandshake } from 'lucide-react'
 import Container from './ui/Container'
 import Reveal from './ui/Reveal'
+import SectionCard from './ui/SectionCard'
 import SectionHeader from './ui/SectionHeader'
 
 const steps = [
@@ -45,8 +46,13 @@ export default function PatientJourney() {
   const pathLength = useTransform(scrollYProgress, [0, 1], [0, 1])
 
   return (
-    <section className="overflow-hidden bg-white py-24 lg:py-32">
-      <Container>
+    <SectionCard className="bg-white py-12 sm:py-16 lg:py-24">
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute right-[-10%] top-24 h-72 w-72 rounded-full bg-mint-soft/70 blur-3xl"
+      />
+
+      <Container className="relative">
         <Reveal>
           <SectionHeader
             eyebrow="Journey"
@@ -74,15 +80,15 @@ export default function PatientJourney() {
             </svg>
           </div>
 
-          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4 lg:gap-6 lg:pt-10">
+          <div className="grid gap-4 sm:grid-cols-2 sm:gap-5 lg:grid-cols-4 lg:gap-6 lg:pt-10">
             {steps.map((step, index) => {
               const Icon = step.icon
               return (
                 <Reveal key={step.num} delay={0.08 * index} className={step.align === 'bottom' ? 'lg:mt-24' : 'lg:mb-24'}>
-                  <article className="relative rounded-[28px] bg-pale p-6">
+                  <article className="group relative rounded-[22px] border border-transparent bg-pale p-5 transition-all duration-300 hover:-translate-y-1 hover:border-accent/20 hover:bg-white hover:shadow-card sm:rounded-[28px] sm:p-6">
                     <span className="absolute -top-3 left-6 hidden h-6 w-6 rounded-full border-4 border-white bg-accent lg:block" />
                     <div className="flex items-center justify-between">
-                      <span className="inline-flex h-11 w-11 items-center justify-center rounded-2xl bg-white text-accent shadow-card">
+                      <span className="inline-flex h-11 w-11 items-center justify-center rounded-2xl bg-white text-accent shadow-card transition-colors duration-300 group-hover:bg-accent group-hover:text-white">
                         <Icon className="h-5 w-5" />
                       </span>
                       <span className="text-[28px] font-extrabold tracking-tight text-navy/15">
@@ -100,6 +106,6 @@ export default function PatientJourney() {
           </div>
         </div>
       </Container>
-    </section>
+    </SectionCard>
   )
 }

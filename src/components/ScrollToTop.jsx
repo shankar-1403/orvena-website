@@ -1,9 +1,15 @@
 import { useEffect, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { ArrowUp } from 'lucide-react'
+import { useLocation } from 'react-router-dom'
 
 export default function ScrollToTop() {
   const [visible, setVisible] = useState(false)
+  const { pathname } = useLocation()
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' })
+  }, [pathname])
 
   useEffect(() => {
     const onScroll = () => setVisible(window.scrollY > 420)
@@ -29,7 +35,7 @@ export default function ScrollToTop() {
           transition={{ duration: 0.22 }}
           whileHover={{ y: -2 }}
           whileTap={{ scale: 0.96 }}
-          className="fixed right-4 bottom-24 z-40 flex h-12 w-12 items-center justify-center rounded-full bg-accent text-white shadow-lift md:right-6 md:bottom-6"
+          className="fixed right-6 bottom-24 z-40 flex h-12 w-12 items-center justify-center rounded-full bg-accent text-white shadow-lift md:right-8 md:bottom-8"
         >
           <ArrowUp className="h-5 w-5" strokeWidth={2.25} />
         </motion.button>

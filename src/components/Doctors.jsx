@@ -1,10 +1,12 @@
 import { useMemo, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { ArrowUpRight } from 'lucide-react'
+import { Link } from 'react-router-dom'
 import { doctors, specialties } from '../data/doctors'
 import Button from './ui/Button'
 import Container from './ui/Container'
 import Reveal from './ui/Reveal'
+import SectionCard from './ui/SectionCard'
 import SectionHeader from './ui/SectionHeader'
 
 function pad(index) {
@@ -33,15 +35,17 @@ export default function Doctors() {
   }
 
   return (
-    <section id="doctors" className="bg-pale py-24 lg:py-32">
-      <Container>
+    <SectionCard id="doctors" className="bg-white py-12 sm:py-16 lg:py-24">
+      <div aria-hidden="true" className="bg-dot-grid pointer-events-none absolute inset-0 opacity-60" />
+
+      <Container className="relative">
         <Reveal>
           <SectionHeader
             eyebrow="Doctors"
-            title="Meet the Specialists Behind Better Decisions."
-            description="Connect with experienced specialists across leading medical disciplines."
+            title="World-Class Doctors You Can Trust."
+            description="Consult with India’s leading medical experts across cardiology, oncology, orthopedics, gastroenterology, nephrology and more."
           >
-            <div className="flex flex-wrap gap-2">
+            <div className="-mx-1 flex gap-2 overflow-x-auto pb-1 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden sm:flex-wrap sm:overflow-visible">
               {specialties.map((item) => {
                 const on = filter === item
                 return (
@@ -49,12 +53,21 @@ export default function Doctors() {
                     key={item}
                     type="button"
                     onClick={() => selectFilter(item)}
-                    className={`rounded-full px-4 py-2 text-[13px] font-semibold transition-colors ${
-                      on ? 'bg-accent text-white' : 'bg-white text-navy/70 hover:text-navy'
+                    className={`relative shrink-0 rounded-full px-4 py-2 text-[13px] font-semibold transition-colors ${
+                      on ? 'text-white' : 'text-navy/70 hover:text-navy'
                     }`}
                     aria-pressed={on}
                   >
-                    {item}
+                    {on ? (
+                      <motion.span
+                        layoutId="doctor-filter"
+                        className="absolute inset-0 rounded-full bg-accent"
+                        transition={{ type: 'spring', stiffness: 400, damping: 30 }}
+                      />
+                    ) : (
+                      <span className="absolute inset-0 rounded-full bg-pale" />
+                    )}
+                    <span className="relative z-10">{item}</span>
                   </button>
                 )
               })}
@@ -62,8 +75,8 @@ export default function Doctors() {
           </SectionHeader>
         </Reveal>
 
-        <div className="mt-12 grid overflow-hidden rounded-[36px] bg-navy text-white shadow-lift lg:grid-cols-[1.15fr_0.85fr]">
-          <div className="relative min-h-[460px] overflow-hidden lg:min-h-[620px]">
+        <div className="mt-8 grid overflow-hidden rounded-[24px] border border-navy/10 bg-navy text-white shadow-lift sm:mt-12 sm:rounded-[36px] md:grid-cols-[1.15fr_0.85fr]">
+          <div className="relative min-h-[300px] overflow-hidden sm:min-h-[380px] md:min-h-[520px] lg:min-h-[620px]">
             <AnimatePresence mode="wait">
               <motion.div
                 key={active.name}
@@ -76,20 +89,20 @@ export default function Doctors() {
                 <img
                   src={active.image}
                   alt={`Portrait of ${active.name}`}
-                  className="h-full w-full object-cover object-top grayscale contrast-[1.08]"
+                  className="h-full w-full object-cover object-top"
                   width={900}
                   height={1100}
                 />
-                <div className="absolute inset-0 bg-navy/35 mix-blend-multiply" />
-                <div className="absolute inset-0 bg-gradient-to-t from-navy via-navy/25 to-transparent" />
+                <div className="absolute inset-0 bg-navy/30 mix-blend-multiply" />
+                <div className="absolute inset-0 bg-gradient-to-t from-navy via-navy/30 to-transparent" />
               </motion.div>
             </AnimatePresence>
 
-            <div className="absolute left-6 top-6 rounded-full border border-white/15 bg-white/10 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-mint backdrop-blur-md">
+            <div className="absolute left-4 top-4 rounded-full border border-white/15 bg-white/10 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-mint backdrop-blur-md sm:left-6 sm:top-6">
               {pad(activeIndex)} / {String(visible.length).padStart(2, '0')}
             </div>
 
-            <div className="absolute inset-x-0 bottom-0 p-6 sm:p-8">
+            <div className="absolute inset-x-0 bottom-0 p-4 sm:p-8">
               <AnimatePresence mode="wait">
                 <motion.div
                   key={active.name + '-copy'}
@@ -101,7 +114,7 @@ export default function Doctors() {
                   <p className="text-[12px] font-semibold uppercase tracking-[0.2em] text-mint">
                     {active.specialty}
                   </p>
-                  <h3 className="mt-2 text-3xl font-semibold tracking-tight sm:text-4xl">
+                  <h3 className="mt-2 text-[22px] font-semibold tracking-tight sm:text-3xl lg:text-4xl">
                     {active.name}
                   </h3>
                   <p className="mt-3 max-w-[36ch] text-sm leading-6 text-white/75">{active.focus}</p>
@@ -119,26 +132,28 @@ export default function Doctors() {
                       </p>
                     </div>
                   </div>
-                  <a
-                    href="#contact"
+                  <Link
+                    to="/contact"
                     className="group mt-6 inline-flex items-center gap-2 text-sm font-semibold text-white"
                   >
                     Request this specialist
-                    <ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
-                  </a>
+                    <span className="inline-flex h-7 w-7 items-center justify-center rounded-full bg-white/10 transition-colors group-hover:bg-accent">
+                      <ArrowUpRight className="h-3.5 w-3.5 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+                    </span>
+                  </Link>
                 </motion.div>
               </AnimatePresence>
             </div>
           </div>
 
-          <div className="flex flex-col border-t border-white/10 lg:border-l lg:border-t-0">
+          <div className="flex max-h-[320px] flex-col overflow-y-auto border-t border-white/10 md:max-h-none md:border-l md:border-t-0">
             <div className="border-b border-white/10 px-6 py-5">
               <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-mint/70">
                 Specialist roster
               </p>
               <p className="mt-1 text-sm text-white/55">Select a consultant to review.</p>
             </div>
-            <div className="flex-1 divide-y divide-white/8">
+            <div className="flex-1">
               {visible.map((doctor, index) => {
                 const on = doctor.name === active.name
                 return (
@@ -146,21 +161,26 @@ export default function Doctors() {
                     key={doctor.name}
                     type="button"
                     onClick={() => setActiveName(doctor.name)}
-                    className={`flex w-full items-center gap-4 px-6 py-5 text-left transition-colors ${
-                      on ? 'bg-white/8' : 'hover:bg-white/5'
-                    }`}
+                    className="relative flex w-full items-center gap-4 px-6 py-5 text-left"
                     aria-pressed={on}
                   >
-                    <span className={`text-[12px] font-semibold tracking-[0.16em] ${on ? 'text-mint' : 'text-white/30'}`}>
+                    {on ? (
+                      <motion.span
+                        layoutId="doctor-row"
+                        className="absolute inset-0 bg-white/8"
+                        transition={{ type: 'spring', stiffness: 380, damping: 32 }}
+                      />
+                    ) : null}
+                    <span className={`relative z-10 text-[12px] font-semibold tracking-[0.16em] ${on ? 'text-mint' : 'text-white/30'}`}>
                       {pad(index)}
                     </span>
-                    <span className="min-w-0 flex-1">
+                    <span className="relative z-10 min-w-0 flex-1">
                       <span className="block truncate text-[16px] font-semibold tracking-tight">
                         {doctor.name}
                       </span>
                       <span className="mt-1 block text-[12px] text-white/50">{doctor.specialty}</span>
                     </span>
-                    {on ? <span className="h-1.5 w-1.5 rounded-full bg-mint" /> : null}
+                    {on ? <span className="relative z-10 h-1.5 w-1.5 rounded-full bg-mint" /> : null}
                   </button>
                 )
               })}
@@ -168,13 +188,13 @@ export default function Doctors() {
           </div>
         </div>
 
-        <div className="mt-8 flex flex-wrap items-center justify-between gap-4">
+        <div className="mt-6 flex flex-col gap-3 sm:mt-8 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between sm:gap-4">
           <p className="text-sm text-muted">Verified specialists across leading disciplines.</p>
-          <Button href="#contact" variant="secondary">
+          <Button href="/contact" variant="secondary" className="w-full sm:w-auto">
             Explore All Specialists
           </Button>
         </div>
       </Container>
-    </section>
+    </SectionCard>
   )
 }

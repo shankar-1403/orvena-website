@@ -3,6 +3,7 @@ import { Mail, Phone } from 'lucide-react'
 import Button from './ui/Button'
 import Container from './ui/Container'
 import Reveal from './ui/Reveal'
+import SectionCard from './ui/SectionCard'
 import SectionHeader from './ui/SectionHeader'
 
 const initial = {
@@ -26,17 +27,17 @@ function validate(values) {
 function Field({ label, error, children }) {
   return (
     <label className="block">
-      <span className="mb-2 block text-[12px] font-semibold uppercase tracking-[0.14em] text-white/60">
+      <span className="mb-2 block text-[12px] font-semibold uppercase tracking-[0.14em] text-navy/55">
         {label}
       </span>
       {children}
-      {error ? <span className="mt-1.5 block text-[12px] text-mint">{error}</span> : null}
+      {error ? <span className="mt-1.5 block text-[12px] text-accent">{error}</span> : null}
     </label>
   )
 }
 
 const inputClass =
-  'w-full rounded-2xl border border-white/10 bg-white/6 px-4 py-3.5 text-sm text-white outline-none transition-colors placeholder:text-white/30 focus:border-mint/50'
+  'w-full rounded-2xl border border-navy/10 bg-white px-4 py-3.5 text-sm text-navy outline-none transition-colors placeholder:text-navy/35 hover:border-navy/20 focus:border-accent/50'
 
 export default function Contact() {
   const [values, setValues] = useState(initial)
@@ -56,38 +57,50 @@ export default function Contact() {
   }
 
   return (
-    <section
-      id="contact"
-      className="relative overflow-hidden bg-[radial-gradient(ellipse_38%_42%_at_92%_88%,rgba(217,95,20,0.22),transparent_72%),radial-gradient(ellipse_32%_28%_at_8%_12%,rgba(19,96,116,0.18),transparent_64%),linear-gradient(180deg,#0b4156_0%,#062a38_100%)] py-24 text-white lg:py-32"
-    >
-      <Container>
-        <div className="grid items-start gap-14 lg:grid-cols-[0.95fr_1.05fr]">
+    <SectionCard id="contact" className="bg-white py-12 sm:py-16 lg:py-24">
+      <div aria-hidden="true" className="bg-dot-grid pointer-events-none absolute inset-0 opacity-60" />
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute -right-16 top-10 h-64 w-64 rounded-full bg-mint-soft/80 blur-3xl"
+      />
+
+      <Container className="relative">
+        <div className="grid items-start gap-10 md:grid-cols-2 md:gap-8 lg:grid-cols-[0.95fr_1.05fr] lg:gap-14">
           <Reveal>
             <SectionHeader
-              light
               eyebrow="Contact"
               title="Your Better Healthcare Journey Starts Here."
-              description="Whether you need a second opinion, treatment assistance, disease reversal, corporate wellness or healthcare technology, we’re here to help."
+              description="Whether you need a second opinion, treatment in India, disease reversal, corporate wellness, a health check-up or healthcare technology, we’re here 24/7."
             />
-            <div className="mt-8 flex flex-wrap gap-3">
-              <Button href="tel:+917506543960" variant="light">
-                Talk to an Expert
-              </Button>
-              <Button href="#contact-form" variant="outline" showArrow={false}>
+            <div className="mt-6 flex w-full flex-col gap-3 sm:mt-8 sm:flex-row sm:flex-wrap">
+              <Button href="tel:+917506543960" className="w-full sm:w-auto">Talk to an Expert</Button>
+              <Button href="#contact-form" variant="secondary" showArrow={false} className="w-full sm:w-auto">
                 Request a Consultation
               </Button>
             </div>
-            <div className="mt-10 space-y-3 text-sm">
-              <a href="tel:+917506543960" className="flex items-center gap-3 text-white/85 hover:text-mint">
-                <Phone className="h-4 w-4 text-mint" />
-                +91 7506543960
+            <div className="mt-10 grid gap-3 sm:max-w-md">
+              <a
+                href="tel:+917506543960"
+                className="group flex items-center gap-3 rounded-2xl border border-navy/8 bg-white px-4 py-3.5 text-sm text-navy transition-colors hover:border-accent/30 hover:shadow-card"
+              >
+                <span className="inline-flex h-9 w-9 items-center justify-center rounded-xl bg-mint-soft text-accent">
+                  <Phone className="h-4 w-4" />
+                </span>
+                <span className="min-w-0">
+                  <span className="block text-[11px] font-semibold uppercase tracking-[0.14em] text-muted">
+                    24/7 Helpline
+                  </span>
+                  +91 7506543960
+                </span>
               </a>
               <a
                 href="mailto:support@emediworld.com"
-                className="flex items-center gap-3 text-white/85 hover:text-mint"
+                className="group flex items-center gap-3 rounded-2xl border border-navy/8 bg-white px-4 py-3.5 text-sm text-navy transition-colors hover:border-accent/30 hover:shadow-card"
               >
-                <Mail className="h-4 w-4 text-mint" />
-                support@emediworld.com
+                <span className="inline-flex h-9 w-9 items-center justify-center rounded-xl bg-mint-soft text-accent">
+                  <Mail className="h-4 w-4" />
+                </span>
+                <span className="min-w-0 truncate">support@emediworld.com</span>
               </a>
             </div>
           </Reveal>
@@ -96,13 +109,13 @@ export default function Contact() {
             <form
               id="contact-form"
               onSubmit={onSubmit}
-              className="rounded-[32px] border border-white/10 bg-white/6 p-6 backdrop-blur-md sm:p-8"
+              className="rounded-[24px] border border-navy/8 bg-pale p-4 text-navy shadow-card sm:rounded-[32px] sm:p-8"
               noValidate
             >
               {submitted ? (
                 <div className="py-10 text-center">
-                  <p className="text-2xl font-semibold">Request received.</p>
-                  <p className="mt-3 text-white/70">
+                  <p className="text-2xl font-semibold text-navy">Request received.</p>
+                  <p className="mt-3 text-muted">
                     Thank you. Our care team will be in touch shortly.
                   </p>
                 </div>
@@ -146,17 +159,17 @@ export default function Contact() {
                       name="topic"
                       value={values.topic}
                       onChange={onChange}
-                      className={`${inputClass} bg-navy/40`}
+                      className={inputClass}
                     >
-                      <option value="" className="bg-white text-navy">
-                        Select a service
-                      </option>
-                      <option className="bg-white text-navy">Medical Second Opinion</option>
-                      <option className="bg-white text-navy">Medical Tourism</option>
-                      <option className="bg-white text-navy">Disease Reversal</option>
-                      <option className="bg-white text-navy">Corporate Wellness</option>
-                      <option className="bg-white text-navy">Healthcare Technology</option>
-                      <option className="bg-white text-navy">Other</option>
+                      <option value="">Select a service</option>
+                      <option>Medical Second Opinion</option>
+                      <option>Medical Tourism</option>
+                      <option>Disease Reversal</option>
+                      <option>Corporate Wellness</option>
+                      <option>Health Check-up Packages</option>
+                      <option>Healthcare Technology</option>
+                      <option>Patient Operating System</option>
+                      <option>Other</option>
                     </select>
                   </Field>
                   <Field label="Message" error={errors.message}>
@@ -169,7 +182,7 @@ export default function Contact() {
                       placeholder="Tell us briefly what you need"
                     />
                   </Field>
-                  <Button as="button" type="submit" variant="light" className="mt-2 w-full">
+                  <Button as="button" type="submit" variant="primary" className="mt-2 w-full">
                     Send Request
                   </Button>
                 </div>
@@ -178,6 +191,6 @@ export default function Contact() {
           </Reveal>
         </div>
       </Container>
-    </section>
+    </SectionCard>
   )
 }
