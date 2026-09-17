@@ -168,7 +168,7 @@ export default function Contact() {
                       <option>Corporate Wellness</option>
                       <option>Health Check-up Packages</option>
                       <option>Healthcare Technology</option>
-                      <option>Patient Operating System</option>
+                      <option>Health Operating System</option>
                       <option>Other</option>
                     </select>
                   </Field>

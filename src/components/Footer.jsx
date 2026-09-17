@@ -27,7 +27,7 @@ const columns = [
   {
     title: 'Technology',
     links: [
-      { label: 'Patient Operating System', href: '/patient-os' },
+      { label: 'HealthOS', href: '/health-os' },
       { label: 'HMIS', href: '/technology' },
       { label: 'Laboratory Management', href: '/technology' },
       { label: 'Healthcare Analytics', href: '/technology' },

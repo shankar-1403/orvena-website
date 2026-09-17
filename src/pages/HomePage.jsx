@@ -8,7 +8,7 @@ import SecondOpinionCTA from '../components/SecondOpinionCTA'
 import { usePageTitle } from '../hooks/usePageTitle'
 
 export default function HomePage() {
-  usePageTitle('Orvena — Connected Healthcare, Better Decisions')
+  usePageTitle('Orvena - Connected Healthcare, Better Decisions')
 
   return (
     <>
@@ -16,7 +16,7 @@ export default function HomePage() {
       <WhyOrvena />
       <ServiceOverview />
       <Doctors />
-      <Packages />
+      {/* <Packages /> */}
       <PatientJourney />
       <SecondOpinionCTA />
     </>

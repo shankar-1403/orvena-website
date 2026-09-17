@@ -5,7 +5,7 @@ import ContactPage from './pages/ContactPage'
 import DoctorsPage from './pages/DoctorsPage'
 import HomePage from './pages/HomePage'
 import NotFoundPage from './pages/NotFoundPage'
-import PatientOSPage from './pages/PatientOSPage'
+import HealthOSPage from './pages/HealthOSPage'
 import PrivacyPage from './pages/PrivacyPage'
 import ServicesPage from './pages/ServicesPage'
 import TechnologyPage from './pages/TechnologyPage'
@@ -19,7 +19,7 @@ export default function App() {
         <Route path="/about" element={<AboutPage />} />
         <Route path="/services" element={<ServicesPage />} />
         <Route path="/services/:serviceId" element={<ServicesPage />} />
-        <Route path="/patient-os" element={<PatientOSPage />} />
+        <Route path="/health-os" element={<HealthOSPage />} />
         <Route path="/doctors" element={<DoctorsPage />} />
         <Route path="/technology" element={<TechnologyPage />} />
         <Route path="/contact" element={<ContactPage />} />

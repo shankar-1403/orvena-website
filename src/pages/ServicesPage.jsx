@@ -10,7 +10,7 @@ export default function ServicesPage() {
     <>
       <Services />
       <GlobalHealthcare />
-      <Packages />
+      {/* <Packages /> */}
     </>
   )
 }

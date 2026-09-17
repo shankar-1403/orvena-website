@@ -19,7 +19,7 @@ const modules = [
     code: '01',
     label: 'CMS',
     icon: Building2,
-    title: 'Clinic Management',
+    title: 'ClinicOS',
     text: 'End-to-end OPD scheduling, digital prescriptions, patient EMR and billing in one clinic suite.',
     signal: 'Appointments synced',
   },
@@ -28,7 +28,7 @@ const modules = [
     code: '02',
     label: 'HMIS',
     icon: Hospital,
-    title: 'Hospital Information System',
+    title: 'HospitalOS',
     text: 'Enterprise hospital software covering IPD admissions, OT, pharmacy, ICU, inventory and care-team workflows.',
     signal: 'Workflows live',
   },
@@ -37,7 +37,7 @@ const modules = [
     code: '03',
     label: 'LMS',
     icon: Microscope,
-    title: 'Laboratory Management',
+    title: 'LabOS',
     text: 'Diagnostic sample tracking, analyzer integration, cleaner reporting and faster lab operations.',
     signal: 'Reports clearing',
   },
@@ -72,8 +72,8 @@ export default function Technology() {
             title="Technology That Makes Healthcare Smarter."
           >
             <p className="text-[16px] leading-8 text-muted lg:text-[17px]">
-              A connected health data engine — Clinic Management, HMIS, Laboratory Management and
-              Fraud, Waste & Abuse analytics — without losing the human side of care.
+              A connected health data engine - Clinic OS, Hospital OS, Laboratory OS and
+              Fraud, Waste & Abuse analytics - without losing the human side of care.
             </p>
           </SectionHeader>
         </Reveal>
@@ -151,10 +151,10 @@ export default function Technology() {
                       {active.signal}
                     </span>
                     <Link
-                      to="/patient-os"
+                      to="/health-os"
                       className="group inline-flex items-center gap-1.5 text-sm font-semibold text-navy"
                     >
-                      Open in Patient OS
+                      Open in Health OS
                       <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                     </Link>
                   </div>

@@ -42,7 +42,7 @@ const stages = [
   { title: 'Understand', text: 'Clear insights' },
 ]
 
-function PatientOSConsole() {
+function HealthOSConsole() {
   const [active, setActive] = useState('timeline')
 
   const visibleEvents = useMemo(() => {
@@ -62,7 +62,7 @@ function PatientOSConsole() {
             <span className="h-2.5 w-2.5 rounded-full bg-white/20" />
           </span>
           <p className="truncate text-[11px] font-semibold tracking-[0.14em] text-white/55 sm:text-[12px] sm:tracking-[0.16em]">
-            PATIENT OS · OV-20491
+            HEALTH OS · OV-20491
           </p>
         </div>
         <span className="inline-flex items-center gap-2 rounded-full border border-mint/20 bg-white/5 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.16em] text-mint">
@@ -77,7 +77,7 @@ function PatientOSConsole() {
       <div className="grid lg:grid-cols-[220px_1fr]">
         <nav
           className="flex gap-2 overflow-x-auto border-b border-white/10 p-3 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden lg:block lg:overflow-visible lg:border-b-0 lg:border-r lg:p-4"
-          aria-label="Patient OS sources"
+          aria-label="Health OS sources"
         >
           {sources.map((source) => {
             const Icon = source.icon
@@ -180,7 +180,7 @@ function PatientOSConsole() {
 
 export default function PatientOperatingSystem() {
   return (
-    <SectionCard id="patient-os" className="bg-midnight py-12 text-white sm:py-16 lg:py-24">
+    <SectionCard id="health-os" className="bg-midnight py-12 text-white sm:py-16 lg:py-24">
       <div aria-hidden="true" className="bg-dot-grid-light pointer-events-none absolute inset-0" />
       <div className="pointer-events-none absolute inset-0">
         <div className="absolute left-[-8%] top-[-18%] h-[280px] w-[280px] rounded-full bg-mint/8 blur-[110px]" />
@@ -191,22 +191,22 @@ export default function PatientOperatingSystem() {
         <Reveal>
           <SectionHeader
             light
-            eyebrow="Patient OS"
+            eyebrow="Health OS"
             title="Your Entire Medical World. In One Place."
           >
             <p className="text-[15px] leading-7 text-white/65 sm:text-[16px] sm:leading-8 lg:text-[17px]">
-              Secure data. Smarter care. Simpler healthcare. Patient OS transforms scattered medical
-              records into a secure, intelligent timeline — collecting, organizing, structuring and
+              Secure data. Smarter care. Simpler healthcare. Health OS transforms scattered medical
+              records into a secure, intelligent timeline - collecting, organizing, structuring and
               analyzing health data so doctors decide faster and patients stay in control.
             </p>
             <Button href="/contact" variant="light" className="mt-6 w-full sm:w-auto">
-              Explore Patient OS
+              Explore Health OS
             </Button>
           </SectionHeader>
         </Reveal>
 
         <Reveal delay={0.12} className="mt-12">
-          <PatientOSConsole />
+          <HealthOSConsole />
         </Reveal>
 
         <div className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">

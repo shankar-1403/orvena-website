@@ -134,7 +134,7 @@ export default function About() {
                   to navigate care.
                 </p>
                 <Link
-                  to="/patient-os"
+                  to="/health-os"
                   className="group inline-flex items-center gap-1.5 text-[12px] font-semibold text-navy transition-colors hover:text-accent"
                 >
                   Discover Orvena

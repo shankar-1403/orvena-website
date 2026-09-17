@@ -158,7 +158,7 @@ export const navLinks = [
   { label: 'Home', href: '/' },
   { label: 'About', href: '/about' },
   { label: 'Services', href: '/services' },
-  { label: 'Patient OS', href: '/patient-os' },
+  { label: 'HealthOS', href: '/health-os' },
   { label: 'Doctors', href: '/doctors' },
   { label: 'Technology', href: '/technology' },
   { label: 'Contact', href: '/contact' },
