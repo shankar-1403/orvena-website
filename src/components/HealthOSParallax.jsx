@@ -21,12 +21,12 @@ import SectionCard from './ui/SectionCard'
 
 /**
  * Scroll-scrubbed sequence (progress 0 -> 1 across the pinned track).
- *   0.00 - 0.22  scattered records drift in, layered by depth (the parallax)
- *   0.22 - 0.51  records are pulled into the Orvena app and structured
- *   0.51 - 0.65  the app screen resolves into one clean, organized report
- *   0.65 - 0.78  the report's numbers become trend charts
- *   0.78 - 0.89  care activity and targets
- *   0.89 - 1.00  the specialist to consult
+ *   0.00 - 0.09  scattered records drift in, layered by depth (the parallax)
+ *   0.09 - 0.42  records are pulled into the Orvena app and structured
+ *   0.42 - 0.59  the app screen resolves into one clean, organized report
+ *   0.59 - 0.74  the report's numbers become trend charts
+ *   0.74 - 0.87  care activity and targets
+ *   0.87 - 1.00  the specialist to consult
  *
  * Desktop pointer devices only; reduced-motion and touch get a static layout.
  */
@@ -128,12 +128,12 @@ function useSequenceEnabled() {
 function RecordCard({ record, progress }) {
   const { x, y, rot, depth, tag, title, icon: Icon } = record
 
-  const cardX = useTransform(progress, [0, 0.237, 0.443], [x * (1 + 0.22 * depth), x, 0])
-  const cardY = useTransform(progress, [0, 0.237, 0.443], [y * (1 + 0.2 * depth), y - 30 * depth, 0])
-  const scale = useTransform(progress, [0, 0.237, 0.443], [1.04, 1, 0.16])
-  const rotate = useTransform(progress, [0, 0.237, 0.443], [rot * 1.2, rot, 0])
+  const cardX = useTransform(progress, [0, 0.102, 0.344], [x * (1 + 0.22 * depth), x, 0])
+  const cardY = useTransform(progress, [0, 0.102, 0.344], [y * (1 + 0.2 * depth), y - 30 * depth, 0])
+  const scale = useTransform(progress, [0, 0.102, 0.344], [1.04, 1, 0.16])
+  const rotate = useTransform(progress, [0, 0.102, 0.344], [rot * 1.2, rot, 0])
   // Visible from the very first frame — the opening frame is the composition, not a fade-in.
-  const opacity = useTransform(progress, [0.364, 0.443], [1, 0])
+  const opacity = useTransform(progress, [0.251, 0.344], [1, 0])
 
   return (
     <motion.article
@@ -186,10 +186,10 @@ function RecordCard({ record, progress }) {
 }
 
 function IngestRow({ label, state, index, progress }) {
-  const start = 0.269 + index * 0.033
-  const opacity = useTransform(progress, [start, start + 0.104], [0.22, 1])
-  const rowY = useTransform(progress, [start, start + 0.104], [12, 0])
-  const check = useTransform(progress, [start + 0.047, start + 0.118], [0, 1])
+  const start = 0.14 + index * 0.039
+  const opacity = useTransform(progress, [start, start + 0.121], [0.22, 1])
+  const rowY = useTransform(progress, [start, start + 0.121], [12, 0])
+  const check = useTransform(progress, [start + 0.055, start + 0.139], [0, 1])
 
   return (
     <motion.li
@@ -215,9 +215,9 @@ function IngestRow({ label, state, index, progress }) {
 }
 
 function ReportRow({ title, meta, date, index, progress }) {
-  const start = 0.521 + index * 0.017
-  const opacity = useTransform(progress, [start, start + 0.056], [0, 1])
-  const rowY = useTransform(progress, [start, start + 0.056], [14, 0])
+  const start = 0.435 + index * 0.02
+  const opacity = useTransform(progress, [start, start + 0.066], [0, 1])
+  const rowY = useTransform(progress, [start, start + 0.066], [14, 0])
 
   return (
     <motion.li
@@ -244,8 +244,8 @@ function barPath(x, y, w, h, r = 4) {
 
 /** Phase 4 — the trends Health OS reads out of the collected records. */
 function TrendCharts({ progress }) {
-  const opacity = useTransform(progress, [0.657, 0.706, 0.764, 0.803], [0, 1, 1, 0])
-  const panelY = useTransform(progress, [0.657, 0.723], [22, 0])
+  const opacity = useTransform(progress, [0.596, 0.653, 0.722, 0.767], [0, 1, 1, 0])
+  const panelY = useTransform(progress, [0.596, 0.673], [22, 0])
 
   const W = 236
   const LINE_H = 62
@@ -364,8 +364,8 @@ function TrendCharts({ progress }) {
 
 /** Phase 5 — where the care actually went, plus one value against its target. */
 function CareCharts({ progress }) {
-  const opacity = useTransform(progress, [0.788, 0.834, 0.874, 0.912], [0, 1, 1, 0])
-  const panelY = useTransform(progress, [0.788, 0.85], [22, 0])
+  const opacity = useTransform(progress, [0.75, 0.803, 0.851, 0.895], [0, 1, 1, 0])
+  const panelY = useTransform(progress, [0.75, 0.822], [22, 0])
 
   const maxVisits = Math.max(...SPECIALTY_VISITS.map(([, n]) => n))
   const meterPct = Math.round((VITAMIN_D.value / VITAMIN_D.target) * 100)
@@ -431,8 +431,8 @@ function CareCharts({ progress }) {
 
 /** Phase 6 — the timeline resolves into a specialist to consult. */
 function ConsultPanel({ progress }) {
-  const opacity = useTransform(progress, [0.897, 0.944], [0, 1])
-  const panelY = useTransform(progress, [0.897, 0.96], [22, 0])
+  const opacity = useTransform(progress, [0.878, 0.933], [0, 1])
+  const panelY = useTransform(progress, [0.878, 0.952], [22, 0])
 
   return (
     <motion.div
@@ -491,20 +491,20 @@ function ConsultPanel({ progress }) {
 /** The Orvena app: records go in, the organized report comes out on its screen. */
 function OrvenaApp({ progress }) {
   // The app is present from the first frame; it only lifts as the report resolves.
-  const appY = useTransform(progress, [0.506, 0.681], [0, -16])
-  const appScale = useTransform(progress, [0.506, 0.697], [1, 1.04])
+  const appY = useTransform(progress, [0.418, 0.624], [0, -16])
+  const appScale = useTransform(progress, [0.418, 0.642], [1, 1.04])
 
-  const scanY = useTransform(progress, [0.254, 0.474], [64, 470])
-  const scanOpacity = useTransform(progress, [0.237, 0.285, 0.443, 0.474], [0, 1, 1, 0])
+  const scanY = useTransform(progress, [0.123, 0.376], [64, 470])
+  const scanOpacity = useTransform(progress, [0.102, 0.159, 0.344, 0.376], [0, 1, 1, 0])
 
   // Idle: until records reach the app, the screen is a white splash carrying the wordmark.
-  const idleOpacity = useTransform(progress, [0.188, 0.254], [1, 0])
-  const idleScale = useTransform(progress, [0.188, 0.254], [1, 0.94])
-  const chromeOpacity = useTransform(progress, [0.2, 0.285], [0, 1])
-  const ingestOpacity = useTransform(progress, [0.211, 0.301, 0.443, 0.521], [0, 1, 1, 0])
-  const reportOpacity = useTransform(progress, [0.506, 0.562, 0.633, 0.673], [0, 1, 1, 0])
-  const reportY = useTransform(progress, [0.506, 0.585], [22, 0])
-  const badgeOpacity = useTransform(progress, [0.545, 0.592], [0, 1])
+  const idleOpacity = useTransform(progress, [0.072, 0.123], [1, 0])
+  const idleScale = useTransform(progress, [0.072, 0.123], [1, 0.94])
+  const chromeOpacity = useTransform(progress, [0.076, 0.159], [0, 1])
+  const ingestOpacity = useTransform(progress, [0.081, 0.177, 0.344, 0.435], [0, 1, 1, 0])
+  const reportOpacity = useTransform(progress, [0.418, 0.484, 0.568, 0.614], [0, 1, 1, 0])
+  const reportY = useTransform(progress, [0.418, 0.511], [22, 0])
+  const badgeOpacity = useTransform(progress, [0.464, 0.519], [0, 1])
 
   return (
     <motion.div
@@ -641,12 +641,12 @@ function Sequence() {
 
   useMotionValueEvent(scrollYProgress, 'change', (value) => {
     setPhase(
-      value < 0.222 ? 0 : value < 0.506 ? 1 : value < 0.648 ? 2 : value < 0.78 ? 3 : value < 0.889 ? 4 : 5,
+      value < 0.085 ? 0 : value < 0.418 ? 1 : value < 0.585 ? 2 : value < 0.74 ? 3 : value < 0.868 ? 4 : 5,
     )
   })
 
   return (
-    <div ref={trackRef} className="relative h-[2250vh]">
+    <div ref={trackRef} className="relative h-[1930vh]">
       {/* The frame itself is pinned, so it never drifts while the sequence plays. */}
       <div className="sticky top-[100px] h-[calc(100svh-116px)] overflow-hidden rounded-[22px] bg-midnight shadow-card sm:rounded-[28px] lg:rounded-[36px]">
         <div aria-hidden="true" className="bg-dot-grid-light pointer-events-none absolute inset-0" />
