@@ -9,7 +9,8 @@ const columns = [
     title: 'Company',
     links: [
       { label: 'About', href: '/about' },
-      { label: 'Vision', href: '/about' },
+      { label: 'Mission', href: '/about#mission' },
+      { label: 'Vision', href: '/about#vision' },
       { label: 'Contact', href: '/contact' },
       { label: 'Privacy Policy', href: '/privacy' },
       { label: 'Terms of Use', href: '/terms' },
@@ -28,9 +29,10 @@ const columns = [
     title: 'Technology',
     links: [
       { label: 'HealthOS', href: '/health-os' },
-      { label: 'HMIS', href: '/technology' },
-      { label: 'Laboratory Management', href: '/technology' },
-      { label: 'Healthcare Analytics', href: '/technology' },
+      { label: 'ClinicOS', href: '/technology' },
+      { label: 'HospitalOS', href: '/technology' },
+      { label: 'LabOS', href: '/technology' },
+      { label: 'FWA', href: '/technology' },
     ],
   },
 ]

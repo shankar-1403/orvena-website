@@ -1,4 +1,4 @@
-import { Clock3, HeartPulse, UserRoundCheck } from 'lucide-react'
+import { ClipboardList, Share2, UsersRound } from 'lucide-react'
 import Container from './ui/Container'
 import Eyebrow from './ui/Eyebrow'
 import Reveal from './ui/Reveal'
@@ -7,49 +7,78 @@ import SectionCard from './ui/SectionCard'
 const principles = [
   {
     code: '01',
-    title: 'Right care',
-    text: 'The treatment that fits the person, not the other way around.',
-    icon: HeartPulse,
+    title: 'Trusted expertise',
+    text: 'Connecting people with the right medical knowledge and experienced professionals.',
+    icon: UsersRound,
   },
   {
     code: '02',
-    title: 'Right time',
-    text: 'Clarity before a decision still has time to change the outcome.',
-    icon: Clock3,
+    title: 'Clearer decisions',
+    text: 'Turning complex healthcare information into clarity people can act on.',
+    icon: ClipboardList,
   },
   {
     code: '03',
-    title: 'Right provider',
-    text: 'Human expertise, connected by intelligent technology.',
-    icon: UserRoundCheck,
+    title: 'Seamless coordination',
+    text: 'Making interactions across patients, doctors, hospitals, and healthcare services simpler.',
+    icon: Share2,
   },
 ]
 
-export default function Vision() {
+const tiles = [
+  {
+    code: '01',
+    title: 'Personalised guidance',
+    text: 'Care pathways shaped around individual needs.',
+  },
+  {
+    code: '02',
+    title: 'Expert-led decisions',
+    text: 'Experience and knowledge at every critical step.',
+  },
+  {
+    code: '03',
+    title: 'Simplified healthcare',
+    text: 'Reducing complexity across the healthcare journey.',
+  },
+  {
+    code: '04',
+    title: 'Trust & transparency',
+    text: 'Clear information and processes people can rely on.',
+  },
+  {
+    code: '05',
+    title: 'Connected by technology',
+    text: 'Digital infrastructure that makes healthcare work seamlessly.',
+  },
+]
+
+export default function Mission() {
   return (
-    <SectionCard id="vision" className="bg-white py-10 sm:py-12 lg:py-14">
+    <SectionCard id="mission" className="bg-white py-10 sm:py-12 lg:py-14">
       <p
         aria-hidden="true"
-        className="pointer-events-none absolute -right-6 top-6 select-none text-[88px] font-extrabold leading-none tracking-[-0.08em] text-navy/[0.045] sm:text-[120px] lg:text-[160px]"
+        className="pointer-events-none absolute -right-4 top-4 select-none text-[88px] font-extrabold leading-none tracking-[-0.08em] text-navy/[0.045] sm:-right-6 sm:top-6 sm:text-[120px] lg:text-[160px]"
       >
-        VISION
+        MISSION
       </p>
 
       <Container className="relative">
         <Reveal>
-          <div className="flex flex-wrap items-end justify-between gap-4">
+          <div className="flex flex-wrap items-end justify-between gap-6">
             <div className="max-w-2xl">
-              <Eyebrow>Vision</Eyebrow>
+              <Eyebrow>Mission</Eyebrow>
               <h2 className="mt-2.5 text-[26px] font-extrabold leading-[1.1] tracking-[-0.045em] text-navy sm:text-[36px] lg:text-[46px]">
-                The Future of Healthcare
+                Making Every Healthcare
                 <span className="mt-1 block">
-                  Is <span className="text-accent">Connected.</span>
+                  Decision <span className="text-accent">Clearer.</span>
                 </span>
               </h2>
             </div>
-            <p className="max-w-[280px] text-[13px] leading-6 text-muted">
-              Redefining healthcare through expertise, technology and trust. An intelligent,
-              patient-first ecosystem connecting patients, specialists, hospitals and digital health.
+            <p className="max-w-[320px] text-[13px] leading-6 text-muted">
+              Our mission is to simplify the complexity of healthcare by bringing together trusted
+              expertise, relevant information, and seamless coordination-so patients and healthcare
+              partners can make informed decisions with greater clarity and confidence.
             </p>
           </div>
         </Reveal>
@@ -83,15 +112,15 @@ export default function Vision() {
                 “
               </span>
               <blockquote className="-mt-4 max-w-xl text-[16px] font-medium leading-7 tracking-[-0.02em] text-white/95 sm:text-[19px] sm:leading-9">
-                To create a globally connected healthcare ecosystem where patients
-                receive the{' '}
-                <span className="text-accent">right care</span>, at the{' '}
-                <span className="text-accent">right time</span>, from the{' '}
-                <span className="text-accent">right provider</span> - powered by
-                intelligent technology and human expertise.
+                To simplify the complexity of healthcare by bringing together{' '}
+                <span className="text-accent">trusted expertise</span>,{' '}
+                <span className="text-accent">relevant information</span>, and{' '}
+                <span className="text-accent">seamless coordination</span>
+                —so patients and healthcare partners can make informed decisions with greater
+                clarity and confidence.
               </blockquote>
               <p className="mt-6 text-[11px] font-semibold uppercase tracking-[0.2em] text-white/45">
-                Orvena manifesto
+                Orvena mission
               </p>
             </article>
 
@@ -128,18 +157,15 @@ export default function Vision() {
 
         <Reveal delay={0.12}>
           <div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-5">
-            {[
-              'Patient-first approach with personalized care',
-              'Network of experienced doctors and top hospitals',
-              'Integrated digital healthcare platform',
-              'Transparent processes and ethical practices',
-              'Global reach with local expertise',
-            ].map((item, index) => (
-              <article key={item} className="rounded-2xl border border-line bg-pale/60 p-4">
+            {tiles.map((item) => (
+              <article key={item.code} className="rounded-2xl border border-line bg-pale/60 p-4">
                 <p className="text-[10px] font-semibold tracking-[0.18em] text-accent">
-                  {String(index + 1).padStart(2, '0')}
+                  {item.code}
                 </p>
-                <p className="mt-2 text-[13px] font-semibold leading-5 text-navy">{item}</p>
+                <h3 className="mt-2 text-[14px] font-semibold leading-5 tracking-tight text-navy">
+                  {item.title}
+                </h3>
+                <p className="mt-1.5 text-[13px] leading-5 text-muted">{item.text}</p>
               </article>
             ))}
           </div>

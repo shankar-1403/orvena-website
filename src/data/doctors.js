@@ -1,4 +1,9 @@
 import { images } from './images'
+import abhay from "../assets/images/abhay_nene.jpeg"
+import ajit from "../assets/images/ajit_menon.jpeg"
+import amit from "../assets/images/amit_mayedo.jpeg"
+import bhavesh from "../assets/images/bhavesh_vora.jpeg"
+import bhupendra from "../assets/images/bhupendra_gandhi.jpeg"
 
 export const doctors = [
   {
@@ -8,7 +13,7 @@ export const doctors = [
     experience: '20+ Years Experience',
     years: 20,
     focus: 'Complex spine and joint reconstruction.',
-    image: images.doctors[0],
+    image: abhay,
   },
   {
     name: 'Dr. Ajit R Menon',
@@ -17,7 +22,7 @@ export const doctors = [
     experience: '15+ Years Experience',
     years: 15,
     focus: 'Interventional cardiology and second opinions.',
-    image: images.doctors[1],
+    image: ajit,
   },
   {
     name: 'Dr. Amit Maydeo',
@@ -26,7 +31,7 @@ export const doctors = [
     experience: '15+ Years Experience',
     years: 15,
     focus: 'Advanced endoscopic diagnosis and treatment.',
-    image: images.doctors[2],
+    image: amit,
   },
   {
     name: 'Dr. Anand Nathwani',
@@ -44,7 +49,7 @@ export const doctors = [
     experience: '20+ Years Experience',
     years: 20,
     focus: 'Kidney care and chronic disease guidance.',
-    image: images.doctors[4],
+    image: bhavesh,
   },
   {
     name: 'Dr. Bhupendra Gandhi',
@@ -53,7 +58,7 @@ export const doctors = [
     experience: '50+ Years Experience',
     years: 50,
     focus: 'Internal medicine and long-term clinical judgement.',
-    image: images.doctors[5],
+    image: bhupendra,
   },
 ]
 
