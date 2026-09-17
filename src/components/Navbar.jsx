@@ -11,10 +11,31 @@ export default function Navbar() {
   const [open, setOpen] = useState(false)
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 18)
+    // A pinned frame (the HealthOS sequence) scrolls the page without moving its
+    // content, so the bar stays full width until that frame releases the viewport.
+    const holdingViewport = () => {
+      const frame = document.querySelector('[data-pinned-frame]')
+      if (!frame) return false
+      const rect = frame.getBoundingClientRect()
+      return rect.top <= 104 && rect.bottom > window.innerHeight
+    }
+
+    const onScroll = () => setScrolled(!holdingViewport() && window.scrollY > 18)
     onScroll()
+
+    // The pinned frame only mounts once its media query resolves, so re-check
+    // after paint too — otherwise a page that loads already scrolled stays shrunk.
+    const frame = requestAnimationFrame(onScroll)
+    const timer = window.setTimeout(onScroll, 250)
+
     window.addEventListener('scroll', onScroll, { passive: true })
-    return () => window.removeEventListener('scroll', onScroll)
+    window.addEventListener('resize', onScroll)
+    return () => {
+      cancelAnimationFrame(frame)
+      window.clearTimeout(timer)
+      window.removeEventListener('scroll', onScroll)
+      window.removeEventListener('resize', onScroll)
+    }
   }, [])
 
   useEffect(() => {
@@ -27,10 +48,10 @@ export default function Navbar() {
   return (
     <header className="fixed inset-x-3 top-3 z-50 sm:inset-x-4">
       <div
-        className={`overflow-hidden rounded-[24px] border transition-all duration-300 sm:rounded-[28px] ${
+        className={`mx-auto w-full overflow-hidden rounded-[24px] border transition-all duration-300 sm:rounded-[28px] ${
           scrolled
-            ? 'border-navy/8 bg-white/92 shadow-lift backdrop-blur-xl'
-            : 'border-navy/6 bg-white/80 shadow-card backdrop-blur-xl'
+            ? 'max-w-[1200px] border-navy/8 bg-white/92 shadow-lift backdrop-blur-xl'
+            : 'max-w-full border-navy/6 bg-white/80 shadow-card backdrop-blur-xl'
         }`}
       >
         <Container className="relative flex h-[64px] items-center justify-between lg:h-[72px]">

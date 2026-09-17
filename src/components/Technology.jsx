@@ -72,7 +72,7 @@ export default function Technology() {
             title="Technology That Makes Healthcare Smarter."
           >
             <p className="text-[16px] leading-8 text-muted lg:text-[17px]">
-              A connected health data engine - Clinic OS, Hospital OS, Laboratory OS and
+              A connected health data engine - ClinicOS, HospitalOS, LaboratoryOS and
               Fraud, Waste & Abuse analytics - without losing the human side of care.
             </p>
           </SectionHeader>
@@ -154,7 +154,7 @@ export default function Technology() {
                       to="/health-os"
                       className="group inline-flex items-center gap-1.5 text-sm font-semibold text-navy"
                     >
-                      Open in Health OS
+                      Open in HealthOS
                       <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                     </Link>
                   </div>

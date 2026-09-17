@@ -62,7 +62,7 @@ function HealthOSConsole() {
             <span className="h-2.5 w-2.5 rounded-full bg-white/20" />
           </span>
           <p className="truncate text-[11px] font-semibold tracking-[0.14em] text-white/55 sm:text-[12px] sm:tracking-[0.16em]">
-            HEALTH OS · OV-20491
+            HEALTHOS · OV-20491
           </p>
         </div>
         <span className="inline-flex items-center gap-2 rounded-full border border-mint/20 bg-white/5 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.16em] text-mint">
@@ -77,7 +77,7 @@ function HealthOSConsole() {
       <div className="grid lg:grid-cols-[220px_1fr]">
         <nav
           className="flex gap-2 overflow-x-auto border-b border-white/10 p-3 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden lg:block lg:overflow-visible lg:border-b-0 lg:border-r lg:p-4"
-          aria-label="Health OS sources"
+          aria-label="HealthOS sources"
         >
           {sources.map((source) => {
             const Icon = source.icon
@@ -191,16 +191,16 @@ export default function PatientOperatingSystem() {
         <Reveal>
           <SectionHeader
             light
-            eyebrow="Health OS"
+            eyebrow="HealthOS"
             title="Your Entire Medical World. In One Place."
           >
             <p className="text-[15px] leading-7 text-white/65 sm:text-[16px] sm:leading-8 lg:text-[17px]">
-              Secure data. Smarter care. Simpler healthcare. Health OS transforms scattered medical
+              Secure data. Smarter care. Simpler healthcare. HealthOS transforms scattered medical
               records into a secure, intelligent timeline - collecting, organizing, structuring and
               analyzing health data so doctors decide faster and patients stay in control.
             </p>
             <Button href="/contact" variant="light" className="mt-6 w-full sm:w-auto">
-              Explore Health OS
+              Explore HealthOS
             </Button>
           </SectionHeader>
         </Reveal>

@@ -71,11 +71,11 @@ export default function Footer() {
                 24/7 +91 7506543960
               </a>
               <a
-                href="mailto:support@emediworld.com"
+                href="mailto:info@orvena.health"
                 className="inline-flex min-w-0 items-center justify-center gap-2 rounded-full border border-white/15 bg-white/8 px-3.5 py-2 text-[13px] font-semibold text-white transition-colors hover:border-mint/40 hover:bg-white/12"
               >
                 <Mail className="h-3.5 w-3.5 shrink-0 text-mint" />
-                <span className="truncate">support@emediworld.com</span>
+                <span className="truncate">info@orvena.health</span>
               </a>
               <Link
                 to="/contact"

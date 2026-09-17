@@ -242,7 +242,7 @@ function barPath(x, y, w, h, r = 4) {
   return `M${x},${y + cap}a${cap},${cap} 0 0 1 ${cap},-${cap}h${w - cap * 2}a${cap},${cap} 0 0 1 ${cap},${cap}v${h - cap}h-${w}z`
 }
 
-/** Phase 4 — the trends Health OS reads out of the collected records. */
+/** Phase 4 — the trends HealthOS reads out of the collected records. */
 function TrendCharts({ progress }) {
   const opacity = useTransform(progress, [0.596, 0.653, 0.722, 0.767], [0, 1, 1, 0])
   const panelY = useTransform(progress, [0.596, 0.673], [22, 0])
@@ -273,7 +273,7 @@ function TrendCharts({ progress }) {
       className="absolute inset-x-3.5 top-[74px] rounded-[20px] bg-white p-4 text-navy opacity-[var(--seq-o)] shadow-lift will-change-transform"
     >
       <p className="text-[8.5px] font-bold uppercase tracking-[0.18em] text-accent">
-        Health OS · Trends
+        HealthOS · Trends
       </p>
       <h3 className="mt-1 text-[15px] font-extrabold leading-tight tracking-tight">
         Read from your records
@@ -376,7 +376,7 @@ function CareCharts({ progress }) {
       className="absolute inset-x-3.5 top-[74px] rounded-[20px] bg-white p-4 text-navy opacity-[var(--seq-o)] shadow-lift will-change-transform"
     >
       <p className="text-[8.5px] font-bold uppercase tracking-[0.18em] text-accent">
-        Health OS · Care activity
+        HealthOS · Care activity
       </p>
       <h3 className="mt-1 text-[15px] font-extrabold leading-tight tracking-tight">
         Where your care went
@@ -440,7 +440,7 @@ function ConsultPanel({ progress }) {
       className="absolute inset-x-3.5 top-[74px] rounded-[20px] bg-white p-4 text-navy opacity-[var(--seq-o)] shadow-lift will-change-transform"
     >
       <p className="text-[8.5px] font-bold uppercase tracking-[0.18em] text-accent">
-        Health OS · Next step
+        HealthOS · Next step
       </p>
       <h3 className="mt-1 text-[15px] font-extrabold leading-tight tracking-tight">
         Consult the right doctor
@@ -584,7 +584,7 @@ function OrvenaApp({ progress }) {
           <div className="flex items-start justify-between gap-2">
             <div className="min-w-0">
               <p className="text-[8.5px] font-bold uppercase tracking-[0.18em] text-accent">
-                Health OS · OV-20491
+                HealthOS · OV-20491
               </p>
               <h3 className="mt-1 text-[15px] font-extrabold leading-tight tracking-tight">
                 Unified clinical timeline
@@ -646,7 +646,8 @@ function Sequence() {
   })
 
   return (
-    <div ref={trackRef} className="relative h-[1930vh]">
+    // data-pinned-frame: the navbar stays full width while this frame holds the viewport.
+    <div ref={trackRef} data-pinned-frame className="relative h-[1930vh]">
       {/* The frame itself is pinned, so it never drifts while the sequence plays. */}
       <div className="sticky top-[100px] h-[calc(100svh-116px)] overflow-hidden rounded-[22px] bg-midnight shadow-card sm:rounded-[28px] lg:rounded-[36px]">
         <div aria-hidden="true" className="bg-dot-grid-light pointer-events-none absolute inset-0" />
@@ -658,7 +659,7 @@ function Sequence() {
         <Container className="relative h-full">
           {/* Copy stays still — parallax never moves body text. */}
           <div className="absolute left-4 top-1/2 z-10 max-w-[288px] -translate-y-1/2 lg:left-10 xl:max-w-[380px]">
-            <Eyebrow light>Health OS</Eyebrow>
+            <Eyebrow light>HealthOS</Eyebrow>
             <h2 className="mt-3 text-[28px] font-extrabold leading-[1.1] tracking-[-0.04em] text-white sm:mt-4 xl:text-[44px]">
               Scattered records become one clear history.
             </h2>
@@ -716,7 +717,7 @@ function Sequence() {
 function StaticFallback() {
   return (
     <Container className="py-12 sm:py-16">
-      <Eyebrow light>Health OS</Eyebrow>
+      <Eyebrow light>HealthOS</Eyebrow>
       <h2 className="mt-3 max-w-[18ch] text-[28px] font-extrabold leading-[1.1] tracking-[-0.04em] text-white sm:mt-4 sm:text-[36px] md:text-[44px]">
         Scattered records become one clear history.
       </h2>
@@ -739,7 +740,7 @@ function StaticFallback() {
 
       <div className="mt-8 rounded-[22px] bg-white p-5 text-navy shadow-lift sm:max-w-[420px]">
         <p className="text-[9px] font-bold uppercase tracking-[0.18em] text-accent">
-          Health OS · OV-20491
+          HealthOS · OV-20491
         </p>
         <h3 className="mt-1 text-[18px] font-extrabold tracking-tight">
           Unified clinical timeline

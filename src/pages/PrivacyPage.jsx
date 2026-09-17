@@ -29,7 +29,7 @@ const sections = [
   },
   {
     title: 'Your rights',
-    body: 'Subject to applicable law you may access, correct or delete information, withdraw consent, request a copy of records and ask how your information is used. Contact support@emediworld.com.',
+    body: 'Subject to applicable law you may access, correct or delete information, withdraw consent, request a copy of records and ask how your information is used. Contact info@orvena.health.',
   },
   {
     title: 'Cookies, children and third-party links',
@@ -66,8 +66,8 @@ export default function PrivacyPage() {
         <div className="mt-6 rounded-[24px] bg-navy p-5 text-white sm:p-6">
           <h2 className="text-[16px] font-semibold">Contact & grievance officer</h2>
           <p className="mt-2 text-[14px] leading-7 text-white/70">
-            Privacy questions: support@emediworld.com · +91 7506543960. Designated grievance officer:
-            Suraj Singh, support@emediworld.com, with response within applicable legal timelines.
+            Privacy questions: info@orvena.health · +91 7506543960. Designated grievance officer:
+            Suraj Singh, info@orvena.health, with response within applicable legal timelines.
           </p>
         </div>
       </Container>

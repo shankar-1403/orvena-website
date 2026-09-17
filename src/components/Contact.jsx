@@ -94,13 +94,13 @@ export default function Contact() {
                 </span>
               </a>
               <a
-                href="mailto:support@emediworld.com"
+                href="mailto:info@orvena.health"
                 className="group flex items-center gap-3 rounded-2xl border border-navy/8 bg-white px-4 py-3.5 text-sm text-navy transition-colors hover:border-accent/30 hover:shadow-card"
               >
                 <span className="inline-flex h-9 w-9 items-center justify-center rounded-xl bg-mint-soft text-accent">
                   <Mail className="h-4 w-4" />
                 </span>
-                <span className="min-w-0 truncate">support@emediworld.com</span>
+                <span className="min-w-0 truncate">info@orvena.health</span>
               </a>
             </div>
           </Reveal>

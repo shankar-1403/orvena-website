@@ -71,20 +71,41 @@ export default function About() {
     <SectionCard id="about" className="bg-white py-8 sm:py-10 lg:py-12">
       <Container>
         <Reveal>
+          <div>
+            <Eyebrow>About</Eyebrow>
+
+            <h1 className="mt-4 max-w-[24ch] text-[28px] font-extrabold leading-[1.1] tracking-[-0.04em] text-navy sm:mt-5 sm:text-[36px] md:text-[44px] lg:text-[52px]">
+              Redefining Healthcare Through Expertise, Technology &amp; Trust
+            </h1>
+
+            <div className="mt-6 grid gap-6 border-t border-line pt-6 text-[15px] leading-7 text-muted sm:mt-8 sm:pt-7 sm:text-[16px] sm:leading-7 md:grid-cols-2 md:gap-10 lg:gap-14">
+              <p>
+                Orvena is a healthcare solutions company focused on building a connected,
+                technology-enabled healthcare ecosystem. We bring together medical expertise,
+                digital innovation, and data-driven solutions to improve access, efficiency, and
+                outcomes across the healthcare journey.
+              </p>
+              <p>
+                From specialist medical services and second opinions to digital health, medical
+                tourism, wellness, and healthcare technology, Orvena delivers integrated solutions
+                designed around the evolving needs of patients, providers, and organizations.
+              </p>
+            </div>
+          </div>
+        </Reveal>
+
+        <Reveal delay={0.1} className="mt-10 sm:mt-12 lg:mt-14">
           <div
             onMouseEnter={() => setPaused(true)}
             onMouseLeave={() => setPaused(false)}
             className="grid items-center gap-8 md:grid-cols-[minmax(200px,0.9fr)_minmax(0,1.2fr)] md:gap-6 lg:grid-cols-[minmax(220px,0.78fr)_minmax(0,1.4fr)] lg:gap-8"
           >
             <div>
-              <div className="flex items-center gap-3">
-                <Eyebrow>About</Eyebrow>
-                <span className="text-[11px] font-semibold tracking-[0.18em] text-navy/35">
-                  {String(index + 1).padStart(2, '0')} / {String(roles.length).padStart(2, '0')}
-                </span>
-              </div>
+              <span className="text-[11px] font-semibold tracking-[0.18em] text-navy/35">
+                {String(index + 1).padStart(2, '0')} / {String(roles.length).padStart(2, '0')}
+              </span>
 
-              <p className="mt-4 text-[15px] font-semibold tracking-tight text-navy/50">
+              <p className="mt-3 text-[15px] font-semibold tracking-tight text-navy/50">
                 A smarter way for
               </p>
 

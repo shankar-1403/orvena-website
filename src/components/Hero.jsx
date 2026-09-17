@@ -19,7 +19,7 @@ const chips = [
   { label: 'Medical tourism', href: '/services/medical-tourism' },
   { label: 'Disease reversal', href: '/services/disease-reversal' },
   { label: 'Corporate wellness', href: '/services/corporate-wellness' },
-  { label: 'Health OS', href: '/health-os' },
+  { label: 'HealthOS', href: '/health-os' },
 ]
 
 const heroStats = [
@@ -87,7 +87,7 @@ export default function Hero() {
             </span>
             Live
           </span>
-          <p className="text-[16px] font-semibold tracking-tight">Health OS</p>
+          <p className="text-[16px] font-semibold tracking-tight">HealthOS</p>
           <p className="mt-1 text-[12px] leading-5 text-white/65">Records, labs and care in one timeline</p>
         </motion.div>
       </div>

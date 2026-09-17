@@ -65,7 +65,7 @@ export default function TermsPage() {
         <div className="mt-6 rounded-[24px] bg-navy p-5 text-white sm:p-6">
           <h2 className="text-[16px] font-semibold">Contact</h2>
           <p className="mt-2 text-[14px] leading-7 text-white/70">
-            Questions: support@emediworld.com · +91 7506543960. Submitting forms or records means you
+            Questions: info@orvena.health · +91 7506543960. Submitting forms or records means you
             have read and agreed to these terms.
           </p>
         </div>
