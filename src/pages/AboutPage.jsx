@@ -1,6 +1,7 @@
 import About from '../components/About'
 import Mission from '../components/Mission'
 import Vision from '../components/Vision'
+import Team from '../components/Team'
 import { usePageTitle } from '../hooks/usePageTitle'
 
 export default function AboutPage() {
@@ -9,6 +10,7 @@ export default function AboutPage() {
   return (
     <>
       <About />
+      {/* <Team /> */}
       <Mission />
       <Vision />
     </>
