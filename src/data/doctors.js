@@ -1,65 +1,55 @@
-import { images } from './images'
-import abhay from "../assets/images/abhay_nene.jpeg"
-import ajit from "../assets/images/ajit_menon.jpeg"
-import amit from "../assets/images/amit_mayedo.jpeg"
-import bhavesh from "../assets/images/bhavesh_vora.jpeg"
-import bhupendra from "../assets/images/bhupendra_gandhi.jpeg"
+const API_HOST = 'https://demo.orvenahealth.com'
+const DEFAULT_PHOTO = API_HOST + '/Images/docsign/doctor-no-image.jpg'
 
-export const doctors = [
-  {
-    name: 'Dr. Abhay Nene',
-    specialty: 'Orthopedics',
-    qualifications: 'MBBS, M.S. (Ortho)',
-    experience: '20+ Years Experience',
-    years: 20,
-    focus: 'Complex spine and joint reconstruction.',
-    image: abhay,
-  },
-  {
-    name: 'Dr. Ajit R Menon',
-    specialty: 'Cardiology',
-    qualifications: 'MD, DM Cardiology',
-    experience: '15+ Years Experience',
-    years: 15,
-    focus: 'Interventional cardiology and second opinions.',
-    image: ajit,
-  },
-  {
-    name: 'Dr. Amit Maydeo',
-    specialty: 'Gastroenterology',
-    qualifications: 'MS, FASGE, FJGES',
-    experience: '15+ Years Experience',
-    years: 15,
-    focus: 'Advanced endoscopic diagnosis and treatment.',
-    image: amit,
-  },
-  {
-    name: 'Dr. Anand Nathwani',
-    specialty: 'Gastroenterology',
-    qualifications: 'MBBS, MD',
-    experience: '20+ Years Experience',
-    years: 20,
-    focus: 'Digestive care and clinical review.',
-    image: images.doctors[3],
-  },
-  {
-    name: 'Dr. Bhavesh J. Vora',
-    specialty: 'Nephrology',
-    qualifications: 'MBBS, DM Nephrology',
-    experience: '20+ Years Experience',
-    years: 20,
-    focus: 'Kidney care and chronic disease guidance.',
-    image: bhavesh,
-  },
-  {
-    name: 'Dr. Bhupendra Gandhi',
-    specialty: 'Nephrology / Medicine',
-    qualifications: 'MBBS, American Board (IM)',
-    experience: '50+ Years Experience',
-    years: 50,
-    focus: 'Internal medicine and long-term clinical judgement.',
-    image: bhupendra,
-  },
-]
+// Make "GOKUL KATKADE" look like "Gokul Katkade"
+function cleanName(text) {
+  if (!text) return ''
 
-export const specialties = ['All', 'Orthopedics', 'Cardiology', 'Gastroenterology', 'Nephrology']
+  return text
+    .trim()
+    .toLowerCase()
+    .replace(/\b\w/g, (letter) => letter.toUpperCase())
+}
+
+// Pull a number out of text like "15 Years of Experience"
+function getYears(text) {
+  const match = String(text || '').match(/(\d+)\s*(yr|year)/i)
+  return match ? Number(match[1]) : 0
+}
+
+// API sends paths like "/Images/docsign/DrABG.jpeg"
+function getPhoto(path) {
+  if (!path) return DEFAULT_PHOTO
+  if (path.startsWith('http')) return path
+  return API_HOST + path
+}
+
+function toDoctor(item) {
+  return {
+    id: String(item.DoctorId),
+    name: cleanName(item.DoctorName),
+    specialty: cleanName(item.Specialization) || 'Specialist',
+    qualifications: item.Degree || '',
+    years: getYears(item.Experience),
+    focus: item.BreifDescription || item.Experience || '',
+    image: getPhoto(item.DocPhotoImagePath),
+  }
+}
+
+export async function getDoctors() {
+  const response = await fetch('/api/doctors', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: '{}',
+  })
+
+  if (!response.ok) {
+    throw new Error('Could not load doctors')
+  }
+
+  const data = await response.json()
+  const list = typeof data.d === 'string' ? JSON.parse(data.d) : data.d
+
+  if (!Array.isArray(list)) return []
+  return list.map(toDoctor)
+}
