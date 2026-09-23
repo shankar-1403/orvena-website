@@ -119,7 +119,17 @@ export default function Footer() {
           <div className="mt-3 flex flex-col gap-2 border-t border-white/10 pt-4 text-[12px] leading-5 text-white/40 sm:flex-row sm:items-start sm:justify-between">
             <div>
               <p>© 2026 Orvena. All rights reserved.</p>
-              <p className="mt-1">A division of eMediworld Life Science Pvt. Ltd.</p>
+              <p className="mt-1">
+                A division of{' '}
+                <a
+                  href="https://credarc.in"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="text-white/70 underline-offset-2 transition-colors hover:text-white hover:underline"
+                >
+                  Credarc Technologies Pvt. Ltd.
+                </a>
+              </p>
             </div>
             <div className="max-w-xl sm:text-right">
               <p>
