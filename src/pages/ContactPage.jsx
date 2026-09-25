@@ -2,7 +2,7 @@ import Contact from '../components/Contact'
 import { usePageTitle } from '../hooks/usePageTitle'
 
 export default function ContactPage() {
-  usePageTitle('Contact — Orvena')
+  usePageTitle('Contact - Orvena')
 
   return <Contact />
 }
