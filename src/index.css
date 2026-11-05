@@ -11,6 +11,8 @@
   --color-mint: #e8783a;
   --color-mint-soft: #fdf1e8;
   --color-pale: #f2f6f7;
+  /* one step down from pale — the grey band in the white/grey section rhythm */
+  --color-soft: #e7eef1;
   --color-ink: #0b4156;
   --color-muted: #5c6e75;
   --color-line: #d4dee2;
@@ -114,5 +116,174 @@ body {
   .animate-float-slow,
   .animate-scroll-dot {
     animation: none;
+  }
+}
+
+
+/* ── Card system ───────────────────────────────────────────────────────────
+   A shared base (elevation + timing) plus five distinct hover personalities.
+   Sections pick a variant so no two card grids on the site behave alike.
+   Soft brand tints are supplied per grid via --o-tint.                      */
+.o-card {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  --o-tint: rgba(232, 120, 58, 0.14);
+  transition:
+    transform 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 0.35s ease,
+    background-color 0.35s ease;
+}
+
+/* decoration sits behind the content */
+.o-card > * {
+  position: relative;
+  z-index: 1;
+}
+
+.o-card:hover,
+.o-card:focus-within {
+  transform: translateY(-4px);
+  box-shadow: 0 28px 50px -24px rgba(11, 65, 86, 0.3);
+}
+
+.o-card-icon {
+  transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.o-card:hover .o-card-icon {
+  transform: translateY(-2px) scale(1.07);
+}
+
+/* soft tints */
+.o-tint-peach { --o-tint: rgba(232, 120, 58, 0.16); }
+.o-tint-teal  { --o-tint: rgba(19, 96, 116, 0.14); }
+.o-tint-navy  { --o-tint: rgba(11, 65, 86, 0.1); }
+.o-tint-light { --o-tint: rgba(255, 255, 255, 0.12); }
+
+/* ── 1. sheen — top rule draws, light sweeps diagonally across ───────────── */
+.o-card--sheen::before {
+  content: '';
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--color-accent), var(--color-mint));
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+  z-index: 3;
+}
+
+.o-card--sheen::after {
+  content: '';
+  position: absolute;
+  top: -20%;
+  bottom: -20%;
+  width: 45%;
+  background: linear-gradient(100deg, transparent, rgba(255, 255, 255, 0.5), transparent);
+  transform: translateX(-180%) skewX(-12deg);
+  transition: transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+  pointer-events: none;
+  z-index: 2;
+}
+
+.o-card--sheen:hover::before,
+.o-card--sheen:focus-within::before { transform: scaleX(1); }
+.o-card--sheen:hover::after { transform: translateX(260%) skewX(-12deg); }
+
+/* ── 2. rule — a bar unrolls down the left edge, card eases sideways ─────── */
+.o-card--rule::before {
+  content: '';
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 3px;
+  background: linear-gradient(180deg, var(--color-accent), var(--color-teal));
+  transform: scaleY(0);
+  transform-origin: top center;
+  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+  z-index: 3;
+}
+
+.o-card--rule:hover,
+.o-card--rule:focus-within { transform: translateY(-2px) translateX(4px); }
+.o-card--rule:hover::before,
+.o-card--rule:focus-within::before { transform: scaleY(1); }
+
+/* ── 3. spot — a soft colour bloom opens from the top-right ─────────────── */
+.o-card--spot::before {
+  content: '';
+  position: absolute;
+  top: -45%;
+  right: -28%;
+  width: 78%;
+  aspect-ratio: 1;
+  border-radius: 999px;
+  background: radial-gradient(circle, var(--o-tint), transparent 68%);
+  transform: scale(0.35);
+  opacity: 0;
+  transition:
+    transform 0.65s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.45s ease;
+  z-index: 0;
+}
+
+.o-card--spot:hover::before,
+.o-card--spot:focus-within::before { transform: scale(1); opacity: 1; }
+
+/* ── 4. tint — a colour wash rises from the bottom edge ─────────────────── */
+.o-card--tint::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, var(--o-tint), transparent 72%);
+  opacity: 0;
+  transform: translateY(14%);
+  transition:
+    opacity 0.45s ease,
+    transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+  z-index: 0;
+}
+
+.o-card--tint:hover::before,
+.o-card--tint:focus-within::before { opacity: 1; transform: none; }
+
+/* ── 5. frame — a quiet ring settles inside the card ────────────────────── */
+.o-card--frame::before {
+  content: '';
+  position: absolute;
+  inset: 6px;
+  border-radius: inherit;
+  border: 1px solid var(--color-accent);
+  opacity: 0;
+  transform: scale(1.03);
+  transition:
+    opacity 0.4s ease,
+    transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+  z-index: 0;
+}
+
+.o-card--frame:hover::before,
+.o-card--frame:focus-within::before { opacity: 0.38; transform: none; }
+
+/* ── 6. lift — elevation only, for dense or quiet grids ─────────────────── */
+.o-card--lift:hover,
+.o-card--lift:focus-within { box-shadow: 0 22px 44px -22px rgba(11, 65, 86, 0.26); }
+
+@media (prefers-reduced-motion: reduce) {
+  .o-card,
+  .o-card::before,
+  .o-card::after,
+  .o-card-icon {
+    transition: none;
+  }
+
+  .o-card:hover,
+  .o-card:focus-within {
+    transform: none;
+  }
+
+  .o-card--sheen:hover::after {
+    transform: translateX(-180%) skewX(-12deg);
   }
 }

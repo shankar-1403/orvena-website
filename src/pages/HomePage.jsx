@@ -1,7 +1,7 @@
 import Hero from '../components/Hero'
+import HomeHealthOS from '../components/HomeHealthOS'
 import WhyOrvena from '../components/WhyOrvena'
 import ServiceOverview from '../components/ServiceOverview'
-import Doctors from '../components/Doctors'
 import Packages from '../components/Packages'
 import PatientJourney from '../components/PatientJourney'
 import SecondOpinionCTA from '../components/SecondOpinionCTA'
@@ -13,9 +13,9 @@ export default function HomePage() {
   return (
     <>
       <Hero />
+      <HomeHealthOS />
       <WhyOrvena />
       <ServiceOverview />
-      <Doctors />
       {/* <Packages /> */}
       <PatientJourney />
       <SecondOpinionCTA />

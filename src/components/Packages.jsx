@@ -58,7 +58,7 @@ export default function Packages() {
         <div className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
           {visible.map((item, index) => (
             <Reveal key={item.id} delay={0.04 * index}>
-              <article className="flex h-full flex-col rounded-[24px] border border-line bg-pale/60 p-5">
+              <article className="o-card o-card--sheen flex h-full flex-col rounded-[24px] border border-line bg-pale/60 p-5">
                 <div className="flex items-start justify-between gap-3">
                   <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-accent">
                     {item.audience}

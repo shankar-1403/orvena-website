@@ -72,8 +72,8 @@ export default function Technology() {
             title="Technology That Makes Healthcare Smarter."
           >
             <p className="text-[16px] leading-8 text-muted lg:text-[17px]">
-              A connected health data engine - ClinicOS, HospitalOS, LaboratoryOS and
-              Fraud, Waste & Abuse analytics - without losing the human side of care.
+              ClinicOS, HospitalOS, LaboratoryOS and Fraud, Waste &amp; Abuse analytics —
+              without losing the human side of care.
             </p>
           </SectionHeader>
         </Reveal>
@@ -90,7 +90,7 @@ export default function Technology() {
                     type="button"
                     onClick={() => setActiveId(item.id)}
                     aria-pressed={on}
-                    className="group relative overflow-hidden rounded-[24px] border border-navy/8 p-5 text-left transition-colors"
+                    className="o-card o-card--spot o-tint-peach group relative overflow-hidden rounded-[24px] border border-navy/8 p-5 text-left"
                   >
                     {on ? (
                       <motion.span

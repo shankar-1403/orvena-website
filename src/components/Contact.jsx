@@ -81,7 +81,7 @@ export default function Contact() {
             <div className="mt-10 grid gap-3 sm:max-w-md">
               <a
                 href="tel:+917506543960"
-                className="group flex items-center gap-3 rounded-2xl border border-navy/8 bg-white px-4 py-3.5 text-sm text-navy transition-colors hover:border-accent/30 hover:shadow-card"
+                className="o-card o-card--rule group flex items-center gap-3 rounded-2xl border border-navy/8 bg-white px-4 py-3.5 text-sm text-navy hover:border-accent/30"
               >
                 <span className="inline-flex h-9 w-9 items-center justify-center rounded-xl bg-mint-soft text-accent">
                   <Phone className="h-4 w-4" />
@@ -95,7 +95,7 @@ export default function Contact() {
               </a>
               <a
                 href="mailto:info@orvena.health"
-                className="group flex items-center gap-3 rounded-2xl border border-navy/8 bg-white px-4 py-3.5 text-sm text-navy transition-colors hover:border-accent/30 hover:shadow-card"
+                className="o-card o-card--rule group flex items-center gap-3 rounded-2xl border border-navy/8 bg-white px-4 py-3.5 text-sm text-navy hover:border-accent/30"
               >
                 <span className="inline-flex h-9 w-9 items-center justify-center rounded-xl bg-mint-soft text-accent">
                   <Mail className="h-4 w-4" />

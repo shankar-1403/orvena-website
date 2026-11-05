@@ -112,7 +112,7 @@ export default function GlobalHealthcare() {
   const { ref, value } = useCountUp(15)
 
   return (
-    <SectionCard id="global" className="bg-white py-12 sm:py-16 lg:py-24">
+    <SectionCard id="global" className="bg-soft py-12 sm:py-16 lg:py-24">
       <div aria-hidden="true" className="bg-dot-grid pointer-events-none absolute inset-0 opacity-60" />
 
       <Container className="relative">
@@ -251,7 +251,7 @@ export default function GlobalHealthcare() {
         <div className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
           {reasons.map((item, index) => (
             <Reveal key={item.title} delay={0.04 * index}>
-              <article className="h-full rounded-[22px] border border-line bg-pale/60 p-5">
+              <article className="o-card o-card--rule h-full rounded-[22px] border border-line bg-pale/60 p-5">
                 <h3 className="text-[15px] font-semibold tracking-tight text-navy">{item.title}</h3>
                 <p className="mt-2 text-[13px] leading-6 text-muted">{item.text}</p>
               </article>

@@ -57,8 +57,8 @@ export default function Footer() {
                 <Logo />
               </div>
               <p className="mt-3 max-w-[34ch] text-sm leading-6 text-white/60">
-                Integrated digital healthcare solutions. Empowering patients and enterprises with
-                disease reversal programs, medical second opinions, medical tourism and smart health tech.
+                Integrated digital healthcare — disease reversal, second opinions, medical tourism
+                and smart health technology.
               </p>
             </div>
 

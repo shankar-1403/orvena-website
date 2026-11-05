@@ -1,4 +1,4 @@
-import { Clock3, HeartPulse, UserRoundCheck } from 'lucide-react'
+import { Network, ShieldCheck, Stethoscope, Repeat } from 'lucide-react'
 import Container from './ui/Container'
 import Eyebrow from './ui/Eyebrow'
 import Reveal from './ui/Reveal'
@@ -7,27 +7,33 @@ import SectionCard from './ui/SectionCard'
 const principles = [
   {
     code: '01',
-    title: 'Right care',
-    text: 'The treatment that fits the person, not the other way around.',
-    icon: HeartPulse,
+    title: 'Clinical integrity',
+    text: 'Built around genuine medical workflows, structured drug-safety dictionaries and multi-disciplinary validation.',
+    icon: Stethoscope,
   },
   {
     code: '02',
-    title: 'Right time',
-    text: 'Clarity before a decision still has time to change the outcome.',
-    icon: Clock3,
+    title: 'Ecosystem thinking',
+    text: 'No silos. Every module, from digital prescriptions to diagnostic recalls, strengthens the wider network.',
+    icon: Network,
   },
   {
     code: '03',
-    title: 'Right provider',
-    text: 'Human expertise, connected by intelligent technology.',
-    icon: UserRoundCheck,
+    title: 'Data privacy as a right',
+    text: 'End-to-end user data ownership, enterprise-grade consent protocols and zero data selling.',
+    icon: ShieldCheck,
+  },
+  {
+    code: '04',
+    title: 'Every patient follow-up',
+    text: 'Held to one standard: every camp, every patient, every report, every follow-up.',
+    icon: Repeat,
   },
 ]
 
 export default function Vision() {
   return (
-    <SectionCard id="vision" className="bg-white py-10 sm:py-12 lg:py-14">
+    <SectionCard id="vision" className="bg-soft py-10 sm:py-12 lg:py-14">
       <p
         aria-hidden="true"
         className="pointer-events-none absolute -right-6 top-6 select-none text-[88px] font-extrabold leading-none tracking-[-0.08em] text-navy/[0.045] sm:text-[120px] lg:text-[160px]"
@@ -48,8 +54,8 @@ export default function Vision() {
               </h2>
             </div>
             <p className="max-w-[280px] text-[13px] leading-6 text-muted">
-              Redefining healthcare through expertise, technology and trust. An intelligent,
-              patient-first ecosystem connecting patients, specialists, hospitals and digital health.
+              A medical story that moves friction-free across patients, clinicians, hospitals and
+              families — no blindspots, proactive life-long care.
             </p>
           </div>
         </Reveal>
@@ -83,12 +89,12 @@ export default function Vision() {
                 “
               </span>
               <blockquote className="-mt-4 max-w-xl text-[16px] font-medium leading-7 tracking-[-0.02em] text-white/95 sm:text-[19px] sm:leading-9">
-                To create a globally connected healthcare ecosystem where patients
-                receive the{' '}
-                <span className="text-accent">right care</span>, at the{' '}
-                <span className="text-accent">right time</span>, from the{' '}
-                <span className="text-accent">right provider</span> - powered by
-                intelligent technology and human expertise.
+                To establish a globally connected healthcare environment where an individual's
+                medical story moves{' '}
+                <span className="text-accent">friction-free</span> across patients, clinicians,
+                hospitals, diagnostic networks and families — eliminating{' '}
+                <span className="text-accent">blindspots</span> and fostering proactive{' '}
+                <span className="text-accent">life-long care</span>.
               </blockquote>
               <p className="mt-6 text-[11px] font-semibold uppercase tracking-[0.2em] text-white/45">
                 Orvena manifesto
@@ -135,7 +141,7 @@ export default function Vision() {
               'Transparent processes and ethical practices',
               'Global reach with local expertise',
             ].map((item, index) => (
-              <article key={item} className="rounded-2xl border border-line bg-pale/60 p-4">
+              <article key={item} className="o-card o-card--rule rounded-2xl border border-line bg-white p-4">
                 <p className="text-[10px] font-semibold tracking-[0.18em] text-accent">
                   {String(index + 1).padStart(2, '0')}
                 </p>

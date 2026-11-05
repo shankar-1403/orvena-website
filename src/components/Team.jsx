@@ -24,7 +24,7 @@ export default function Team() {
         <div className="mt-8 grid gap-3 sm:mt-10 sm:grid-cols-2 lg:grid-cols-3">
           {team.map((member, index) => (
             <Reveal key={member.id} delay={0.04 * index}>
-              <article className="group flex h-full flex-col overflow-hidden rounded-[24px] border border-line bg-pale/60 transition-all duration-300 hover:-translate-y-0.5 hover:border-accent/30 hover:bg-white hover:shadow-card">
+              <article className="o-card o-card--sheen group flex h-full flex-col overflow-hidden rounded-[24px] border border-line bg-pale/60 hover:border-accent/30 hover:bg-white">
                 <div className="relative h-100 overflow-hidden sm:h-100">
                   <img
                     src={member.image}

@@ -65,7 +65,7 @@ export default function SecondOpinionCTA() {
             <SectionHeader
               eyebrow="Second Opinion"
               title="Before You Make a Major Medical Decision, Get Another Perspective."
-              description="Get a trusted expert medical second opinion before you decide. Leading specialists review your diagnosis, treatment plan or surgery — including imaging interpretation — so you can move forward with clarity. Family-first case handling, 24–72 hour reviews, and a path that can help you avoid unnecessary procedures."
+              description="Leading specialists review your diagnosis, treatment plan or surgery — imaging included — so you can decide with clarity. Family-first handling, reviewed in 24–72 hours."
             />
             <div className="mt-6 flex w-full flex-col gap-3 sm:mt-8 sm:flex-row sm:flex-wrap">
               <Button href="/contact" className="w-full sm:w-auto">Request a Second Opinion</Button>

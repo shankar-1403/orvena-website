@@ -141,7 +141,7 @@ export default function Services() {
                     {active.programs?.length ? (
                       <div className="relative mt-6 grid gap-3 sm:grid-cols-2">
                         {active.programs.map((program) => (
-                          <article key={program.title} className="rounded-2xl bg-pale/80 p-4">
+                          <article key={program.title} className="o-card o-card--tint o-tint-navy rounded-2xl bg-pale/80 p-4">
                             <h4 className="text-[14px] font-semibold tracking-tight text-navy">
                               {program.title}
                             </h4>

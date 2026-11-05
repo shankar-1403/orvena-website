@@ -659,13 +659,13 @@ function Sequence() {
         <Container className="relative h-full">
           {/* Copy stays still — parallax never moves body text. */}
           <div className="absolute left-4 top-1/2 z-10 max-w-[288px] -translate-y-1/2 lg:left-10 xl:max-w-[380px]">
-            <Eyebrow light>HealthOS</Eyebrow>
-            <h2 className="mt-3 text-[28px] font-extrabold leading-[1.1] tracking-[-0.04em] text-white sm:mt-4 xl:text-[44px]">
-              Scattered records become one clear history.
-            </h2>
+            <Eyebrow light>HealthOS · Patient Operating System</Eyebrow>
+            <h1 className="mt-3 text-[28px] font-extrabold leading-[1.1] tracking-[-0.04em] text-white sm:mt-4 xl:text-[44px]">
+              Don’t just store medical reports. Understand them.
+            </h1>
             <p className="mt-3 max-w-[54ch] text-[15px] leading-7 text-white/65 sm:mt-4 sm:text-[17px] sm:leading-8">
-              Every prescription, scan and lab report — collected in the Orvena app, structured, and
-              returned as one clinical timeline your doctor can read in seconds.
+              Scattered folders and fading paper slips become one proactive health timeline that
+              flags shifting patterns early.
             </p>
 
             <ol className="mt-6 space-y-3 sm:mt-7">
@@ -717,13 +717,13 @@ function Sequence() {
 function StaticFallback() {
   return (
     <Container className="py-12 sm:py-16">
-      <Eyebrow light>HealthOS</Eyebrow>
-      <h2 className="mt-3 max-w-[18ch] text-[28px] font-extrabold leading-[1.1] tracking-[-0.04em] text-white sm:mt-4 sm:text-[36px] md:text-[44px]">
-        Scattered records become one clear history.
-      </h2>
+      <Eyebrow light>HealthOS · Patient Operating System</Eyebrow>
+      <h1 className="mt-3 max-w-[18ch] text-[28px] font-extrabold leading-[1.1] tracking-[-0.04em] text-white sm:mt-4 sm:text-[36px] md:text-[44px]">
+        Don’t just store medical reports. Understand them.
+      </h1>
       <p className="mt-3 max-w-[54ch] text-[15px] leading-7 text-white/65 sm:mt-4 sm:text-[17px] sm:leading-8">
-        Every prescription, scan and lab report — collected in the Orvena app, structured, and
-        returned as one clinical timeline your doctor can read in seconds.
+        Scattered folders and fading paper slips become one proactive health timeline that flags
+        shifting patterns early.
       </p>
 
       <ol className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">

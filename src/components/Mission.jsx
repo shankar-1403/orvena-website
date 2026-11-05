@@ -1,4 +1,4 @@
-import { ClipboardList, Share2, UsersRound } from 'lucide-react'
+import { Building2, HeartHandshake, Network, ShieldCheck } from 'lucide-react'
 import Container from './ui/Container'
 import Eyebrow from './ui/Eyebrow'
 import Reveal from './ui/Reveal'
@@ -7,49 +7,27 @@ import SectionCard from './ui/SectionCard'
 const principles = [
   {
     code: '01',
-    title: 'Trusted expertise',
-    text: 'Connecting people with the right medical knowledge and experienced professionals.',
-    icon: UsersRound,
+    title: 'Empower patients & families',
+    text: 'No patient or family navigates a complex diagnosis alone — local care bridged with global clinical expertise.',
+    icon: HeartHandshake,
   },
   {
     code: '02',
-    title: 'Clearer decisions',
-    text: 'Turning complex healthcare information into clarity people can act on.',
-    icon: ClipboardList,
+    title: 'Equip care providers',
+    text: 'Non-disruptive, intelligent digital tools that cut clinical administration and strengthen longitudinal retention.',
+    icon: Network,
   },
   {
     code: '03',
-    title: 'Seamless coordination',
-    text: 'Making interactions across patients, doctors, hospitals, and healthcare services simpler.',
-    icon: Share2,
-  },
-]
-
-const tiles = [
-  {
-    code: '01',
-    title: 'Personalised guidance',
-    text: 'Care pathways shaped around individual needs.',
-  },
-  {
-    code: '02',
-    title: 'Expert-led decisions',
-    text: 'Experience and knowledge at every critical step.',
-  },
-  {
-    code: '03',
-    title: 'Simplified healthcare',
-    text: 'Reducing complexity across the healthcare journey.',
+    title: 'Transform enterprise wellness',
+    text: 'Moving corporate healthcare from one-off checkup camps to a 365-day continuum of workforce health intelligence.',
+    icon: Building2,
   },
   {
     code: '04',
-    title: 'Trust & transparency',
-    text: 'Clear information and processes people can rely on.',
-  },
-  {
-    code: '05',
-    title: 'Connected by technology',
-    text: 'Digital infrastructure that makes healthcare work seamlessly.',
+    title: 'Preserve trust & ownership',
+    text: 'Patients remain the absolute owners of their records, with role-based access and transparent consent governance.',
+    icon: ShieldCheck,
   },
 ]
 
@@ -76,9 +54,8 @@ export default function Mission() {
               </h2>
             </div>
             <p className="max-w-[320px] text-[13px] leading-6 text-muted">
-              Our mission is to simplify the complexity of healthcare by bringing together trusted
-              expertise, relevant information, and seamless coordination-so patients and healthcare
-              partners can make informed decisions with greater clarity and confidence.
+              Simplifying healthcare by bringing together trusted expertise, relevant information
+              and seamless coordination — so every decision is made with clarity.
             </p>
           </div>
         </Reveal>
@@ -155,21 +132,6 @@ export default function Mission() {
           </div>
         </Reveal>
 
-        <Reveal delay={0.12}>
-          <div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-5">
-            {tiles.map((item) => (
-              <article key={item.code} className="rounded-2xl border border-line bg-pale/60 p-4">
-                <p className="text-[10px] font-semibold tracking-[0.18em] text-accent">
-                  {item.code}
-                </p>
-                <h3 className="mt-2 text-[14px] font-semibold leading-5 tracking-tight text-navy">
-                  {item.title}
-                </h3>
-                <p className="mt-1.5 text-[13px] leading-5 text-muted">{item.text}</p>
-              </article>
-            ))}
-          </div>
-        </Reveal>
       </Container>
     </SectionCard>
   )

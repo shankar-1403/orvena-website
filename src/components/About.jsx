@@ -46,6 +46,34 @@ const roles = [
   },
 ]
 
+const focusAreas = [
+  {
+    code: '01',
+    title: 'Longitudinal health intelligence',
+    text: 'Lab PDFs become chronological biomarker trajectories — HbA1c, lipids, creatinine — so risk shifts surface early.',
+  },
+  {
+    code: '02',
+    title: 'Unified clinical continuity',
+    text: 'OPD, inpatient and home care connected, so medical histories follow the patient.',
+  },
+  {
+    code: '03',
+    title: 'Enterprise preventive framework',
+    text: 'Workforce wellness on a measurable 5-stage engine: assess, engage, prevent, intervene, track.',
+  },
+  {
+    code: '04',
+    title: 'National digital interoperability',
+    text: 'ABDM and FHIR standards for unified health IDs, consent architecture and secure cross-network sharing.',
+  },
+  {
+    code: '05',
+    title: 'Global care coordination',
+    text: 'Remote monitoring for aging parents, plus gatekeeping for medical value tourism and second opinions.',
+  },
+]
+
 const INTERVAL_MS = 3800
 
 export default function About() {
@@ -72,25 +100,48 @@ export default function About() {
       <Container>
         <Reveal>
           <div>
-            <Eyebrow>About</Eyebrow>
+            <Eyebrow>Orvena Lifescience Private Limited</Eyebrow>
 
-            <h1 className="mt-4 max-w-[24ch] text-[28px] font-extrabold leading-[1.1] tracking-[-0.04em] text-navy sm:mt-5 sm:text-[36px] md:text-[44px] lg:text-[52px]">
-              Redefining Healthcare Through Expertise, Technology &amp; Trust
+            <h1 className="mt-4 max-w-[20ch] text-[28px] font-extrabold leading-[1.1] tracking-[-0.04em] text-navy sm:mt-5 sm:text-[36px] md:text-[44px] lg:text-[52px]">
+              One Health Ecosystem. One Connected Health Journey.
             </h1>
 
             <div className="mt-6 grid gap-6 border-t border-line pt-6 text-[15px] leading-7 text-muted sm:mt-8 sm:pt-7 sm:text-[16px] sm:leading-7 md:grid-cols-2 md:gap-10 lg:gap-14">
               <p>
-                Orvena is a healthcare solutions company focused on building a connected,
-                technology-enabled healthcare ecosystem. We bring together medical expertise,
-                digital innovation, and data-driven solutions to improve access, efficiency, and
-                outcomes across the healthcare journey.
+                Healthcare is fragmented across disconnected systems, buried paper files and
+                isolated consultations. Orvena bridges that divide with interoperable infrastructure
+                — moving care from reactive treatment to a continuous, intelligent operating
+                system.
               </p>
-              <p>
-                From specialist medical services and second opinions to digital health, medical
-                tourism, wellness, and healthcare technology, Orvena delivers integrated solutions
-                designed around the evolving needs of patients, providers, and organizations.
-              </p>
+              <div className="space-y-4">
+                <p>
+                  We build the clinical and technical backbone connecting ten stakeholder layers:
+                  patients, clinicians, hospitals, laboratories, corporate workforces, governments
+                  and global families.
+                </p>
+                <p>
+                  Not isolated software points — one shared foundation of clinical intelligence,
+                  standardized records and longitudinal tracking.
+                </p>
+              </div>
             </div>
+
+            <ul className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-5">
+              {focusAreas.map((area) => (
+                <li
+                  key={area.code}
+                  className="o-card o-card--tint o-tint-teal rounded-2xl border border-line bg-pale/60 p-4 hover:border-accent/30 hover:bg-white"
+                >
+                  <p className="text-[10px] font-semibold tracking-[0.18em] text-accent">
+                    {area.code}
+                  </p>
+                  <h2 className="mt-2 text-[14px] font-semibold leading-5 tracking-tight text-navy">
+                    {area.title}
+                  </h2>
+                  <p className="mt-1.5 text-[13px] leading-5 text-muted">{area.text}</p>
+                </li>
+              ))}
+            </ul>
           </div>
         </Reveal>
 

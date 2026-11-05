@@ -22,7 +22,7 @@ export default function ServiceOverview() {
         <div className="mt-8 grid gap-3 sm:mt-10 sm:grid-cols-2 lg:grid-cols-4">
           {services.map((service, index) => (
             <Reveal key={service.id} delay={0.05 * index}>
-              <article className="group flex h-full flex-col rounded-[24px] border border-line bg-pale/60 p-5 transition-all duration-300 hover:-translate-y-0.5 hover:border-accent/30 hover:bg-white hover:shadow-card">
+              <article className="o-card o-card--sheen group flex h-full flex-col rounded-[24px] border border-line bg-pale/60 p-5 hover:border-accent/30 hover:bg-white">
                 <span className="text-[11px] font-semibold tracking-[0.2em] text-accent">
                   {service.number}
                 </span>

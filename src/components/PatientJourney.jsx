@@ -46,7 +46,7 @@ export default function PatientJourney() {
   const pathLength = useTransform(scrollYProgress, [0, 1], [0, 1])
 
   return (
-    <SectionCard className="bg-white py-12 sm:py-16 lg:py-24">
+    <SectionCard className="bg-soft py-12 sm:py-16 lg:py-24">
       <div
         aria-hidden="true"
         className="pointer-events-none absolute right-[-10%] top-24 h-72 w-72 rounded-full bg-mint-soft/70 blur-3xl"

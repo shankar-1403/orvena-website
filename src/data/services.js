@@ -7,7 +7,7 @@ export const services = [
     summary:
       'Gain certainty and peace of mind with expert diagnosis and report review by India’s leading specialists.',
     description:
-      'Get a trusted expert medical second opinion before you decide. Leading specialists across India review your diagnosis, treatment plan or surgery recommendation so you can move forward with confidence. We represent your case as if you were family — structured, complete and unbiased.',
+      'Leading specialists across India review your diagnosis, treatment plan or surgery recommendation before you decide. We handle your case as if you were family — structured, complete and unbiased.',
     features: [
       'Expert doctors from leading hospitals',
       'Report review within 24–72 hours',
@@ -43,7 +43,7 @@ export const services = [
     summary:
       'Access world-class, globally renowned healthcare in India with complete end-to-end travel assistance.',
     description:
-      'Top medical specialists, affordable accredited treatments, and end-to-end travel assistance. International patients receive hospital matching, visa and stay support, and a dedicated care desk from first enquiry through recovery at home. Save 50–80% on surgery costs versus typical Western prices, without navigating care alone.',
+      'Accredited treatment with end-to-end travel support — hospital matching, visa and stay help, and a dedicated care desk from first enquiry to recovery at home. Save 50–80% on surgery costs versus typical Western prices.',
     features: [
       'International patient coordination',
       'Hospital and doctor selection',
@@ -77,7 +77,7 @@ export const services = [
     summary:
       'Harness holistic nutrition and lifestyle protocols to reverse chronic conditions naturally at the root.',
     description:
-      'Reverse diabetes, obesity and heart disease with doctor-guided lifestyle science. Lower or stop medications safely where clinically appropriate, with personalized nutrition, fitness and behavioral coaching. Clinically proven, doctor-guided, 100% natural methods — 4,000+ patients helped.',
+      'Reverse diabetes, obesity and heart disease with doctor-guided lifestyle science — personalized nutrition, fitness and behavioral coaching, with medication reduced safely where appropriate. 4,000+ patients helped.',
     features: [
       'Type 2 diabetes management and reversal',
       'Blood pressure control',
@@ -126,7 +126,7 @@ export const services = [
     summary:
       'Foster a healthier, high-performing workforce with preventive programs and health analytics.',
     description:
-      'Proactive corporate health programs for startups, SMEs and large enterprises. End-to-end healthcare management, data-driven analytics and people-centered workplace care — 100% confidential. Early risk detection, biometric screening and coaching that reduce diabetes, obesity and heart-disease risk while lifting productivity.',
+      'Proactive health programs for startups, SMEs and enterprises. Biometric screening, early risk detection and coaching that cut diabetes, obesity and heart-disease risk while lifting productivity. 100% confidential.',
     features: [
       'Preventive health check-ups and executive screenings',
       'Employee health risk assessment (HRA)',
