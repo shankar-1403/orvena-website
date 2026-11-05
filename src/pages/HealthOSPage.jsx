@@ -4,7 +4,7 @@ import { useEffect } from 'react'
 import { usePageTitle } from '../hooks/usePageTitle'
 
 const DESCRIPTION =
-  'Move from scattered medical paper files to a continuous, intelligent health timeline. HealthOS organizes lab biomarkers, tracks trends, and protects your family with ABDM-compliant health intelligence.'
+  'Move from scattered medical paper files to one organised, private health record. HealthOS stores your reports, charts your key readings and trends, and lets you share a one-page summary with your doctor.'
 
 export default function HealthOSPage() {
   usePageTitle('HealthOS by Orvena | The Intelligent Patient Operating System')

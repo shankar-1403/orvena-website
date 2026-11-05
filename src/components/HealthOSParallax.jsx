@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import {
   motion,
   useMotionValueEvent,
@@ -449,7 +449,7 @@ function ConsultPanel({ progress }) {
         Your timeline points to a cardiology review. Orvena matches it to a verified specialist.
       </p>
 
-      <div className="mt-3.5 flex items-center gap-2.5 rounded-2xl border border-navy/8 bg-pale/60 p-2.5">
+      <div className="mt-3.5 flex items-center gap-2 rounded-2xl border border-navy/8 bg-pale/60 p-2">
         <span className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-accent/10">
           <Stethoscope className="h-4 w-4 text-accent" aria-hidden="true" />
         </span>
@@ -459,7 +459,7 @@ function ConsultPanel({ progress }) {
             {SPECIALIST.specialty} · {SPECIALIST.years}
           </p>
         </div>
-        <span className="ml-auto shrink-0 rounded-full bg-accent/10 px-2 py-1 text-[7.5px] font-bold uppercase tracking-[0.12em] text-accent">
+        <span className="ml-auto shrink-0 rounded-full bg-accent/10 px-1.5 py-1 text-[7.5px] font-bold uppercase tracking-[0.1em] text-accent">
           Verified
         </span>
       </div>
@@ -630,9 +630,34 @@ function OrvenaApp({ progress }) {
   )
 }
 
+/**
+ * Room the phone needs inside the pinned frame: its 628px body, the 1.04 scale and
+ * 16px lift it reaches mid-sequence, plus breathing space. Below this the stage
+ * shrinks to fit, so short laptop screens never crop the device.
+ */
+const STAGE_HEIGHT = 700
+
 function Sequence() {
   const trackRef = useRef(null)
+  const frameRef = useRef(null)
+  const copyRef = useRef(null)
   const [phase, setPhase] = useState(0)
+  const [fit, setFit] = useState({ stage: 1, copy: 1 })
+
+  useLayoutEffect(() => {
+    const measure = () => {
+      const frameHeight = frameRef.current?.clientHeight ?? 0
+      if (!frameHeight) return
+      // offsetHeight ignores transforms, so this is always the copy's natural height
+      const copyHeight = copyRef.current?.offsetHeight ?? 0
+      const stage = Math.min(1, frameHeight / STAGE_HEIGHT)
+      const copy = copyHeight ? Math.min(1, (frameHeight - 40) / copyHeight) : 1
+      setFit((prev) => (prev.stage === stage && prev.copy === copy ? prev : { stage, copy }))
+    }
+    measure()
+    window.addEventListener('resize', measure)
+    return () => window.removeEventListener('resize', measure)
+  }, [])
 
   const { scrollYProgress } = useScroll({
     target: trackRef,
@@ -649,7 +674,10 @@ function Sequence() {
     // data-pinned-frame: the navbar stays full width while this frame holds the viewport.
     <div ref={trackRef} data-pinned-frame className="relative h-[1930vh]">
       {/* The frame itself is pinned, so it never drifts while the sequence plays. */}
-      <div className="sticky top-[100px] h-[calc(100svh-116px)] overflow-hidden rounded-[22px] bg-midnight shadow-card sm:rounded-[28px] lg:rounded-[36px]">
+      <div
+        ref={frameRef}
+        className="sticky top-[100px] h-[calc(100svh-116px)] overflow-hidden rounded-[22px] bg-midnight shadow-card sm:rounded-[28px] lg:rounded-[36px]"
+      >
         <div aria-hidden="true" className="bg-dot-grid-light pointer-events-none absolute inset-0" />
         <div aria-hidden="true" className="pointer-events-none absolute inset-0">
           <div className="absolute left-[-8%] top-[-12%] h-[340px] w-[340px] rounded-full bg-mint/8 blur-[120px]" />
@@ -658,7 +686,11 @@ function Sequence() {
 
         <Container className="relative h-full">
           {/* Copy stays still — parallax never moves body text. */}
-          <div className="absolute left-4 top-1/2 z-10 max-w-[288px] -translate-y-1/2 lg:left-10 xl:max-w-[380px]">
+          <div
+            ref={copyRef}
+            style={{ scale: fit.copy }}
+            className="absolute left-4 top-1/2 z-10 max-w-[288px] origin-left -translate-y-1/2 lg:left-10 xl:max-w-[380px]"
+          >
             <Eyebrow light>HealthOS · Patient Operating System</Eyebrow>
             <h1 className="mt-3 text-[28px] font-extrabold leading-[1.1] tracking-[-0.04em] text-white sm:mt-4 xl:text-[44px]">
               Don’t just store medical reports. Understand them.
@@ -679,7 +711,7 @@ function Sequence() {
                     }`}
                   >
                     <span
-                      className={`grid h-7 w-7 shrink-0 place-items-center rounded-full border text-[10px] font-semibold uppercase tracking-[0.18em] transition-colors duration-300 ${
+                      className={`grid h-7 w-7 shrink-0 place-items-center rounded-full border text-[11px] font-semibold uppercase tracking-[0.12em] transition-colors duration-300 ${
                         on ? 'border-accent bg-accent text-white' : 'border-white/20'
                       }`}
                     >
@@ -700,13 +732,16 @@ function Sequence() {
             </ol>
           </div>
 
-          <div aria-hidden="true" className="absolute inset-0">
-            {RECORDS.map((record) => (
-              <RecordCard key={record.id} record={record} progress={scrollYProgress} />
-            ))}
-          </div>
+          {/* Records and device scale together, around the frame's centre. */}
+          <div style={{ scale: fit.stage }} className="absolute inset-0 origin-center">
+            <div aria-hidden="true" className="absolute inset-0">
+              {RECORDS.map((record) => (
+                <RecordCard key={record.id} record={record} progress={scrollYProgress} />
+              ))}
+            </div>
 
-          <OrvenaApp progress={scrollYProgress} />
+            <OrvenaApp progress={scrollYProgress} />
+          </div>
         </Container>
       </div>
     </div>
@@ -729,7 +764,7 @@ function StaticFallback() {
       <ol className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
         {PHASES.map((item, index) => (
           <li key={item.title} className="rounded-2xl border border-white/10 bg-white/4 p-4">
-            <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-mint/70">
+            <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-mint/70">
               0{index + 1}
             </p>
             <p className="mt-2 text-sm font-semibold text-white">{item.title}</p>
@@ -739,7 +774,7 @@ function StaticFallback() {
       </ol>
 
       <div className="mt-8 rounded-[22px] bg-white p-5 text-navy shadow-lift sm:max-w-[420px]">
-        <p className="text-[9px] font-bold uppercase tracking-[0.18em] text-accent">
+        <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-accent">
           HealthOS · OV-20491
         </p>
         <h3 className="mt-1 text-[18px] font-extrabold tracking-tight">
@@ -747,13 +782,13 @@ function StaticFallback() {
         </h3>
         <ul className="mt-3">
           {REPORT_ROWS.map(([title, meta, date], index) => (
-            <li key={title} className="flex items-center gap-2.5 border-t border-navy/8 py-2.5">
-              <span className="w-4 shrink-0 text-[9.5px] font-bold text-accent">0{index + 1}</span>
+            <li key={title} className="flex items-start gap-2.5 border-t border-navy/8 py-2.5">
+              <span className="w-5 shrink-0 text-[11px] font-bold text-accent">0{index + 1}</span>
               <div className="min-w-0">
-                <p className="truncate text-[12px] font-bold tracking-tight">{title}</p>
-                <p className="mt-0.5 truncate text-[10px] text-muted">{meta}</p>
+                <p className="text-[13px] font-bold leading-5 tracking-tight">{title}</p>
+                <p className="text-[12px] leading-4 text-muted">{meta}</p>
               </div>
-              <span className="ml-auto shrink-0 text-[9px] font-bold uppercase tracking-[0.1em] text-muted">
+              <span className="ml-auto shrink-0 text-[11px] font-bold uppercase tracking-[0.08em] text-muted">
                 {date}
               </span>
             </li>
@@ -763,7 +798,7 @@ function StaticFallback() {
           {REPORT_STATS.map(([value, label]) => (
             <div key={label}>
               <p className="text-[16px] font-extrabold tracking-tight">{value}</p>
-              <p className="mt-0.5 text-[8px] font-bold uppercase tracking-[0.12em] text-muted">
+              <p className="mt-0.5 text-[11px] font-bold uppercase tracking-[0.1em] text-muted">
                 {label}
               </p>
             </div>

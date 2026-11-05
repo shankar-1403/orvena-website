@@ -138,7 +138,7 @@ export default function Doctors() {
                 </div>
                 <Link
                   to="/contact"
-                  className="group mt-6 inline-flex items-center gap-2 text-sm font-semibold text-white"
+                  className="group -mb-2 mt-4 inline-flex items-center gap-2 py-2 text-sm font-semibold text-white"
                 >
                   Request this specialist
                   <span className="inline-flex h-7 w-7 items-center justify-center rounded-full bg-white/10 transition-colors group-hover:bg-accent">
@@ -207,6 +207,7 @@ export default function Doctors() {
         <Reveal>
           <SectionHeader
             eyebrow="Doctors"
+            as="h1"
             title="World-Class Doctors You Can Trust."
             description="Consult with India’s leading medical experts across cardiology, oncology, orthopedics, gastroenterology, nephrology and more."
           >
@@ -220,7 +221,7 @@ export default function Doctors() {
                       key={item}
                       type="button"
                       onClick={() => selectFilter(item)}
-                      className={`relative shrink-0 rounded-full px-4 py-2 text-[13px] font-semibold transition-colors ${
+                      className={`relative shrink-0 rounded-full px-4 py-2.5 text-[13px] font-semibold transition-colors lg:py-2 ${
                         on ? 'text-white' : 'text-navy/70 hover:text-navy'
                       }`}
                       aria-pressed={on}

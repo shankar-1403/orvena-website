@@ -69,6 +69,7 @@ export default function Technology() {
         <Reveal>
           <SectionHeader
             eyebrow="Technology"
+            as="h1"
             title="Technology That Makes Healthcare Smarter."
           >
             <p className="text-[16px] leading-8 text-muted lg:text-[17px]">
@@ -124,7 +125,7 @@ export default function Technology() {
               })}
             </div>
 
-            <div className="relative min-h-[240px] overflow-hidden rounded-[24px] border border-navy/8 bg-pale p-5 sm:rounded-[28px] sm:p-8 lg:min-h-full">
+            <div className="o-plate relative min-h-[240px] overflow-hidden rounded-[24px] border border-white/60 bg-pale p-5 sm:rounded-[28px] sm:p-8 lg:min-h-full">
               <AnimatePresence mode="wait">
                 <motion.div
                   key={active.id}
@@ -152,7 +153,7 @@ export default function Technology() {
                     </span>
                     <Link
                       to="/health-os"
-                      className="group inline-flex items-center gap-1.5 text-sm font-semibold text-navy"
+                      className="group -my-2.5 inline-flex items-center gap-1.5 self-start py-2.5 text-sm font-semibold text-navy sm:self-auto"
                     >
                       Open in HealthOS
                       <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />

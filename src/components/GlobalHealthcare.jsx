@@ -211,7 +211,7 @@ export default function GlobalHealthcare() {
                       role="tab"
                       aria-selected={on}
                       onClick={() => setActiveId(region.id)}
-                      className={`relative shrink-0 whitespace-nowrap rounded-full px-3.5 py-2.5 text-[12px] font-semibold sm:px-4 sm:text-[13px] lg:flex-1 ${
+                      className={`relative shrink-0 whitespace-nowrap rounded-full px-3.5 py-3 text-[12px] font-semibold sm:px-4 sm:text-[13px] lg:flex-1 lg:py-2.5 ${
                         on ? 'text-navy' : 'text-white/65 hover:text-white'
                       }`}
                     >

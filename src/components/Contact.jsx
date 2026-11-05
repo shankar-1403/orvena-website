@@ -37,7 +37,7 @@ function Field({ label, error, children }) {
 }
 
 const inputClass =
-  'w-full rounded-2xl border border-navy/10 bg-white px-4 py-3.5 text-sm text-navy outline-none transition-colors placeholder:text-navy/35 hover:border-navy/20 focus:border-accent/50'
+  'w-full rounded-2xl border border-navy/10 bg-white px-4 py-3.5 text-base text-navy outline-none transition-colors placeholder:text-navy/35 hover:border-navy/20 focus:border-accent/50 md:text-sm'
 
 export default function Contact() {
   const [values, setValues] = useState(initial)
@@ -69,7 +69,8 @@ export default function Contact() {
           <Reveal>
             <SectionHeader
               eyebrow="Contact"
-              title="Your Better Healthcare Journey Starts Here."
+              as="h1"
+            title="Your Better Healthcare Journey Starts Here."
               description="Whether you need a second opinion, treatment in India, disease reversal, corporate wellness, a health check-up or healthcare technology, we’re here 24/7."
             />
             <div className="mt-6 flex w-full flex-col gap-3 sm:mt-8 sm:flex-row sm:flex-wrap">
@@ -94,13 +95,13 @@ export default function Contact() {
                 </span>
               </a>
               <a
-                href="mailto:info@orvena.health"
+                href="mailto:info@orvenahealth.com"
                 className="o-card o-card--rule group flex items-center gap-3 rounded-2xl border border-navy/8 bg-white px-4 py-3.5 text-sm text-navy hover:border-accent/30"
               >
                 <span className="inline-flex h-9 w-9 items-center justify-center rounded-xl bg-mint-soft text-accent">
                   <Mail className="h-4 w-4" />
                 </span>
-                <span className="min-w-0 truncate">info@orvena.health</span>
+                <span className="min-w-0 truncate">info@orvenahealth.com</span>
               </a>
             </div>
           </Reveal>
@@ -109,7 +110,7 @@ export default function Contact() {
             <form
               id="contact-form"
               onSubmit={onSubmit}
-              className="rounded-[24px] border border-navy/8 bg-pale p-4 text-navy shadow-card sm:rounded-[32px] sm:p-8"
+              className="o-plate rounded-[24px] border border-white/60 bg-pale p-4 text-navy sm:rounded-[32px] sm:p-8"
               noValidate
             >
               {submitted ? (

@@ -6,6 +6,21 @@ import Container from './ui/Container'
 import Reveal from './ui/Reveal'
 import SectionCard from './ui/SectionCard'
 import SectionHeader from './ui/SectionHeader'
+import Vignette from './ui/Vignette'
+
+// Which illustration belongs to which service
+const art = {
+  'second-opinion': 'opinion',
+  'medical-tourism': 'tourism',
+  'disease-reversal': 'reversal',
+  'corporate-wellness': 'corporate',
+}
+
+// The cards alternate: peach, then soft grey
+const tones = [
+  'border-accent/20 bg-mint-soft/60 hover:border-accent/35 hover:bg-mint-soft/85',
+  'border-line bg-pale/60 hover:border-accent/30 hover:bg-white',
+]
 
 export default function ServiceOverview() {
   return (
@@ -20,9 +35,14 @@ export default function ServiceOverview() {
         </Reveal>
 
         <div className="mt-8 grid gap-3 sm:mt-10 sm:grid-cols-2 lg:grid-cols-4">
-          {services.map((service, index) => (
+          {services.map((service, index) => {
+            const tone = tones[index % tones.length]
+            return (
             <Reveal key={service.id} delay={0.05 * index}>
-              <article className="o-card o-card--sheen group flex h-full flex-col rounded-[24px] border border-line bg-pale/60 p-5 hover:border-accent/30 hover:bg-white">
+              <article
+                className={`o-card o-card--sheen group flex h-full flex-col rounded-[24px] border p-5 ${tone}`}
+              >
+                <Vignette name={art[service.id]} className="mb-4" />
                 <span className="text-[11px] font-semibold tracking-[0.2em] text-accent">
                   {service.number}
                 </span>
@@ -32,14 +52,15 @@ export default function ServiceOverview() {
                 <p className="mt-2 flex-1 text-[13px] leading-6 text-muted">{service.summary}</p>
                 <Link
                   to={`/services/${service.id}`}
-                  className="group/link mt-5 inline-flex items-center gap-1.5 text-[13px] font-semibold text-navy transition-colors hover:text-accent"
+                  className="group/link -mb-2.5 mt-2.5 inline-flex items-center gap-1.5 self-start py-2.5 text-[13px] font-semibold text-navy transition-colors hover:text-accent"
                 >
                   Explore Service
                   <ArrowUpRight className="h-3.5 w-3.5 transition-transform group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5" />
                 </Link>
               </article>
             </Reveal>
-          ))}
+            )
+          })}
         </div>
 
         <Reveal delay={0.12} className="mt-6">

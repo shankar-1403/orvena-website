@@ -107,7 +107,7 @@ export default function Navbar() {
 
           <button
             type="button"
-            className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-navy/10 bg-white/70 text-navy lg:hidden"
+            className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-navy/10 bg-white/70 text-navy lg:hidden"
             onClick={() => setOpen(true)}
             aria-label="Open menu"
           >
@@ -130,7 +130,7 @@ export default function Navbar() {
               </div>
               <button
                 type="button"
-                className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/15 text-white"
+                className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/15 text-white"
                 onClick={() => setOpen(false)}
                 aria-label="Close menu"
               >

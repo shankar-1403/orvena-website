@@ -1,58 +1,66 @@
 import {
   Activity,
   CalendarCheck,
-  FileLock2,
-  MessageCircle,
+  Camera,
+  FileText,
   ShieldCheck,
-  Users,
+  Stethoscope,
 } from 'lucide-react'
 import Button from './ui/Button'
 import Container from './ui/Container'
 import Reveal from './ui/Reveal'
 import SectionCard from './ui/SectionCard'
 import SectionHeader from './ui/SectionHeader'
+import StoreButtons from './ui/StoreButtons'
+import Vignette from './ui/Vignette'
 
-// Home page overview of HealthOS (content from the HealthOS brief). Full detail lives on /health-os.
+// Home page overview of HealthOS. Every claim here is a feature of the Orvena Health app
+// as listed on Google Play — keep it that way. Full detail lives on /health-os.
 
 const trust = [
-  '100% ABDM-compliant',
-  'Consent-driven privacy',
-  'Biomarker extraction',
+  'Your data stays yours',
+  'You choose what to share',
+  'Encrypted in transit',
   'Zero data selling',
 ]
 
 const highlights = [
   {
-    title: 'Biomarker trendlines',
-    text: 'HbA1c, glucose, lipids, creatinine and eGFR pulled from every lab report and charted over time.',
+    title: 'Reports in one place',
+    text: 'Blood, lab and radiology reports together. Scan paper with your camera or upload a PDF.',
+    icon: Camera,
+    art: 'scan',
+  },
+  {
+    title: 'iView',
+    text: 'Your key readings, trends and anything that needs attention, at a glance.',
     icon: Activity,
+    art: 'trend',
   },
   {
-    title: 'WhatsApp & camera intake',
-    text: 'Snap a report, send it on WhatsApp, and it lands in your health timeline within minutes.',
-    icon: MessageCircle,
+    title: 'Smart View summary',
+    text: 'A one-page summary of your health to save as a PDF or share with your doctor.',
+    icon: FileText,
+    art: 'summary',
   },
   {
-    title: 'ABDM lifetime record',
-    text: 'Linked to your ABHA ID, with a time-limited summary link to share with any doctor.',
-    icon: FileLock2,
+    title: 'My Doctors',
+    text: 'Find doctors, call them, book appointments and keep your favourites together.',
+    icon: Stethoscope,
+    art: 'doctors',
   },
   {
-    title: 'Family & ParentCare',
-    text: 'One place for your spouse, children and parents, with alerts when a parent’s vitals shift.',
-    icon: Users,
-  },
-  {
-    title: 'Follow-ups & medicines',
-    text: 'Reminders for refills, follow-up visits and repeat tests, with structured prescriptions.',
+    title: 'Prescriptions & reminders',
+    text: 'Your prescription history with printable copies, and reminders for appointments and follow-ups.',
     icon: CalendarCheck,
+    art: 'followup',
   },
 ]
 
 const steps = [
-  ['Upload', 'Send paper reports on WhatsApp, upload PDFs, or let partner labs sync results.'],
-  ['Understand', 'Reports are sorted by date and your test results become trend charts.'],
-  ['Share & act', 'Show any doctor a clear summary in one tap and stay ahead with reminders.'],
+  ['Upload', 'Scan paper reports with your camera or upload PDFs. Doctors, clinics and labs on Orvena add theirs.'],
+  ['Understand', 'iView turns your readings into trends and flags anything that needs attention.'],
+  ['Share & act', 'Share a one-page summary with your doctor and stay ahead with reminders.'],
 ]
 
 export default function HomeHealthOS() {
@@ -65,21 +73,13 @@ export default function HomeHealthOS() {
           <SectionHeader
             eyebrow="HealthOS · Patient Operating System"
             title="Understand your reports. Protect those you love."
-            description="Scattered folders become one organized health timeline — test results tracked over time, changing patterns flagged before they become emergencies."
+            description="Scattered folders become one organized health timeline — test results tracked over time, and readings that need attention flagged."
           >
-            <div className="flex flex-col gap-3 sm:flex-row lg:flex-col xl:flex-row">
+            <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center">
               <Button href="/health-os" className="w-full sm:w-auto">
                 Explore HealthOS
               </Button>
-              <Button
-                href="https://wa.me/917506543960"
-                target="_blank"
-                rel="noreferrer"
-                variant="secondary"
-                className="w-full sm:w-auto"
-              >
-                Digitize via WhatsApp
-              </Button>
+              <StoreButtons tone="light" className="w-full sm:w-auto" />
             </div>
           </SectionHeader>
         </Reveal>
@@ -103,14 +103,15 @@ export default function HomeHealthOS() {
             const Icon = item.icon
             return (
               <Reveal key={item.title} delay={0.04 * index}>
-                <article className="o-card o-card--spot o-tint-peach h-full rounded-[22px] border border-line bg-pale/60 p-5 hover:border-accent/30 hover:bg-white">
-                  <span className="o-card-icon flex h-9 w-9 items-center justify-center rounded-full bg-navy text-white">
+                <article className="o-card o-card--spot o-tint-peach h-full rounded-[22px] border border-accent/20 bg-mint-soft/60 p-3 pb-5 hover:border-accent/35 hover:bg-mint-soft/85">
+                  <Vignette name={item.art} />
+                  <span className="o-card-icon ml-2 mt-4 flex h-9 w-9 items-center justify-center rounded-full bg-navy text-white">
                     <Icon className="h-4 w-4" strokeWidth={1.75} aria-hidden="true" />
                   </span>
-                  <h3 className="mt-4 text-[16px] font-semibold leading-6 tracking-tight text-navy">
+                  <h3 className="mt-3 px-2 text-[16px] font-semibold leading-6 tracking-tight text-navy">
                     {item.title}
                   </h3>
-                  <p className="mt-1.5 text-[13px] leading-5 text-muted">{item.text}</p>
+                  <p className="mt-1.5 px-2 text-[13px] leading-5 text-muted">{item.text}</p>
                 </article>
               </Reveal>
             )

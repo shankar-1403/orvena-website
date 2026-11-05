@@ -1,23 +1,30 @@
 import {
   Activity,
+  ArrowRight,
   CalendarCheck,
+  Camera,
   FileLock2,
+  FileText,
   HeartHandshake,
-  MessageCircle,
   ShieldCheck,
-  Users,
+  Stethoscope,
 } from 'lucide-react'
+import { Link } from 'react-router-dom'
 import Button from './ui/Button'
 import Container from './ui/Container'
 import Eyebrow from './ui/Eyebrow'
 import Reveal from './ui/Reveal'
 import SectionCard from './ui/SectionCard'
 import SectionHeader from './ui/SectionHeader'
+import StoreButtons from './ui/StoreButtons'
+import Vignette from './ui/Vignette'
 
+// Every claim on this page is a feature of the Orvena Health app as listed on
+// Google Play, or a line from its privacy policy. Check there before adding more.
 const trustRibbon = [
-  '100% ABDM-compliant architecture',
-  'End-to-end consent-driven privacy',
-  'Biomarker extraction — HbA1c, lipids, creatinine',
+  'Your data stays yours — you choose what to upload and share',
+  'No data shared with third parties',
+  'Encrypted in transit',
   'Zero data selling — you own your records',
 ]
 
@@ -28,111 +35,127 @@ const paradigmShift = [
     before: 'Scattered paper files',
     beforeText: 'Buried in closets, lost between appointments, or fading away.',
     after: 'Universal digital vault',
-    afterText: 'Complete medical history accessible securely on your phone, anywhere.',
+    afterText: 'Your reports and medical history, organised and private on your phone.',
   },
   {
     id: 'blindspots',
     before: 'Diagnostic blindspots',
     beforeText: 'Past trends hidden in isolated PDF sheets and printed paper.',
-    after: 'Intelligent trendlines',
-    afterText: 'Automatic extraction of blood sugar, kidney and lipid trajectories.',
+    after: 'Readings you can follow',
+    afterText: 'iView shows your key readings and trends in easy-to-understand graphs.',
   },
   {
     id: 'disconnected',
     before: 'Disconnected care',
     beforeText: 'Starting from scratch every time you consult a new doctor or hospital.',
-    after: 'Seamless continuity',
-    afterText: 'Instant, permission-based sharing across OPD, IPD and home care.',
+    after: 'One summary to share',
+    afterText: 'A one-page Smart View summary, shared securely with the doctor you choose.',
   },
   {
     id: 'reactive',
     before: 'Reactive panic',
     beforeText: 'Catching chronic conditions only after an acute medical event occurs.',
-    after: 'Early pattern recognition',
-    afterText: 'Longitudinal tracking designed to detect biomarker shifts early.',
+    after: 'Alerts from your readings',
+    afterText: 'Readings that need attention are flagged from your reports.',
   },
 ]
 
 const features = [
   {
     code: '01',
-    title: 'Longitudinal biomarker trendlines',
-    text: 'Test metrics pulled from routine lab reports and charted over time.',
-    icon: Activity,
+    title: 'Reports, scanned or uploaded',
+    text: 'Digitizing medical files should not feel like administrative work.',
+    icon: Camera,
+    art: 'scan',
     points: [
-      'Metabolic — fasting glucose and HbA1c.',
-      'Cardiovascular — cholesterol, triglycerides, LDL and HDL ratios.',
-      'Renal — serum creatinine, eGFR and electrolyte stability.',
+      'Store and view your blood, lab and radiology reports.',
+      'Scan a paper report with your camera, or upload a PDF.',
+      'Doctors, clinics and labs that use Orvena add reports to your record.',
     ],
   },
   {
     code: '02',
-    title: 'Frictionless WhatsApp & camera intake',
-    text: 'Digitizing medical files should not feel like administrative work.',
-    icon: MessageCircle,
+    title: 'iView: readings, trends and alerts',
+    text: 'Your reports in easy-to-understand graphs.',
+    icon: Activity,
+    art: 'trend',
     points: [
-      'Snap and send any slip, prescription or discharge summary.',
-      'Documents become a readable clinical timeline in minutes.',
-      'In-app scanning indexes multi-page files into clear categories.',
+      'Key readings such as blood pressure and HbA1c, shown against their normal range.',
+      'Trends across your reports over time.',
+      'Alerts for anything that needs attention.',
     ],
   },
   {
     code: '03',
-    title: 'ABDM-compliant lifetime record',
-    text: 'A health identity that follows the patient, not the hospital.',
-    icon: FileLock2,
+    title: 'Smart View: your Structured Case Summary',
+    text: 'A one-page summary of your health.',
+    icon: FileText,
+    art: 'summary',
     points: [
-      'Unified identity linked to your ABHA account.',
-      'Consent-based sharing via a time-limited summary link.',
-      'Stores prescriptions, discharge summaries, vaccinations and DICOM imaging.',
+      'Save it as a PDF.',
+      'Share it securely with the doctor you choose.',
+      'Keep medical history, allergies and insurance policies alongside it.',
     ],
   },
   {
     code: '04',
-    title: 'The family & ParentCare bridge',
-    text: 'Coordinate care across cities or continents.',
-    icon: Users,
+    title: 'My Doctors',
+    text: 'The doctors you see, kept together.',
+    icon: Stethoscope,
+    art: 'doctors',
     points: [
-      'One interface for spouse, children and elderly parents.',
-      'Home nurse visits, 6-monthly diagnostics and emergency response.',
-      'Caregiver alerts when a parent’s vitals shift.',
+      'Find doctors and keep your favourites in one list.',
+      'Call a doctor or book an appointment from the app.',
+      'Show your Orvena Health ID at clinics.',
     ],
   },
   {
     code: '05',
-    title: 'Smart follow-ups & medicine management',
-    text: 'The follow-up is the part most systems drop.',
+    title: 'Prescriptions, case history & reminders',
+    text: 'What was prescribed, what was advised, and what comes next.',
     icon: CalendarCheck,
+    art: 'followup',
     points: [
-      'Reminders for refills, follow-up consults and repeat tests.',
-      'Digital prescriptions with structured dosage and duration.',
-      'Drug-safety checks against interactions and errors.',
+      'Prescription history with the doctor’s details and a printable copy.',
+      'Dated case notes and diet plans from your nutritionist.',
+      'Reminders for appointments and follow-ups.',
     ],
   },
+]
+
+// The rest of what the app holds, named briefly
+const alsoInApp = [
+  'Medical history',
+  'Allergies',
+  'Insurance policies',
+  'Vaccine schedule',
+  'Orvena Health ID',
+  'Wallet and bills',
+  'Delete your account any time',
 ]
 
 const steps = [
   {
     code: '01',
     title: 'Upload your past & present files',
-    text: 'Snap paper reports via WhatsApp, upload digital PDFs, or have partner labs sync results automatically.',
+    text: 'Scan paper reports with your camera or upload digital PDFs. Doctors, clinics and labs on Orvena add theirs.',
   },
   {
     code: '02',
     title: 'Transform reports into intelligence',
-    text: 'The platform standardizes documents, indexes tests chronologically and plots biomarker progress.',
+    text: 'iView charts your key readings over time and flags anything that needs attention.',
   },
   {
     code: '03',
     title: 'Share & act with confidence',
-    text: 'Present a clear summary to any doctor in one tap, set test reminders and track loved ones proactively.',
+    text: 'Share a one-page summary with your doctor, book appointments and get reminders for follow-ups.',
   },
 ]
 
 const privacy = [
   {
     title: 'You own your data',
-    text: 'You remain the sole owner of your health records. Orvena acts strictly as an encrypted custodian.',
+    text: 'You remain the owner of your medical records. Orvena acts as custodian and facilitator.',
     icon: ShieldCheck,
   },
   {
@@ -190,9 +213,9 @@ export default function HealthOSDetails() {
             {paradigmShift.map((row, index) => (
               <Reveal key={row.id} delay={0.04 * index}>
                 {/* Cards on small screens, paired columns from md — never a wide table. */}
-                <article className="grid gap-3 md:grid-cols-2">
+                <article className="group grid gap-3 md:grid-cols-2">
                   <div className="o-card o-card--lift rounded-2xl border border-line bg-pale/50 p-4 sm:p-5">
-                    <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-muted">
+                    <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-muted">
                       The status quo
                     </p>
                     <h3 className="mt-2 text-[15px] font-semibold tracking-tight text-navy/70">
@@ -201,14 +224,23 @@ export default function HealthOSDetails() {
                     <p className="mt-1.5 text-[13px] leading-5 text-muted">{row.beforeText}</p>
                   </div>
 
-                  <div className="o-card o-card--tint o-tint-peach rounded-2xl border border-accent/20 bg-mint-soft/60 p-4 sm:p-5">
-                    <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-accent">
-                      The HealthOS standard
-                    </p>
-                    <h3 className="mt-2 text-[15px] font-semibold tracking-tight text-navy">
-                      {row.after}
-                    </h3>
-                    <p className="mt-1.5 text-[13px] leading-5 text-muted">{row.afterText}</p>
+                  <div className="relative">
+                    {/* points from the old way to the new one: down on phones, across from md */}
+                    <span
+                      aria-hidden="true"
+                      className="o-link-arrow absolute -top-[22px] left-1/2 z-10 grid h-8 w-8 -translate-x-1/2 place-items-center rounded-full border border-line bg-white text-accent/80 md:-left-[22px] md:top-1/2 md:translate-x-0 md:-translate-y-1/2"
+                    >
+                      <ArrowRight className="h-3.5 w-3.5 rotate-90 md:rotate-0" strokeWidth={1.75} />
+                    </span>
+                    <div className="o-card o-card--tint o-tint-peach h-full rounded-2xl border border-accent/20 bg-mint-soft/60 p-4 sm:p-5">
+                      <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-accent">
+                        The HealthOS standard
+                      </p>
+                      <h3 className="mt-2 text-[15px] font-semibold tracking-tight text-navy">
+                        {row.after}
+                      </h3>
+                      <p className="mt-1.5 text-[13px] leading-5 text-muted">{row.afterText}</p>
+                    </div>
                   </div>
                 </article>
               </Reveal>
@@ -239,19 +271,28 @@ export default function HealthOSDetails() {
                   className={wide ? 'lg:col-span-2' : undefined}
                 >
                   <article className="o-card o-card--spot o-tint-teal h-full rounded-[22px] border border-line bg-pale/60 p-5 hover:border-accent/30 hover:bg-white sm:rounded-[28px] sm:p-6">
-                    <div className="flex items-center gap-3">
-                      <span className="o-card-icon flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-navy text-white">
-                        <Icon className="h-4 w-4" strokeWidth={1.75} aria-hidden="true" />
-                      </span>
-                      <p className="text-[10px] font-semibold tracking-[0.18em] text-accent">
-                        {feature.code}
-                      </p>
-                    </div>
+                    <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between sm:gap-6">
+                      <div className="min-w-0">
+                        <div className="flex items-center gap-3">
+                          <span className="o-card-icon flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-navy text-white">
+                            <Icon className="h-4 w-4" strokeWidth={1.75} aria-hidden="true" />
+                          </span>
+                          <p className="text-[11px] font-semibold tracking-[0.18em] text-accent">
+                            {feature.code}
+                          </p>
+                        </div>
 
-                    <h3 className="mt-4 text-[18px] font-semibold leading-6 tracking-tight text-navy sm:text-[20px]">
-                      {feature.title}
-                    </h3>
-                    <p className="mt-2 text-[13px] leading-5 text-muted">{feature.text}</p>
+                        <h3 className="mt-4 text-[18px] font-semibold leading-6 tracking-tight text-navy sm:text-[20px]">
+                          {feature.title}
+                        </h3>
+                        <p className="mt-2 text-[13px] leading-5 text-muted">{feature.text}</p>
+                      </div>
+
+                      <Vignette
+                        name={feature.art}
+                        className="order-first shrink-0 sm:order-none sm:w-[210px]"
+                      />
+                    </div>
 
                     <ul className={`mt-4 space-y-2 ${wide ? 'lg:grid lg:grid-cols-3 lg:gap-3 lg:space-y-0' : ''}`}>
                       {feature.points.map((point) => (
@@ -269,6 +310,34 @@ export default function HealthOSDetails() {
               )
             })}
           </div>
+
+          <Reveal delay={0.08}>
+            <div className="mt-3 rounded-[22px] border border-line bg-white/70 p-5 sm:rounded-[28px] sm:p-6">
+              <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-accent">
+                Also in the app
+              </p>
+              <ul className="mt-3 flex flex-wrap gap-2">
+                {alsoInApp.map((item) => (
+                  <li
+                    key={item}
+                    className="rounded-full border border-line bg-pale/60 px-3.5 py-1.5 text-[13px] font-medium tracking-tight text-navy"
+                  >
+                    {item}
+                  </li>
+                ))}
+              </ul>
+              <p className="mt-4 border-t border-line pt-4 text-[13px] leading-6 text-muted">
+                For doctors: ClinicOS, the Orvena web app. What your doctor adds there appears in
+                your record.{' '}
+                <Link
+                  to="/technology"
+                  className="font-semibold text-navy underline-offset-2 transition-colors hover:text-accent hover:underline"
+                >
+                  See ClinicOS
+                </Link>
+              </p>
+            </div>
+          </Reveal>
         </Container>
       </SectionCard>
 
@@ -294,18 +363,10 @@ export default function HealthOSDetails() {
                 Start with the reports already in your drawer. HealthOS structures, tracks and
                 reminds from there.
               </p>
-              <div className="mt-6 flex flex-col gap-3 sm:flex-row">
-                <Button href="/contact" variant="light" className="w-full sm:w-auto">
-                  Upload first report for free
-                </Button>
-                <Button
-                  href="https://wa.me/917506543960"
-                  target="_blank"
-                  rel="noreferrer"
-                  variant="outline"
-                  className="w-full sm:w-auto"
-                >
-                  Digitize via WhatsApp
+              <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center">
+                <StoreButtons tone="dark" className="w-full sm:w-auto" />
+                <Button href="/contact" variant="outline" className="w-full sm:w-auto">
+                  Talk to an expert
                 </Button>
               </div>
             </SectionHeader>
@@ -315,7 +376,7 @@ export default function HealthOSDetails() {
             {steps.map((step, index) => (
               <Reveal key={step.code} delay={0.06 * index}>
                 <li className="o-card o-card--frame h-full rounded-[22px] border border-white/10 bg-white/4 p-5 sm:rounded-[28px] sm:p-6">
-                  <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-mint/70">
+                  <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-mint/70">
                     {step.code}
                   </p>
                   <h3 className="mt-3 text-[17px] font-semibold tracking-tight">{step.title}</h3>

@@ -115,7 +115,7 @@ export default function Mission() {
                       </span>
                       <div className="min-w-0">
                         <div className="flex items-baseline gap-2">
-                          <p className="text-[10px] font-semibold tracking-[0.18em] text-accent">
+                          <p className="text-[11px] font-semibold tracking-[0.18em] text-accent">
                             {item.code}
                           </p>
                           <h3 className="text-[16px] font-semibold tracking-tight text-navy">

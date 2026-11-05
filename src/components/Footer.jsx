@@ -65,21 +65,21 @@ export default function Footer() {
             <div className="flex flex-col gap-2 sm:flex-row sm:flex-wrap sm:items-center">
               <a
                 href="tel:+917506543960"
-                className="inline-flex min-w-0 items-center justify-center gap-2 rounded-full border border-white/15 bg-white/8 px-3.5 py-2 text-[13px] font-semibold text-white transition-colors hover:border-mint/40 hover:bg-white/12"
+                className="inline-flex min-h-11 min-w-0 items-center justify-center gap-2 rounded-full border border-white/15 bg-white/8 px-3.5 py-2 text-[13px] font-semibold text-white transition-colors hover:border-mint/40 hover:bg-white/12 lg:min-h-0"
               >
                 <Phone className="h-3.5 w-3.5 shrink-0 text-mint" />
                 24/7 +91 7506543960
               </a>
               <a
-                href="mailto:info@orvena.health"
-                className="inline-flex min-w-0 items-center justify-center gap-2 rounded-full border border-white/15 bg-white/8 px-3.5 py-2 text-[13px] font-semibold text-white transition-colors hover:border-mint/40 hover:bg-white/12"
+                href="mailto:info@orvenahealth.com"
+                className="inline-flex min-h-11 min-w-0 items-center justify-center gap-2 rounded-full border border-white/15 bg-white/8 px-3.5 py-2 text-[13px] font-semibold text-white transition-colors hover:border-mint/40 hover:bg-white/12 lg:min-h-0"
               >
                 <Mail className="h-3.5 w-3.5 shrink-0 text-mint" />
-                <span className="truncate">info@orvena.health</span>
+                <span className="truncate">info@orvenahealth.com</span>
               </a>
               <Link
                 to="/contact"
-                className="group inline-flex items-center justify-center gap-2 rounded-full bg-accent px-3.5 py-2 text-[13px] font-semibold text-white transition-colors hover:bg-accent-deep"
+                className="group inline-flex min-h-11 items-center justify-center gap-2 rounded-full bg-accent px-3.5 py-2 text-[13px] font-semibold text-white transition-colors hover:bg-accent-deep lg:min-h-0"
               >
                 Talk to an expert
                 <ArrowUpRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
@@ -93,12 +93,12 @@ export default function Footer() {
                 <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-mint/80">
                   {column.title}
                 </p>
-                <ul className="mt-2.5 space-y-1.5">
+                <ul className="mt-1 lg:mt-2.5 lg:space-y-1.5">
                   {column.links.map((link) => (
                     <li key={link.label}>
                       <Link
                         to={link.href}
-                        className="text-sm text-white/55 transition-colors hover:text-white"
+                        className="inline-block py-2 text-sm text-white/55 transition-colors hover:text-white lg:py-0"
                       >
                         {link.label}
                       </Link>
@@ -119,17 +119,7 @@ export default function Footer() {
           <div className="mt-3 flex flex-col gap-2 border-t border-white/10 pt-4 text-[12px] leading-5 text-white/40 sm:flex-row sm:items-start sm:justify-between">
             <div>
               <p>© 2026 Orvena. All rights reserved.</p>
-              <p className="mt-1">
-                A division of{' '}
-                <a
-                  href="https://credarc.in"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="text-white/70 underline-offset-2 transition-colors hover:text-white hover:underline"
-                >
-                  Credarc Technologies Pvt. Ltd.
-                </a>
-              </p>
+              <p className="mt-1 text-white/70">Orvena Lifescience Private Limited</p>
             </div>
             <div className="max-w-xl sm:text-right">
               <p>

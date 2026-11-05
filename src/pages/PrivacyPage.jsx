@@ -29,7 +29,7 @@ const sections = [
   },
   {
     title: 'Your rights',
-    body: 'Subject to applicable law you may access, correct or delete information, withdraw consent, request a copy of records and ask how your information is used. Contact info@orvena.health.',
+    body: 'Subject to applicable law you may access, correct or delete information, withdraw consent, request a copy of records and ask how your information is used. Contact info@orvenahealth.com.',
   },
   {
     title: 'Cookies, children and third-party links',
@@ -49,8 +49,8 @@ export default function PrivacyPage() {
         </h1>
         <p className="mt-2 text-sm text-muted">Last updated: June 2026</p>
         <p className="mt-6 max-w-[68ch] text-[15px] leading-7 text-muted">
-          Orvena (“we”, “our”, “us”), a division of eMediworld Life Science Pvt. Ltd., is committed
-          to protecting the privacy, confidentiality and security of your personal and health
+          Orvena Lifescience Private Limited (“Orvena”, “we”, “our”, “us”) is committed to
+          protecting the privacy, confidentiality and security of your personal and health
           information when you use our website, applications and care-coordination services.
         </p>
 
@@ -66,8 +66,8 @@ export default function PrivacyPage() {
         <div className="mt-6 rounded-[24px] bg-navy p-5 text-white sm:p-6">
           <h2 className="text-[16px] font-semibold">Contact & grievance officer</h2>
           <p className="mt-2 text-[14px] leading-7 text-white/70">
-            Privacy questions: info@orvena.health · +91 7506543960. Designated grievance officer:
-            Suraj Singh, info@orvena.health, with response within applicable legal timelines.
+            Privacy questions: info@orvenahealth.com · +91 7506543960. Designated grievance officer:
+            Suraj Singh, info@orvenahealth.com, with response within applicable legal timelines.
           </p>
         </div>
       </Container>

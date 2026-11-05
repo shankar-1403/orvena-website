@@ -3,8 +3,11 @@ import Navbar from './Navbar'
 import Footer from './Footer'
 import MobileCTA from './MobileCTA'
 import ScrollToTop from './ScrollToTop'
+import { usePointerGlow } from '../hooks/usePointerGlow'
 
 export default function Layout() {
+  usePointerGlow()
+
   return (
     <div className="min-h-svh bg-pale text-ink">
       <Navbar />

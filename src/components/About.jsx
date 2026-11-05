@@ -7,6 +7,7 @@ import Container from './ui/Container'
 import Eyebrow from './ui/Eyebrow'
 import Reveal from './ui/Reveal'
 import SectionCard from './ui/SectionCard'
+import Vignette from './ui/Vignette'
 
 const roles = [
   {
@@ -51,26 +52,31 @@ const focusAreas = [
     code: '01',
     title: 'Longitudinal health intelligence',
     text: 'Lab PDFs become chronological biomarker trajectories — HbA1c, lipids, creatinine — so risk shifts surface early.',
+    art: 'trend',
   },
   {
     code: '02',
     title: 'Unified clinical continuity',
     text: 'OPD, inpatient and home care connected, so medical histories follow the patient.',
+    art: 'continuity',
   },
   {
     code: '03',
     title: 'Enterprise preventive framework',
     text: 'Workforce wellness on a measurable 5-stage engine: assess, engage, prevent, intervene, track.',
+    art: 'stages',
   },
   {
     code: '04',
-    title: 'National digital interoperability',
-    text: 'ABDM and FHIR standards for unified health IDs, consent architecture and secure cross-network sharing.',
+    title: 'One health identity',
+    text: 'An Orvena Health ID you can show at clinics, with consent-led sharing of your records.',
+    art: 'interop',
   },
   {
     code: '05',
     title: 'Global care coordination',
-    text: 'Remote monitoring for aging parents, plus gatekeeping for medical value tourism and second opinions.',
+    text: 'Coordinated medical value tourism and multi-disciplinary second opinions across borders.',
+    art: 'tourism',
   },
 ]
 
@@ -127,18 +133,24 @@ export default function About() {
             </div>
 
             <ul className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-5">
-              {focusAreas.map((area) => (
+              {focusAreas.map((area, i) => (
                 <li
                   key={area.code}
-                  className="o-card o-card--tint o-tint-teal rounded-2xl border border-line bg-pale/60 p-4 hover:border-accent/30 hover:bg-white"
+                  // the cards alternate: peach, then soft grey
+                  className={`o-card o-card--tint o-tint-teal rounded-2xl border p-3 pb-4 ${
+                    i % 2 === 0
+                      ? 'border-accent/20 bg-mint-soft/60 hover:border-accent/35 hover:bg-mint-soft/85'
+                      : 'border-line bg-pale/60 hover:border-accent/30 hover:bg-white'
+                  }`}
                 >
-                  <p className="text-[10px] font-semibold tracking-[0.18em] text-accent">
+                  <Vignette name={area.art} className="mb-3" />
+                  <p className="px-1 text-[11px] font-semibold tracking-[0.18em] text-accent">
                     {area.code}
                   </p>
-                  <h2 className="mt-2 text-[14px] font-semibold leading-5 tracking-tight text-navy">
+                  <h2 className="mt-2 px-1 text-[14px] font-semibold leading-5 tracking-tight text-navy">
                     {area.title}
                   </h2>
-                  <p className="mt-1.5 text-[13px] leading-5 text-muted">{area.text}</p>
+                  <p className="mt-1.5 px-1 text-[13px] leading-5 text-muted">{area.text}</p>
                 </li>
               ))}
             </ul>
@@ -207,7 +219,7 @@ export default function About() {
                 </p>
                 <Link
                   to="/health-os"
-                  className="group inline-flex items-center gap-1.5 text-[12px] font-semibold text-navy transition-colors hover:text-accent"
+                  className="group -my-2.5 inline-flex items-center gap-1.5 py-2.5 text-[12px] font-semibold text-navy transition-colors hover:text-accent"
                 >
                   Discover Orvena
                   <ArrowUpRight className="h-3.5 w-3.5 rounded-full bg-mint-soft p-0.5 text-accent transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
@@ -247,7 +259,7 @@ export default function About() {
                     <span className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-accent text-white">
                       <ActiveIcon className="h-4 w-4" strokeWidth={1.75} />
                     </span>
-                    <span className="rounded-full bg-white/15 px-2.5 py-1 text-[10px] font-semibold tracking-[0.16em] text-white backdrop-blur-sm">
+                    <span className="rounded-full bg-white/15 px-2.5 py-1 text-[11px] font-semibold tracking-[0.16em] text-white backdrop-blur-sm">
                       {String(index + 1).padStart(2, '0')} · {active.word}
                     </span>
                   </div>

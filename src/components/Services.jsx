@@ -31,6 +31,7 @@ export default function Services() {
         <Reveal>
           <SectionHeader
             eyebrow="Services"
+            as="h1"
             title="Healthcare Designed Around Your Journey."
             description="From second opinions and treatment journeys to workforce wellness, disease reversal and health technology, Orvena connects every step."
           />

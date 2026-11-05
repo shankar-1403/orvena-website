@@ -115,7 +115,7 @@ export default function Vision() {
                       </span>
                       <div className="min-w-0">
                         <div className="flex items-baseline gap-2">
-                          <p className="text-[10px] font-semibold tracking-[0.18em] text-accent">
+                          <p className="text-[11px] font-semibold tracking-[0.18em] text-accent">
                             {item.code}
                           </p>
                           <h3 className="text-[16px] font-semibold tracking-tight text-navy">
@@ -142,7 +142,7 @@ export default function Vision() {
               'Global reach with local expertise',
             ].map((item, index) => (
               <article key={item} className="o-card o-card--rule rounded-2xl border border-line bg-white p-4">
-                <p className="text-[10px] font-semibold tracking-[0.18em] text-accent">
+                <p className="text-[11px] font-semibold tracking-[0.18em] text-accent">
                   {String(index + 1).padStart(2, '0')}
                 </p>
                 <p className="mt-2 text-[13px] font-semibold leading-5 text-navy">{item}</p>

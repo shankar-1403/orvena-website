@@ -4,6 +4,9 @@ export function useCountUp(end, { duration = 1600, startOnView = true } = {}) {
   const ref = useRef(null)
   const [value, setValue] = useState(0)
   const [started, setStarted] = useState(!startOnView)
+  // No counting for people who ask for reduced motion: they get the final number at once
+  const reduce =
+    typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches
 
   useEffect(() => {
     if (!startOnView) return undefined
@@ -22,7 +25,7 @@ export function useCountUp(end, { duration = 1600, startOnView = true } = {}) {
   }, [startOnView])
 
   useEffect(() => {
-    if (!started) return undefined
+    if (!started || reduce) return undefined
     const start = performance.now()
     let frame
 
@@ -35,7 +38,7 @@ export function useCountUp(end, { duration = 1600, startOnView = true } = {}) {
 
     frame = requestAnimationFrame(tick)
     return () => cancelAnimationFrame(frame)
-  }, [started, end, duration])
+  }, [started, end, duration, reduce])
 
-  return { ref, value }
+  return { ref, value: reduce ? end : value }
 }

@@ -120,6 +120,13 @@ body {
 }
 
 
+/* The glow's strength is a registered number so it can fade in and out. */
+@property --o-glow {
+  syntax: '<number>';
+  inherits: false;
+  initial-value: 0;
+}
+
 /* ── Card system ───────────────────────────────────────────────────────────
    A shared base (elevation + timing) plus five distinct hover personalities.
    Sections pick a variant so no two card grids on the site behave alike.
@@ -129,11 +136,24 @@ body {
   isolation: isolate;
   overflow: hidden;
   --o-tint: rgba(232, 120, 58, 0.14);
+  /* a soft light that follows the pointer (--mx / --my set by usePointerGlow) */
+  background-image: radial-gradient(
+    340px circle at var(--mx, 50%) var(--my, 0%),
+    rgb(232 120 58 / calc(var(--o-glow) * 0.07)),
+    transparent 75%
+  );
   transition:
     transform 0.45s cubic-bezier(0.22, 1, 0.36, 1),
     box-shadow 0.45s cubic-bezier(0.22, 1, 0.36, 1),
     border-color 0.35s ease,
-    background-color 0.35s ease;
+    background-color 0.35s ease,
+    --o-glow 0.6s ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .o-card:hover {
+    --o-glow: 1;
+  }
 }
 
 /* decoration sits behind the content */
@@ -144,8 +164,8 @@ body {
 
 .o-card:hover,
 .o-card:focus-within {
-  transform: translateY(-4px);
-  box-shadow: 0 28px 50px -24px rgba(11, 65, 86, 0.3);
+  transform: translateY(-3px);
+  box-shadow: 0 24px 48px -28px rgba(11, 65, 86, 0.26);
 }
 
 .o-card-icon {
@@ -153,7 +173,7 @@ body {
 }
 
 .o-card:hover .o-card-icon {
-  transform: translateY(-2px) scale(1.07);
+  transform: translateY(-1px) scale(1.04);
 }
 
 /* soft tints */
@@ -181,9 +201,9 @@ body {
   top: -20%;
   bottom: -20%;
   width: 45%;
-  background: linear-gradient(100deg, transparent, rgba(255, 255, 255, 0.5), transparent);
+  background: linear-gradient(100deg, transparent, rgba(255, 255, 255, 0.32), transparent);
   transform: translateX(-180%) skewX(-12deg);
-  transition: transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+  transition: transform 1.2s cubic-bezier(0.22, 1, 0.36, 1);
   pointer-events: none;
   z-index: 2;
 }
@@ -206,7 +226,7 @@ body {
 }
 
 .o-card--rule:hover,
-.o-card--rule:focus-within { transform: translateY(-2px) translateX(4px); }
+.o-card--rule:focus-within { transform: translateY(-2px) translateX(2px); }
 .o-card--rule:hover::before,
 .o-card--rule:focus-within::before { transform: scaleY(1); }
 
@@ -270,7 +290,110 @@ body {
 .o-card--lift:hover,
 .o-card--lift:focus-within { box-shadow: 0 22px 44px -22px rgba(11, 65, 86, 0.26); }
 
+/* ── Plate — a soft, flat second layer set behind a card ───────────────────
+   The "clay" look from the second-opinion document: the card sits on a quiet
+   offset plate instead of a blurred shadow. Use sparingly, on one hero card
+   per section. Size with --plate-x / --plate-y; .o-plate-sm for small cards. */
+.o-plate {
+  --plate-x: 8px;
+  --plate-y: 12px;
+  box-shadow:
+    var(--plate-x) var(--plate-y) 0 0 rgb(11 65 86 / 0.09),
+    0 26px 48px -28px rgb(11 65 86 / 0.24);
+}
+
+.o-plate-sm {
+  --plate-x: 6px;
+  --plate-y: 8px;
+}
+
+@media (min-width: 640px) {
+  .o-plate {
+    --plate-x: 14px;
+    --plate-y: 20px;
+  }
+
+  .o-plate-sm {
+    --plate-x: 8px;
+    --plate-y: 10px;
+  }
+}
+
+/* ── Why Orvena — the four emblems (components/WhyOrvena.jsx) ────────────────
+   Each emblem does one small thing while its card is hovered. The origins are
+   in the emblem's own 64 × 64 drawing units.                                 */
+.why-turn,
+.why-notch,
+.why-halo,
+.why-slip {
+  transition: transform 0.8s cubic-bezier(0.32, 0.72, 0, 1);
+}
+
+.why-turn { transform-origin: 32px 29px; }
+.why-notch { transform-origin: 32px 32px; }
+.why-halo { transform-origin: 45px 43px; }
+
+@media (hover: hover) and (pointer: fine) {
+  .why-card:hover .why-turn { transform: rotate(45deg); }
+  .why-card:hover .why-notch { transform: rotate(30deg); }
+  .why-card:hover .why-halo { transform: scale(1.22); }
+  .why-card:hover .why-slip { transform: translateY(-2px); }
+}
+
 @media (prefers-reduced-motion: reduce) {
+  .why-turn,
+  .why-notch,
+  .why-halo,
+  .why-slip {
+    transition: none;
+  }
+
+  .why-card:hover .why-turn,
+  .why-card:hover .why-notch,
+  .why-card:hover .why-halo,
+  .why-card:hover .why-slip {
+    transform: none;
+  }
+}
+
+/* a plated card keeps its plate while hovered (the .o-card hover shadow would replace it) */
+.o-card.o-plate:hover,
+.o-card.o-plate:focus-within {
+  box-shadow:
+    calc(var(--plate-x) + 2px) calc(var(--plate-y) + 3px) 0 0 rgb(11 65 86 / 0.1),
+    0 28px 50px -28px rgb(11 65 86 / 0.28);
+}
+
+/* ── Vignettes — the small illustrations inside cards (ui/Vignette.jsx) ─────
+   They ease in once on scroll and then stay still. Hover is a 2px lift.       */
+.vg svg {
+  transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.o-card:hover .vg svg,
+.o-card:focus-within .vg svg {
+  transform: translateY(-2px);
+}
+
+/* a connector that points from one card to the next */
+.o-link-arrow {
+  transition: border-color 0.35s ease;
+}
+
+.group:hover .o-link-arrow {
+  border-color: rgba(217, 95, 20, 0.4);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .vg svg {
+    transition: none;
+  }
+
+  .o-card:hover .vg svg,
+  .o-card:focus-within .vg svg {
+    transform: none;
+  }
+
   .o-card,
   .o-card::before,
   .o-card::after,

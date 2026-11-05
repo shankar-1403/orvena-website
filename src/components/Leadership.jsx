@@ -3,6 +3,14 @@ import Eyebrow from './ui/Eyebrow'
 import Reveal from './ui/Reveal'
 import SectionCard from './ui/SectionCard'
 
+// 'Suraj Singh' -> 'SS'
+const initials = (name) =>
+  name
+    .split(' ')
+    .map((word) => word[0])
+    .slice(0, 2)
+    .join('')
+
 const groups = [
   {
     id: 'strategic',
@@ -58,10 +66,16 @@ export default function Leadership() {
                   {group.people.map((name, index) => (
                     <li
                       key={name}
-                      className="o-card o-card--frame flex items-center gap-3 rounded-2xl bg-white px-4 py-3 shadow-card"
+                      className="o-card o-card--frame flex items-center gap-3 rounded-2xl bg-white px-4 py-3 shadow-card lg:gap-2.5 lg:px-3 xl:gap-3 xl:px-4"
                     >
-                      <span className="text-[10px] font-semibold tracking-[0.18em] text-navy/35">
+                      <span className="text-[11px] font-semibold tracking-[0.18em] text-navy/35 lg:hidden xl:inline">
                         {String(index + 1).padStart(2, '0')}
+                      </span>
+                      <span
+                        aria-hidden="true"
+                        className="o-card-icon grid h-8 w-8 shrink-0 place-items-center rounded-full bg-navy text-[11px] font-bold tracking-wide text-white"
+                      >
+                        {initials(name)}
                       </span>
                       <p className="min-w-0 truncate text-[14px] font-semibold tracking-tight text-navy">
                         {name}

@@ -12,6 +12,15 @@ const variants = {
   outline: 'border border-white/25 bg-white/5 text-white hover:bg-white/12',
 }
 
+// The small circle the arrow sits in, per variant
+const arrowWell = {
+  primary: 'bg-white/20',
+  secondary: 'bg-navy/6 group-hover:bg-accent/12',
+  ghost: 'bg-transparent',
+  light: 'bg-navy/8 group-hover:bg-accent/15',
+  outline: 'bg-white/12',
+}
+
 function isInternal(href) {
   return typeof href === 'string' && href.startsWith('/')
 }
@@ -41,10 +50,15 @@ export default function Button({
     >
       <span className="relative z-10">{children}</span>
       {showArrow ? (
-        <ArrowRight
-          className="relative z-10 h-4 w-4 transition-transform duration-300 group-hover:translate-x-1"
+        <span
           aria-hidden="true"
-        />
+          className={`relative z-10 -my-1 -mr-2 grid h-7 w-7 shrink-0 place-items-center rounded-full transition-[transform,background-color] duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:translate-x-0.5 sm:-mr-2.5 ${arrowWell[variant]}`}
+        >
+          <ArrowRight
+            className="h-3.5 w-3.5 transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:translate-x-0.5"
+            strokeWidth={1.75}
+          />
+        </span>
       ) : null}
     </Comp>
   )

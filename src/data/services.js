@@ -87,7 +87,7 @@ export const services = [
       'CGM and dedicated diabetologist support',
       'Custom diet plans with regular modifications',
       'Weekly one-to-one expert consultations',
-      'Unlimited WhatsApp support in working hours',
+      'Unlimited support in working hours',
       'Digital health dashboard and tracking',
     ],
     audience: ['Diabetes', 'Hypertension', 'Obesity', 'Cholesterol', 'Fatty liver'],
@@ -173,4 +173,8 @@ export const stats = [
   { value: 95, suffix: '%', label: 'Satisfaction Rate' },
 ]
 
-export const loginUrl = 'https://secure.abchealth.in'
+// ClinicOS — the Orvena web app for doctors
+export const loginUrl = 'https://clinicos.orvenahealth.com/'
+
+// The Orvena Health patient app (HealthOS) on Google Play
+export const appUrl = 'https://play.google.com/store/apps/details?id=health.orvena.patient'
