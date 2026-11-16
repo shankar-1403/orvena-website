@@ -46,7 +46,7 @@ const item = {
 }
 
 const CHIPS = [
-  [Hash, 'HB-6661001'],
+  [Hash, 'HB-XXXXXXX'],
   [User, '53.5 yrs'],
   [Users, 'Male'],
   [Droplet, 'B+ve'],

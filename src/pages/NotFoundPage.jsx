@@ -5,7 +5,7 @@ import SectionCard from '../components/ui/SectionCard'
 import { usePageTitle } from '../hooks/usePageTitle'
 
 export default function NotFoundPage() {
-  usePageTitle('Page not found — Orvena')
+  usePageTitle('Page not found | Orvena')
 
   return (
     <SectionCard className="bg-white py-12 sm:py-16 lg:py-24">
@@ -25,8 +25,8 @@ export default function NotFoundPage() {
         </div>
         <p className="mt-6 text-sm text-muted">
           Or browse{' '}
-          <Link to="/services" className="font-semibold text-navy underline-offset-2 hover:underline">
-            services
+          <Link to="/healthos" className="font-semibold text-navy underline-offset-2 hover:underline">
+            HealthOS
           </Link>
           .
         </p>

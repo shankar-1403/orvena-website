@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react'
 import { NavLink } from 'react-router-dom'
 import { AnimatePresence, motion } from 'framer-motion'
-import { Menu, Phone, X } from 'lucide-react'
-import { navLinks, loginUrl } from '../data/services'
+import { ArrowUpRight, Menu, X } from 'lucide-react'
+import { healthosWebUrl, navLinks } from '../data/site'
 import Container from './ui/Container'
 import Logo from './ui/Logo'
 
@@ -88,20 +88,16 @@ export default function Navbar() {
 
           <div className="hidden items-center gap-4 lg:flex">
             <a
-              href="tel:+917506543960"
-              className="inline-flex items-center gap-2 text-[13px] font-semibold text-navy transition-colors hover:text-accent"
-            >
-              <Phone className="h-3.5 w-3.5 text-accent" aria-hidden="true" />
-              <span className="hidden xl:inline">+91 7506543960</span>
-              <span className="xl:hidden">Contact Us</span>
-            </a>
-            <a
-              href={loginUrl}
+              href={healthosWebUrl}
               target="_blank"
               rel="noreferrer"
-              className="text-[13px] font-semibold text-navy transition-colors hover:text-accent"
+              className="group inline-flex items-center gap-1.5 rounded-full bg-accent px-4 py-2 text-[13px] font-semibold text-white shadow-soft transition-colors hover:bg-accent-deep"
             >
-              Login
+              Open HealthOS
+              <ArrowUpRight
+                className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                aria-hidden="true"
+              />
             </a>
           </div>
 
@@ -155,20 +151,20 @@ export default function Navbar() {
                   </NavLink>
                 </motion.div>
               ))}
-              <a
-                href="tel:+917506543960"
-                className="mt-8 text-center text-sm font-medium text-mint"
-              >
-                24/7 +91 7506543960
-              </a>
-              <a
-                href={loginUrl}
-                target="_blank"
-                rel="noreferrer"
-                className="mt-4 text-center text-sm font-semibold text-white"
-              >
-                Login / Sign-Up
-              </a>
+              <div className="mt-8">
+                <a
+                  href={healthosWebUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  onClick={() => setOpen(false)}
+                  className="flex h-12 items-center justify-center gap-2 rounded-full bg-accent text-sm font-semibold text-white"
+                >
+                  Open HealthOS
+                  <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
+                </a>
+              </div>
+              {/* Phone number hidden on request.
+              <a href="tel:...">24/7 phone</a> */}
             </nav>
           </motion.div>
         ) : null}

@@ -25,7 +25,7 @@ const sections = [
   },
   {
     title: 'Security and retention',
-    body: 'We use encryption in transit, secure cloud infrastructure, access controls, authentication and restricted employee access. No system is perfectly secure. We retain data only as needed to provide services, meet legal obligations, resolve disputes and enforce agreements. Valid deletion requests are honoured unless law requires retention.',
+    body: 'We use encryption in transit, secure cloud infrastructure, access controls, authentication and restricted employee access. No system is perfectly secure. We retain data only as needed to provide services, meet legal obligations, resolve disputes and enforce agreements. Valid deletion requests are honored unless law requires retention.',
   },
   {
     title: 'Your rights',
@@ -33,12 +33,12 @@ const sections = [
   },
   {
     title: 'Cookies, children and third-party links',
-    body: 'Cookies may be used to improve experience and analyse traffic; you can disable them in your browser. Services are not intended for children without required parental consent. We are not responsible for third-party sites linked from our platform.',
+    body: 'Cookies may be used to improve experience and analyze traffic; you can disable them in your browser. Services are not intended for children without required parental consent. We are not responsible for third-party sites linked from our platform.',
   },
 ]
 
 export default function PrivacyPage() {
-  usePageTitle('Privacy Policy — Orvena')
+  usePageTitle('Privacy Policy | Orvena')
 
   return (
     <SectionCard className="bg-white py-12 sm:py-16 lg:py-24">
@@ -66,7 +66,7 @@ export default function PrivacyPage() {
         <div className="mt-6 rounded-[24px] bg-navy p-5 text-white sm:p-6">
           <h2 className="text-[16px] font-semibold">Contact & grievance officer</h2>
           <p className="mt-2 text-[14px] leading-7 text-white/70">
-            Privacy questions: info@orvenahealth.com · +91 7506543960. Designated grievance officer:
+            Privacy questions: info@orvenahealth.com. Designated grievance officer:
             Suraj Singh, info@orvenahealth.com, with response within applicable legal timelines.
           </p>
         </div>

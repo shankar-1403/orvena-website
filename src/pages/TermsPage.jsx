@@ -13,7 +13,7 @@ const sections = [
   },
   {
     title: 'Second opinions',
-    body: 'Opinions are based on records you provide. Orvena does not guarantee diagnosis accuracy or clinical outcomes. This is not an emergency service — in an emergency call local services or go to the nearest hospital. The final decision remains between you and your treating doctor. Most physicians welcome additional insight; many insurers cover second opinions for major surgery and we can provide itemized receipts.',
+    body: 'Opinions are based on records you provide. Orvena does not guarantee diagnosis accuracy or clinical outcomes. This is not an emergency service. In an emergency, call local services or go to the nearest hospital. The final decision remains between you and your treating doctor. Most physicians welcome additional insight; many insurers cover second opinions for major surgery and we can provide itemized receipts.',
   },
   {
     title: 'Medical records',
@@ -25,7 +25,7 @@ const sections = [
   },
   {
     title: 'Disease reversal & corporate wellness',
-    body: 'Lifestyle programs are educational and supportive — not guaranteed cures and not a substitute for medical treatment. Consult your physician before changing diet, exercise or medication. Corporate programs protect participant confidentiality; aggregated insights may be shared with an organization without identifying health data unless authorized.',
+    body: 'Lifestyle programs are educational and supportive. They are not guaranteed cures and not a substitute for medical treatment. Consult your physician before changing diet, exercise or medication. Corporate programs protect participant confidentiality; aggregated insights may be shared with an organization without identifying health data unless authorized.',
   },
   {
     title: 'Fees and refunds',
@@ -38,7 +38,7 @@ const sections = [
 ]
 
 export default function TermsPage() {
-  usePageTitle('Terms of Use — Orvena')
+  usePageTitle('Terms of Use | Orvena')
 
   return (
     <SectionCard className="bg-white py-12 sm:py-16 lg:py-24">
@@ -65,7 +65,7 @@ export default function TermsPage() {
         <div className="mt-6 rounded-[24px] bg-navy p-5 text-white sm:p-6">
           <h2 className="text-[16px] font-semibold">Contact</h2>
           <p className="mt-2 text-[14px] leading-7 text-white/70">
-            Questions: info@orvenahealth.com · +91 7506543960. Submitting forms or records means you
+            Questions: info@orvenahealth.com. Submitting forms or records means you
             have read and agreed to these terms.
           </p>
         </div>

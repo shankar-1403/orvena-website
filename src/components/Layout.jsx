@@ -1,7 +1,6 @@
 import { Outlet } from 'react-router-dom'
 import Navbar from './Navbar'
 import Footer from './Footer'
-import MobileCTA from './MobileCTA'
 import ScrollToTop from './ScrollToTop'
 import { usePointerGlow } from '../hooks/usePointerGlow'
 
@@ -17,7 +16,6 @@ export default function Layout() {
         </main>
         <Footer />
       </div>
-      <MobileCTA />
       <ScrollToTop />
     </div>
   )

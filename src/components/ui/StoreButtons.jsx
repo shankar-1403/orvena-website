@@ -1,10 +1,10 @@
-import { appUrl } from '../../data/services'
+import { appUrl } from '../../data/site'
 
 /**
  * Where to get the Orvena Health app: Google Play (live) and the App Store (not
  * released yet, so it is shown as "coming soon" and is not a link).
  *
- * When the iOS app ships: add its URL to data/services.js and turn the second
+ * When the iOS app ships: add its URL to data/site.js and turn the second
  * item into a link like the first.
  */
 

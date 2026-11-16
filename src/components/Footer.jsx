@@ -1,41 +1,9 @@
-import { ArrowUpRight, Mail, Phone } from 'lucide-react'
+import { ArrowUpRight, Lock, Mail, ShieldCheck } from 'lucide-react'
 import { Link } from 'react-router-dom'
+import { contact, footerColumns } from '../data/site'
 import Logo from './ui/Logo'
 import Container from './ui/Container'
 import SectionCard from './ui/SectionCard'
-
-const columns = [
-  {
-    title: 'Company',
-    links: [
-      { label: 'About', href: '/about' },
-      { label: 'Mission', href: '/about#mission' },
-      { label: 'Vision', href: '/about#vision' },
-      { label: 'Contact', href: '/contact' },
-      { label: 'Privacy Policy', href: '/privacy' },
-      { label: 'Terms of Use', href: '/terms' },
-    ],
-  },
-  {
-    title: 'Services',
-    links: [
-      { label: 'Medical Second Opinion', href: '/services/second-opinion' },
-      { label: 'Medical Tourism', href: '/services/medical-tourism' },
-      { label: 'Disease Reversal', href: '/services/disease-reversal' },
-      { label: 'Corporate Wellness', href: '/services/corporate-wellness' },
-    ],
-  },
-  {
-    title: 'Technology',
-    links: [
-      { label: 'HealthOS', href: '/health-os' },
-      { label: 'ClinicOS', href: '/technology' },
-      { label: 'HospitalOS', href: '/technology' },
-      { label: 'LabOS', href: '/technology' },
-      { label: 'FWA', href: '/technology' },
-    ],
-  },
-]
 
 export default function Footer() {
   return (
@@ -57,25 +25,34 @@ export default function Footer() {
                 <Logo />
               </div>
               <p className="mt-3 max-w-[34ch] text-sm leading-6 text-white/60">
-                Integrated digital healthcare — disease reversal, second opinions, medical tourism
-                and smart health technology.
+                One connected health record for patients, doctors and clinics. HealthOS, ClinicOS and
+                Disease Reversal.
               </p>
+              <div className="mt-3 flex flex-wrap gap-2">
+                {[
+                  [ShieldCheck, 'HIPAA Compliant'],
+                  [Lock, 'DPDP Compliant'],
+                ].map(([Icon, text]) => (
+                  <span
+                    key={text}
+                    className="inline-flex items-center gap-1.5 rounded-full border border-white/15 px-2.5 py-1 text-[11px] font-medium text-white/70"
+                  >
+                    <Icon className="h-3 w-3 text-mint" aria-hidden="true" />
+                    {text}
+                  </span>
+                ))}
+              </div>
             </div>
 
             <div className="flex flex-col gap-2 sm:flex-row sm:flex-wrap sm:items-center">
+              {/* Phone number hidden on request.
+              <a href={contact.phoneHref}>24/7 {contact.phone}</a> */}
               <a
-                href="tel:+917506543960"
-                className="inline-flex min-h-11 min-w-0 items-center justify-center gap-2 rounded-full border border-white/15 bg-white/8 px-3.5 py-2 text-[13px] font-semibold text-white transition-colors hover:border-mint/40 hover:bg-white/12 lg:min-h-0"
-              >
-                <Phone className="h-3.5 w-3.5 shrink-0 text-mint" />
-                24/7 +91 7506543960
-              </a>
-              <a
-                href="mailto:info@orvenahealth.com"
+                href={`mailto:${contact.email}`}
                 className="inline-flex min-h-11 min-w-0 items-center justify-center gap-2 rounded-full border border-white/15 bg-white/8 px-3.5 py-2 text-[13px] font-semibold text-white transition-colors hover:border-mint/40 hover:bg-white/12 lg:min-h-0"
               >
                 <Mail className="h-3.5 w-3.5 shrink-0 text-mint" />
-                <span className="truncate">info@orvenahealth.com</span>
+                <span className="truncate">{contact.email}</span>
               </a>
               <Link
                 to="/contact"
@@ -88,7 +65,7 @@ export default function Footer() {
           </div>
 
           <div className="grid gap-6 py-5 sm:grid-cols-2 md:grid-cols-3">
-            {columns.map((column) => (
+            {footerColumns.map((column) => (
               <div key={column.title}>
                 <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-mint/80">
                   {column.title}
@@ -96,12 +73,23 @@ export default function Footer() {
                 <ul className="mt-1 lg:mt-2.5 lg:space-y-1.5">
                   {column.links.map((link) => (
                     <li key={link.label}>
-                      <Link
-                        to={link.href}
-                        className="inline-block py-2 text-sm text-white/55 transition-colors hover:text-white lg:py-0"
-                      >
-                        {link.label}
-                      </Link>
+                      {link.external ? (
+                        <a
+                          href={link.href}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="inline-block py-2 text-sm text-white/55 transition-colors hover:text-white lg:py-0"
+                        >
+                          {link.label}
+                        </a>
+                      ) : (
+                        <Link
+                          to={link.href}
+                          className="inline-block py-2 text-sm text-white/55 transition-colors hover:text-white lg:py-0"
+                        >
+                          {link.label}
+                        </Link>
+                      )}
                     </li>
                   ))}
                 </ul>
@@ -118,8 +106,18 @@ export default function Footer() {
 
           <div className="mt-3 flex flex-col gap-2 border-t border-white/10 pt-4 text-[12px] leading-5 text-white/40 sm:flex-row sm:items-start sm:justify-between">
             <div>
-              <p>© 2026 Orvena. All rights reserved.</p>
-              <p className="mt-1 text-white/70">Orvena Lifescience Private Limited</p>
+              <p>© {new Date().getFullYear()} Orvena Health. All rights reserved.</p>
+              <p className="mt-1 text-white/70">
+                A subsidiary of{' '}
+                <a
+                  href="https://credarc.in"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="font-semibold text-mint underline underline-offset-2 transition-colors hover:text-white"
+                >
+                  CredArc Technologies Pvt Ltd
+                </a>
+              </p>
             </div>
             <div className="max-w-xl sm:text-right">
               <p>
@@ -131,7 +129,7 @@ export default function Footer() {
               <p className="mt-1">
                 Guidance on this site does not replace a physician’s clinical judgment.{' '}
                 <Link to="/terms" className="text-white/70 underline-offset-2 hover:text-white hover:underline">
-                  Terms of Use
+                  Terms &amp; Conditions
                 </Link>
               </p>
             </div>
