@@ -1,0 +1,49 @@
+{
+  "rules": {
+    "enquiries": {
+      ".read": "auth != null && root.child('admins').child(auth.uid).val() === true",
+      ".indexOn": [
+        "createdAt"
+      ],
+      "$id": {
+        ".write": "(!data.exists() && newData.exists()) || (auth != null && root.child('admins').child(auth.uid).val() === true)",
+        ".validate": "newData.hasChildren(['name', 'email', 'mobile', 'topic', 'message', 'status', 'source', 'createdAt'])",
+        "name": {
+          ".validate": "newData.isString() && newData.val().length > 0 && newData.val().length <= 120"
+        },
+        "email": {
+          ".validate": "newData.isString() && newData.val().length <= 200 && newData.val().matches(/^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$/)"
+        },
+        "mobile": {
+          ".validate": "newData.isString() && newData.val().length <= 20"
+        },
+        "topic": {
+          ".validate": "newData.val() === 'healthos' || newData.val() === 'clinicos' || newData.val() === 'reversal' || newData.val() === 'other'"
+        },
+        "condition": {
+          ".validate": "newData.isString() && newData.val().length <= 100"
+        },
+        "message": {
+          ".validate": "newData.isString() && newData.val().length <= 4000"
+        },
+        "source": {
+          ".validate": "newData.isString() && newData.val().length <= 200"
+        },
+        "status": {
+          ".validate": "(!data.exists() && newData.val() === 'new') || (data.exists() && (newData.val() === 'new' || newData.val() === 'read' || newData.val() === 'handled'))"
+        },
+        "createdAt": {
+          ".validate": "newData.isNumber() && (data.exists() ? newData.val() === data.val() : newData.val() <= now)"
+        },
+        "$other": {
+          ".validate": false
+        }
+      }
+    },
+    "admins": {
+      "$uid": {
+        ".read": "auth != null && auth.uid === $uid"
+      }
+    }
+  }
+}

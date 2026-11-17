@@ -89,7 +89,7 @@ function InfoRow({ icon: Icon, label, value, href }) {
 }
 
 /**
- * The contact form. It validates, then saves the enquiry to Firestore, where admins
+ * The contact form. It validates, then saves the enquiry to the Firebase Realtime Database, where admins
  * see it in the dashboard at /admin.
  */
 export default function Contact() {

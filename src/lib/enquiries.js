@@ -23,8 +23,8 @@ async function firebase() {
 /** Saves a contact-form enquiry. Anyone can do this; only admins can read them back. */
 export async function submitEnquiry({ name, email, mobile, topic, condition, message }) {
   const { db } = await firebase()
-  const { addDoc, collection, serverTimestamp } = await import('firebase/firestore')
-  await addDoc(collection(db, 'enquiries'), {
+  const { push, ref, serverTimestamp } = await import('firebase/database')
+  await push(ref(db, 'enquiries'), {
     name: name.trim().slice(0, 120),
     email: email.trim().slice(0, 200),
     mobile: mobile.trim().slice(0, 20),
@@ -40,30 +40,31 @@ export async function submitEnquiry({ name, email, mobile, topic, condition, mes
 /** Live list of enquiries, newest first. Returns an unsubscribe function. */
 export async function watchEnquiries(onData, onError) {
   const { db } = await firebase()
-  const { collection, onSnapshot, orderBy, query } = await import('firebase/firestore')
-  return onSnapshot(
-    query(collection(db, 'enquiries'), orderBy('createdAt', 'desc')),
-    (snap) =>
-      onData(
-        snap.docs.map((d) => {
-          const data = d.data()
-          return { id: d.id, ...data, createdAt: data.createdAt?.toDate?.() ?? null }
-        }),
-      ),
+  const { onValue, orderByChild, query, ref } = await import('firebase/database')
+  return onValue(
+    query(ref(db, 'enquiries'), orderByChild('createdAt')),
+    (snap) => {
+      const rows = []
+      snap.forEach((child) => {
+        const data = child.val()
+        rows.push({ id: child.key, ...data, createdAt: data.createdAt ? new Date(data.createdAt) : null })
+      })
+      onData(rows.reverse())
+    },
     onError,
   )
 }
 
 export async function setEnquiryStatus(id, status) {
   const { db } = await firebase()
-  const { doc, updateDoc } = await import('firebase/firestore')
-  await updateDoc(doc(db, 'enquiries', id), { status })
+  const { ref, update } = await import('firebase/database')
+  await update(ref(db, `enquiries/${id}`), { status })
 }
 
 export async function deleteEnquiry(id) {
   const { db } = await firebase()
-  const { deleteDoc, doc } = await import('firebase/firestore')
-  await deleteDoc(doc(db, 'enquiries', id))
+  const { ref, remove } = await import('firebase/database')
+  await remove(ref(db, `enquiries/${id}`))
 }
 
 /* ---------- admin sign-in ---------- */
@@ -84,12 +85,12 @@ export async function signOutAdmin() {
 export async function watchAdmin(callback) {
   const { auth, db } = await firebase()
   const { onAuthStateChanged } = await import('firebase/auth')
-  const { doc, getDoc } = await import('firebase/firestore')
+  const { get, ref } = await import('firebase/database')
   return onAuthStateChanged(auth, async (user) => {
     if (!user) return callback({ user: null, isAdmin: false })
     try {
-      const snap = await getDoc(doc(db, 'admins', user.uid))
-      callback({ user, isAdmin: snap.exists() })
+      const snap = await get(ref(db, `admins/${user.uid}`))
+      callback({ user, isAdmin: snap.val() === true })
     } catch {
       callback({ user, isAdmin: false })
     }
