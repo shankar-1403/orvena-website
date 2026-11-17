@@ -76,7 +76,7 @@ export function JourneyRail({ items }) {
 /* ---------- Numbers: a dark band with count-up figures ---------- */
 
 function CountUp({ value }) {
-  // animate the leading number ("4,000" of "4,000+", "2" of "2 hours"), keep the rest as is
+  // animate the leading number ("10,000" of "10,000+", "2" of "2 hours"), keep the rest as is
   const match = value.match(/^([\d,]+)(.*)$/)
   const target = match ? Number(match[1].replace(/,/g, '')) : null
   const suffix = match ? match[2] : ''
@@ -117,10 +117,10 @@ export function NumbersBand({ items }) {
           {items.map((item, i) => (
             <div
               key={item.label}
-              className={`flex flex-col px-3 sm:px-5 ${i % 2 ? 'border-l border-white/12' : ''} ${i > 0 ? 'lg:border-l lg:border-white/12' : ''}`}
+              className={`flex flex-col px-2.5 min-[400px]:px-3 sm:px-5 lg:px-6 ${i % 2 ? 'border-l border-white/12' : ''} ${i > 0 ? 'lg:border-l lg:border-white/12' : ''}`}
             >
               <dt className="order-2 mt-3 max-w-[22ch] text-[13px] leading-5 text-white/70 sm:text-[14px]">{item.label}</dt>
-              <dd className="order-1 text-[34px] font-extrabold leading-none tracking-[-0.04em] sm:text-[46px] lg:text-[52px]">
+              <dd className="order-1 whitespace-nowrap text-[22px] min-[360px]:text-[24px] font-extrabold leading-none tracking-[-0.04em] min-[400px]:text-[28px] min-[500px]:text-[34px] sm:text-[44px] lg:text-[38px] xl:text-[48px]">
                 <CountUp value={item.value} />
               </dd>
               <span aria-hidden="true" className="order-1 mt-4 block h-[3px] w-10 rounded-full bg-gradient-to-r from-accent to-[#f08a3c]" />

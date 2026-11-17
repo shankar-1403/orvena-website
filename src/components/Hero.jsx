@@ -8,7 +8,7 @@ import Button from './ui/Button'
 const badges = [
   { icon: ShieldCheck, text: 'HIPAA Compliant' },
   { icon: Lock, text: 'DPDP Compliant' },
-  { icon: Users, text: '4,000+ patients helped' },
+  { icon: Users, text: '10,000+ patients helped' },
 ]
 
 export default function Hero() {

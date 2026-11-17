@@ -34,7 +34,6 @@ export const footerColumns = [
     title: 'Get started',
     links: [
       { label: 'Open HealthOS (web)', href: healthosWebUrl, external: true },
-      { label: 'ClinicOS doctor login', href: clinicosWebUrl, external: true },
       { label: 'Book a ClinicOS demo', href: '/contact?topic=clinicos' },
       { label: 'Talk to a health expert', href: '/contact?topic=reversal' },
     ],
@@ -43,6 +42,7 @@ export const footerColumns = [
     title: 'Company',
     links: [
       { label: 'Contact us', href: '/contact' },
+      { label: 'Blog', href: '/blog' },
       { label: 'Privacy Policy', href: '/privacy' },
       { label: 'Terms & Conditions', href: '/terms' },
     ],

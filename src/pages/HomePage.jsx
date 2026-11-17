@@ -25,7 +25,7 @@ const products = [
     ],
     link: 'Explore HealthOS',
     href: '/healthos',
-    head: 'from-navy to-teal',
+    head: 'from-[#08405c] to-[#08405c]', // logo dark green
   },
   {
     tag: 'For doctors & clinics',
@@ -39,7 +39,7 @@ const products = [
     ],
     link: 'Explore ClinicOS',
     href: '/clinicos',
-    head: 'from-teal to-teal-deep',
+    head: 'from-[#14647c] to-[#14647c]', // logo light green
   },
   {
     tag: 'Nutritionist-guided programs',
@@ -49,7 +49,7 @@ const products = [
       'Dedicated clinical nutritionist, diet & fitness coaching',
       'Support lower medicine dependency alongside your doctor',
       'CGM tracking, weekly 1:1 consults, WhatsApp support',
-      '4,000+ patients helped',
+      '10,000+ patients helped',
     ],
     link: 'Explore programs',
     href: '/disease-reversal',
@@ -77,17 +77,17 @@ const connects = [
 ]
 
 const numbers = [
-  { value: '4,000+', label: 'Patients helped through Disease Reversal' },
+  { value: '1 Lakh+', label: 'Users across HealthOS and ClinicOS' },
+  { value: '10,000+', label: 'Patients helped through Disease Reversal' },
   { value: '2 hours', label: 'To turn a blood report into readings' },
   { value: '100+', label: 'Doctors on the Orvena network' },
-  { value: '1', label: 'Health record shared by patient, doctor and care team' },
 ]
 
 const trust = [
   {
     icon: ShieldCheck,
-    title: 'Private by design',
-    text: 'HIPAA and DPDP compliant. Each profile sees only its own records, and you choose who sees your summary.',
+    title: 'Secure by design',
+    text: 'Encrypted, HIPAA and DPDP compliant. Each profile sees only its own records, and you choose who sees your summary.',
   },
   {
     icon: Stethoscope,
@@ -127,14 +127,14 @@ export default function HomePage() {
             <Reveal key={product.title} delay={0.06 * index} className="h-full">
               <Link to={product.href} className="group block h-full">
                 <article className="o-card o-card--sheen flex h-full flex-col rounded-[24px] border border-line bg-white sm:rounded-[28px]">
-                  <div className={`bg-gradient-to-br ${product.head} p-5 text-white sm:p-6`}>
-                    <span className="inline-flex rounded-full border border-white/25 bg-white/12 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.14em]">
+                  <div className={`bg-gradient-to-br ${product.head} p-5 sm:p-6 ${product.light ? 'text-navy' : 'text-white'}`}>
+                    <span className={`inline-flex rounded-full border px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.14em] ${product.light ? 'border-navy/15 bg-white/70' : 'border-white/25 bg-white/12'}`}>
                       {product.tag}
                     </span>
                     <h3 className="mt-4 text-[26px] font-extrabold tracking-[-0.03em]">
                       {product.title}
                     </h3>
-                    <p className="mt-2 text-[14px] leading-6 text-white/80">{product.text}</p>
+                    <p className={`mt-2 text-[14px] leading-6 ${product.light ? 'text-navy/75' : 'text-white/80'}`}>{product.text}</p>
                   </div>
                   <div className="flex flex-1 flex-col justify-between gap-6 p-5 sm:p-6">
                     <Ticks items={product.points} />

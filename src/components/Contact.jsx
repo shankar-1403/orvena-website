@@ -1,7 +1,9 @@
 import { useState } from 'react'
 import { Mail, MapPin } from 'lucide-react'
 import { useSearchParams } from 'react-router-dom'
-import { clinicosWebUrl, contact, healthosWebUrl } from '../data/site'
+import { contact, healthosWebUrl } from '../data/site'
+import { programs } from '../data/diseaseReversal'
+import { submitEnquiry } from '../lib/enquiries'
 import { Section } from './site/blocks'
 import Button from './ui/Button'
 import Reveal from './ui/Reveal'
@@ -10,17 +12,39 @@ const topics = [
   { value: 'healthos', label: 'HealthOS for me or my family' },
   { value: 'clinicos', label: 'A ClinicOS demo for my clinic or hospital' },
   { value: 'reversal', label: 'A Disease Reversal program' },
-  { value: 'other', label: 'Others' },
 ]
 
+// conditions offered when the visitor picks a Disease Reversal program
+const conditions = [...programs.map((p) => p.title), 'Others']
+
+// Same rules as the PCRED website contact form.
 function validate(values) {
   const errors = {}
-  if (!values.name.trim()) errors.name = 'Please enter your full name.'
-  // support is by email only, so email is required and the mobile number is optional
-  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(values.email.trim())) errors.email = 'Enter a valid email.'
-  if (values.mobile.trim() && !/^[0-9+\s]{10,15}$/.test(values.mobile.trim())) {
-    errors.mobile = 'Enter a valid mobile number.'
+  const name = values.name.trim()
+  if (!name) errors.name = 'Full name is required.'
+  else if (name.length < 2) errors.name = 'Name must be at least 2 characters.'
+  else if (/\d/.test(name)) errors.name = 'Name must not contain numbers.'
+  else if (!/^[a-zA-Z\s'.-]+$/.test(name)) errors.name = 'Name contains invalid characters.'
+
+  const email = values.email.trim()
+  if (!email) errors.email = 'Email is required.'
+  else if (!/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(email)) {
+    errors.email = 'Enter a valid email address (e.g. name@domain.com).'
   }
+
+  if (!values.mobile.trim()) errors.mobile = 'Phone number is required.'
+  else {
+    const digits = values.mobile.replace(/\D/g, '')
+    if (digits.length !== 10 && digits.length !== 12) {
+      errors.mobile = 'Enter a 10-digit mobile number or 12-digit number with country code.'
+    }
+  }
+
+  if (values.topic === 'reversal' && !values.condition) errors.condition = 'Please choose a condition.'
+
+  const message = values.message.trim()
+  if (!message) errors.message = 'Message is required.'
+  else if (message.length < 10) errors.message = 'Message must be at least 10 characters.'
   return errors
 }
 
@@ -65,9 +89,8 @@ function InfoRow({ icon: Icon, label, value, href }) {
 }
 
 /**
- * The contact form. It is front-end only for now: it validates and shows the thank-you
- * message, but nothing is sent anywhere until the owner decides where messages should go
- * (an inbox, WhatsApp or a CRM).
+ * The contact form. It validates, then saves the enquiry to Firestore, where admins
+ * see it in the dashboard at /admin.
  */
 export default function Contact() {
   const [params] = useSearchParams()
@@ -77,21 +100,49 @@ export default function Contact() {
     mobile: '',
     email: '',
     topic: topics.some((t) => t.value === requested) ? requested : 'healthos',
+    condition: '',
     message: '',
   })
   const [errors, setErrors] = useState({})
   const [submitted, setSubmitted] = useState(false)
+  const [sending, setSending] = useState(false)
+  const [sendError, setSendError] = useState('')
+  // spam trap: a hidden field people never see, so only bots fill it in
+  const [trap, setTrap] = useState('')
 
   const onChange = (event) => {
     const { name, value } = event.target
+    // like PCRED: digits can't be typed into the name, letters can't be typed into the phone,
+    // and the phone stops at 12 digits
+    if (name === 'name' && /\d/.test(value)) return
+    if (name === 'mobile') {
+      if (/[a-zA-Z]/.test(value)) return
+      if (value.replace(/\D/g, '').length > 12) return
+    }
     setValues((prev) => ({ ...prev, [name]: value }))
+    setErrors((prev) => ({ ...prev, [name]: '' }))
   }
 
-  const onSubmit = (event) => {
+  const onSubmit = async (event) => {
     event.preventDefault()
+    if (sending) return
     const next = validate(values)
     setErrors(next)
-    if (Object.keys(next).length === 0) setSubmitted(true)
+    if (Object.keys(next).length > 0) return
+    if (trap) {
+      setSubmitted(true)
+      return
+    }
+    setSending(true)
+    setSendError('')
+    try {
+      await submitEnquiry(values)
+      setSubmitted(true)
+    } catch {
+      setSendError(`We couldn’t send your message just now. Please try again, or email us at ${contact.email}.`)
+    } finally {
+      setSending(false)
+    }
   }
 
   return (
@@ -123,7 +174,7 @@ export default function Contact() {
                   <Field label="Full Name" error={errors.name}>
                     <input name="name" value={values.name} onChange={onChange} className={inputClass} placeholder="Your name" autoComplete="name" />
                   </Field>
-                  <Field label="Mobile Number (optional)" error={errors.mobile}>
+                  <Field label="Mobile Number" error={errors.mobile}>
                     <input name="mobile" value={values.mobile} onChange={onChange} className={inputClass} placeholder="10-digit number" autoComplete="tel" inputMode="tel" />
                   </Field>
                 </div>
@@ -137,11 +188,44 @@ export default function Contact() {
                     ))}
                   </select>
                 </Field>
-                <Field label="Message">
+                {values.topic === 'reversal' ? (
+                  <Field label="Condition" error={errors.condition}>
+                    <select name="condition" value={values.condition} onChange={onChange} className={inputClass}>
+                      <option value="" disabled>
+                        Choose a condition
+                      </option>
+                      {conditions.map((c) => (
+                        <option key={c} value={c}>{c}</option>
+                      ))}
+                    </select>
+                  </Field>
+                ) : null}
+                <Field label="Message" error={errors.message}>
                   <textarea name="message" value={values.message} onChange={onChange} rows="4" className={`${inputClass} resize-none`} placeholder="Tell us a little about what you need" />
                 </Field>
-                <Button as="button" type="submit" variant="primary" className="mt-1 w-full sm:w-auto sm:justify-self-start">
-                  Send Message
+                <input
+                  type="text"
+                  name="website"
+                  value={trap}
+                  onChange={(e) => setTrap(e.target.value)}
+                  tabIndex={-1}
+                  autoComplete="off"
+                  aria-hidden="true"
+                  className="absolute -left-[9999px] h-0 w-0 opacity-0"
+                />
+                {sendError ? (
+                  <p role="alert" className="rounded-xl bg-[#FDECEE] px-4 py-3 text-[13px] text-[#B4232C]">
+                    {sendError}
+                  </p>
+                ) : null}
+                <Button
+                  as="button"
+                  type="submit"
+                  variant="primary"
+                  disabled={sending}
+                  className="mt-1 w-full disabled:opacity-60 sm:w-auto sm:justify-self-start"
+                >
+                  {sending ? 'Sending…' : 'Send Message'}
                 </Button>
               </div>
             )}
@@ -160,9 +244,6 @@ export default function Contact() {
               <div className="mt-3 flex flex-col gap-2 sm:flex-row">
                 <Button href={healthosWebUrl} target="_blank" rel="noreferrer" className="w-full sm:w-auto">
                   Open HealthOS
-                </Button>
-                <Button href={clinicosWebUrl} target="_blank" rel="noreferrer" variant="secondary" showArrow={false} className="w-full sm:w-auto">
-                  Doctor Login
                 </Button>
               </div>
             </div>

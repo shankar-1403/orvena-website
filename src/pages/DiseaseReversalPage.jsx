@@ -528,7 +528,7 @@ export default function DiseaseReversalPage() {
       <Connected />
       <CtaBand
         title="Ready to Start Your Reversal Journey?"
-        text="Join 4,000+ people who chose to treat the root cause. Talk to an expert about your reports today. Program fees on request."
+        text="Join 10,000+ people who chose to treat the root cause. Talk to an expert about your reports today. Program fees on request."
         note="Results vary between people. Programs are medical advice-led. Do not stop or change any medicine without your doctor."
       >
         <Button href="/contact?topic=reversal" className="w-full sm:w-auto">

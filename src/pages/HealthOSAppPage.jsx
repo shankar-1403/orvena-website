@@ -4,9 +4,9 @@ import {
   IdCard,
   Lock,
   Pill,
-  Repeat,
   ScanLine,
   ShieldCheck,
+  Smartphone,
   Stethoscope,
   Syringe,
   Users,
@@ -45,16 +45,56 @@ const features = [
   { icon: ShieldCheck, tone: 'accent', title: 'Insurance', text: 'Keep every policy, its dates and documents in one list.' },
 ]
 
-const privacy = [
+const seals = [
   { icon: ShieldCheck, title: 'HIPAA', text: 'Compliant' },
   { icon: Lock, title: 'DPDP', text: 'Compliant' },
-  { icon: Users, tone: 'teal', title: 'Isolated', text: 'Profile by profile' },
-  { icon: Repeat, tone: 'accent', title: '90 days', text: 'To undo a deletion' },
 ]
+
+const strips = [
+  { icon: Users, tone: 'bg-gradient-to-br from-accent to-[#f08a3c]', title: 'Isolated', text: 'Profile by profile' },
+  { icon: Smartphone, tone: 'bg-gradient-to-br from-[#2a7f96] to-teal', title: 'In your pocket', text: 'Anywhere, on phone or web' },
+]
+
+/** The privacy promises as one panel: two compliance seals, then isolation and anywhere access. */
+function PrivacyPanel() {
+  return (
+    <div className="relative overflow-hidden rounded-[26px] bg-gradient-to-br from-navy via-[#0d4a5c] to-midnight p-5 text-white shadow-[0_30px_60px_-30px_rgba(2,20,28,0.7)] sm:rounded-[30px] sm:p-7">
+      <div aria-hidden="true" className="bg-dot-grid pointer-events-none absolute inset-0 opacity-[0.1]" />
+      <ShieldCheck aria-hidden="true" strokeWidth={1} className="pointer-events-none absolute -right-10 -top-10 h-56 w-56 text-white/[0.05]" />
+      <div className="relative grid grid-cols-2 gap-3 sm:gap-4">
+        {seals.map(({ icon: Icon, title, text }) => (
+          <div key={title} className="flex flex-col items-center rounded-[22px] border border-white/10 bg-white/[0.06] px-3 py-6 text-center">
+            <span className="relative grid h-16 w-16 place-items-center rounded-full bg-gradient-to-br from-white/20 to-white/5 ring-1 ring-white/25 sm:h-20 sm:w-20">
+              <span aria-hidden="true" className="absolute inset-1.5 rounded-full border border-dashed border-mint/40" />
+              <Icon className="h-7 w-7 text-mint sm:h-8 sm:w-8" strokeWidth={1.6} aria-hidden="true" />
+            </span>
+            <p className="mt-4 text-[22px] font-extrabold tracking-tight sm:text-[26px]">{title}</p>
+            <p className="mt-0.5 inline-flex items-center gap-1.5 text-[13px] font-semibold text-mint">
+              <span className="h-1.5 w-1.5 rounded-full bg-mint" /> {text}
+            </p>
+          </div>
+        ))}
+      </div>
+      <div className="relative mt-3 grid gap-3 sm:mt-4 sm:grid-cols-2 sm:gap-4">
+        {strips.map(({ icon: Icon, tone, title, text }) => (
+          <div key={title} className="flex items-center gap-3.5 rounded-[20px] bg-white px-4 py-4 text-navy sm:flex-col sm:items-start sm:gap-3 sm:px-5 xl:flex-row xl:items-center xl:gap-3.5">
+            <span className={`grid h-11 w-11 shrink-0 place-items-center rounded-2xl text-white ${tone}`}>
+              <Icon className="h-5 w-5" strokeWidth={1.75} aria-hidden="true" />
+            </span>
+            <div className="min-w-0">
+              <p className="text-[16.5px] font-bold tracking-tight">{title}</p>
+              <p className="text-[13.5px] leading-5 text-muted">{text}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}
 
 export default function HealthOSAppPage() {
   usePageMeta(
-    'HealthOS by Orvena | Health for You and Yours, Decoded',
+    'HealthOS by Orvena | Your Family’s Health, Clearly Explained',
     'Upload any medical report and HealthOS reads every value, shows what changed, flags what needs attention and keeps your whole family’s records in one secure place.',
   )
 
@@ -62,10 +102,10 @@ export default function HealthOSAppPage() {
     <>
       <PageHero
         id="healthos"
-        eyebrow="HealthOS, for patients and families"
+        eyebrow="HealthOS for patients and families"
         title={
           <>
-            Health for You and Yours, <span className="text-accent">Decoded.</span>
+            Your Family’s Health, <span className="text-accent">Clearly Explained.</span>
           </>
         }
         lead="Upload any medical report and HealthOS reads every value, shows what changed, flags what needs attention and keeps your whole family’s records in one secure place."
@@ -115,7 +155,7 @@ export default function HealthOSAppPage() {
             lead="Insights is a structured case summary: vitals, out-of-range values, personal and family history, allergies, medicines and every blood report, on one page. Share it securely with any doctor or save it as a PDF."
             ticks={[
               'Share by email with any doctor in seconds',
-              'Save as a branded PDF for your visit',
+              'Save as a PDF for your visit',
               'Booked an Orvena network doctor? It reaches them automatically',
             ]}
             media={<HealthOSInsightsScreen />}
@@ -136,8 +176,8 @@ export default function HealthOSAppPage() {
         <Split
           eyebrow="Privacy"
           title="Your Records Stay Yours"
-          lead="HealthOS is built to HIPAA and DPDP standards. Each family profile sees only its own records, you choose who sees your summary, and you can delete your account at any time, with a 90-day window to change your mind."
-          media={<IconCards items={privacy} cols="lg:grid-cols-2" />}
+          lead="HealthOS is built to HIPAA and DPDP standards. Each family profile sees only its own records, you choose who sees your summary, and you can delete your account at any time."
+          media={<PrivacyPanel />}
         />
       </Section>
 

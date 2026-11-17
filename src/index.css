@@ -11,7 +11,7 @@
   --color-mint: #e8783a;
   --color-mint-soft: #fdf1e8;
   --color-pale: #f2f6f7;
-  /* one step down from pale — the gray band in the white/gray section rhythm */
+  /* one step down from pale — the gray band in the white and gray section rhythm */
   --color-soft: #e7eef1;
   --color-ink: #0b4156;
   --color-muted: #5c6e75;
@@ -319,43 +319,6 @@ body {
   }
 }
 
-/* ── Why Orvena — the four emblems (components/WhyOrvena.jsx) ────────────────
-   Each emblem does one small thing while its card is hovered. The origins are
-   in the emblem's own 64 × 64 drawing units.                                 */
-.why-turn,
-.why-notch,
-.why-halo,
-.why-slip {
-  transition: transform 0.8s cubic-bezier(0.32, 0.72, 0, 1);
-}
-
-.why-turn { transform-origin: 32px 29px; }
-.why-notch { transform-origin: 32px 32px; }
-.why-halo { transform-origin: 45px 43px; }
-
-@media (hover: hover) and (pointer: fine) {
-  .why-card:hover .why-turn { transform: rotate(45deg); }
-  .why-card:hover .why-notch { transform: rotate(30deg); }
-  .why-card:hover .why-halo { transform: scale(1.22); }
-  .why-card:hover .why-slip { transform: translateY(-2px); }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .why-turn,
-  .why-notch,
-  .why-halo,
-  .why-slip {
-    transition: none;
-  }
-
-  .why-card:hover .why-turn,
-  .why-card:hover .why-notch,
-  .why-card:hover .why-halo,
-  .why-card:hover .why-slip {
-    transform: none;
-  }
-}
-
 /* a plated card keeps its plate while hovered (the .o-card hover shadow would replace it) */
 .o-card.o-plate:hover,
 .o-card.o-plate:focus-within {
@@ -364,36 +327,7 @@ body {
     0 28px 50px -28px rgb(11 65 86 / 0.28);
 }
 
-/* ── Vignettes — the small illustrations inside cards (ui/Vignette.jsx) ─────
-   They ease in once on scroll and then stay still. Hover is a 2px lift.       */
-.vg svg {
-  transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-.o-card:hover .vg svg,
-.o-card:focus-within .vg svg {
-  transform: translateY(-2px);
-}
-
-/* a connector that points from one card to the next */
-.o-link-arrow {
-  transition: border-color 0.35s ease;
-}
-
-.group:hover .o-link-arrow {
-  border-color: rgba(217, 95, 20, 0.4);
-}
-
 @media (prefers-reduced-motion: reduce) {
-  .vg svg {
-    transition: none;
-  }
-
-  .o-card:hover .vg svg,
-  .o-card:focus-within .vg svg {
-    transform: none;
-  }
-
   .o-card,
   .o-card::before,
   .o-card::after,

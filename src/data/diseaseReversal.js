@@ -16,7 +16,7 @@ import {
 } from 'lucide-react'
 
 export const badges = [
-  { icon: Users, text: '4,000+ patients helped' },
+  { icon: Users, text: '10,000+ patients helped' },
   { icon: Stethoscope, text: 'Doctor-guided' },
   { icon: Leaf, text: '100% natural methods' },
 ]
