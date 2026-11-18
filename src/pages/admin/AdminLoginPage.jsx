@@ -1,11 +1,14 @@
-import { Eye, EyeOff, Lock, Mail } from 'lucide-react'
+import { ArrowRight, Eye, EyeOff, Lock, Mail } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { signIn, signOutAdmin } from '../../lib/enquiries'
 import { useAdmin, useNoIndex } from './useAdmin'
 
+// the inset shadow keeps browser autofill from painting the field blue
 const input =
-  'w-full rounded-xl border border-line bg-white py-3 pl-11 pr-4 text-[15px] text-navy outline-none transition-colors placeholder:text-navy/35 focus:border-teal/60 focus:ring-4 focus:ring-teal/10'
+  'w-full rounded-2xl border border-line bg-[#F7FAFB] py-3.5 pl-11 pr-4 text-[15px] text-navy outline-none transition-[border-color,box-shadow,background-color] placeholder:text-navy/30 [&:-webkit-autofill]:shadow-[inset_0_0_0_40px_#F7FAFB] hover:border-navy/20 focus:border-teal/50 focus:bg-white focus:ring-4 focus:ring-teal/10'
+
+
 
 export default function AdminLoginPage() {
   useNoIndex('Sign in | Orvena Admin')
@@ -55,13 +58,22 @@ export default function AdminLoginPage() {
   }
 
   return (
-    <div className="grid min-h-svh place-items-center bg-gradient-to-br from-navy via-[#0d4a5c] to-midnight px-4 py-10">
-      <div aria-hidden="true" className="bg-dot-grid pointer-events-none fixed inset-0 opacity-[0.08]" />
-      <div className="relative w-full max-w-[400px]">
-        <div className="rounded-[28px] bg-white p-7 shadow-[0_40px_80px_-30px_rgba(2,20,28,0.8)] sm:p-8">
-          <img src="/orvena_logo.webp" alt="Orvena" className="h-9 w-auto" />
-          <h1 className="mt-6 text-[24px] font-extrabold tracking-tight text-navy">CMS sign in</h1>
-          <p className="mt-1 text-[14px] text-muted">Manage enquiries, doctor onboarding and blogs.</p>
+    <div className="relative grid min-h-svh place-items-center overflow-hidden bg-[#0B4156] px-4 py-10">
+      {/* background: a still teal gradient with the Orvena mark large and faint, plus two hairline arcs */}
+      <div aria-hidden="true" className="pointer-events-none absolute inset-0">
+        <div className="absolute inset-0 bg-[linear-gradient(135deg,#1B6F86_0%,#0F5068_45%,#083647_100%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_right,rgba(4,30,40,0.55),transparent_60%)]" />
+        {/* the mark is used as a mask, so it can carry a soft fade from top-left to bottom-right */}
+        <div
+          className="absolute -right-[20vmin] top-[55%] aspect-square w-[115vmin] max-w-[1080px] -translate-y-1/2 rotate-[-14deg] bg-[linear-gradient(160deg,rgba(255,255,255,0.11)_0%,rgba(255,255,255,0.05)_55%,rgba(255,255,255,0.015)_100%)] [mask-image:url(/orvena-mark.png)] [mask-position:center] [mask-repeat:no-repeat] [mask-size:contain] max-sm:-right-[45vmin] max-sm:w-[150vmin]"
+        />
+      </div>
+
+      <div className="relative w-full max-w-[420px]">
+        <div className="rounded-[28px] bg-white p-7 shadow-[0_40px_90px_-30px_rgba(2,20,28,0.65)] sm:p-9">
+          <img src="/orvena_logo.webp" alt="Orvena" className="h-10 w-auto" />
+          <h1 className="mt-7 text-[26px] font-extrabold leading-tight tracking-[-0.035em] text-navy">Welcome back</h1>
+          <p className="mt-1.5 text-[14.5px] text-muted">Sign in to manage enquiries, doctor onboarding and blogs.</p>
 
           {notice ? (
             <div className="mt-6 rounded-xl bg-[#FDF1E1] px-4 py-3 text-[13px] text-[#8A5A00]">
@@ -74,9 +86,10 @@ export default function AdminLoginPage() {
             </div>
           ) : null}
 
-          <form onSubmit={onSubmit} className="mt-6 space-y-3.5" noValidate>
-            <label className="relative block">
-              <span className="sr-only">Email</span>
+          <form onSubmit={onSubmit} className="mt-7 space-y-4" noValidate>
+            <span className="block">
+              <span className="mb-1.5 block text-[12px] font-semibold uppercase tracking-[0.14em] text-navy/50">Email</span>
+              <span className="relative block">
               <Mail className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-muted" aria-hidden="true" />
               <input
                 type="email"
@@ -84,12 +97,15 @@ export default function AdminLoginPage() {
                 required
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                placeholder="Email"
+                placeholder="you@orvenahealth.com"
+                aria-label="Email"
                 className={input}
               />
-            </label>
-            <label className="relative block">
-              <span className="sr-only">Password</span>
+              </span>
+            </span>
+            <span className="block">
+              <span className="mb-1.5 block text-[12px] font-semibold uppercase tracking-[0.14em] text-navy/50">Password</span>
+              <span className="relative block">
               <Lock className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-muted" aria-hidden="true" />
               <input
                 type={show ? 'text' : 'password'}
@@ -97,7 +113,8 @@ export default function AdminLoginPage() {
                 required
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                placeholder="Password"
+                placeholder="••••••••"
+                aria-label="Password"
                 className={`${input} pr-12`}
               />
               <button
@@ -108,7 +125,8 @@ export default function AdminLoginPage() {
               >
                 {show ? <EyeOff className="h-4 w-4" aria-hidden="true" /> : <Eye className="h-4 w-4" aria-hidden="true" />}
               </button>
-            </label>
+              </span>
+            </span>
             {error ? (
               <p role="alert" className="text-[13px] text-[#B4232C]">
                 {error}
@@ -117,13 +135,14 @@ export default function AdminLoginPage() {
             <button
               type="submit"
               disabled={busy || !email || !password || status === 'loading' || status === 'error'}
-              className="w-full rounded-xl bg-gradient-to-r from-[#e0610a] to-[#f08a3c] py-3 text-[15px] font-semibold text-white shadow-[0_10px_22px_-10px_rgba(224,97,10,0.8)] transition-opacity disabled:opacity-50"
+              className="group !mt-6 inline-flex w-full items-center justify-center gap-2 rounded-2xl bg-gradient-to-r from-[#e0610a] to-[#f08a3c] py-3.5 text-[15px] font-semibold text-white shadow-[0_14px_28px_-14px_rgba(224,97,10,0.9)] transition-[opacity,transform] hover:-translate-y-0.5 disabled:translate-y-0 disabled:opacity-50"
             >
               {busy ? 'Signing in…' : 'Sign in'}
+              {busy ? null : <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" aria-hidden="true" />}
             </button>
           </form>
         </div>
-        <p className="mt-4 text-center text-[12px] text-white/50">Orvena Health · admin area</p>
+        <p className="mt-5 text-center text-[12px] text-white/55">Orvena Health · admin area</p>
       </div>
     </div>
   )

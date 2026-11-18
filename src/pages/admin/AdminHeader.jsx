@@ -16,7 +16,7 @@ export default function AdminHeader({ user, admin }) {
   return (
     <header className="sticky top-0 z-30 border-b border-line bg-white/90 backdrop-blur">
       <div className="mx-auto flex max-w-[1200px] items-center gap-2 px-4 py-3 sm:gap-3 sm:px-6">
-        <img src="/orvena_logo.webp" alt="Orvena" className="h-7 w-auto shrink-0" />
+        <img src="/orvena_logo.webp" alt="Orvena" className="h-9 w-auto shrink-0 sm:h-11" />
         <span className="ml-auto hidden truncate text-[13px] text-muted md:block">
           {user?.email}
           {admin?.isSuper ? <span className="ml-2 rounded-full bg-accent/10 px-2 py-0.5 text-[11px] font-semibold text-accent">Main admin</span> : null}
