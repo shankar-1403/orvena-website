@@ -30,12 +30,12 @@ const products = [
   {
     tag: 'For doctors & clinics',
     title: 'ClinicOS',
-    text: 'The operating system for your practice, from the first appointment to the bill.',
+    text: 'The intelligent operating system for modern practices, saving consult time while growing your OPD.',
     points: [
-      'Smart patient summary before the patient walks in',
-      'Prescriptions in a minute with ICD-10 and favorites',
-      'Appointments, billing, wallet and reports',
-      'Scales to hospitals, labs and pharmacy',
+      'Smart patient summaries before every consultation',
+      'Instant prescriptions with ICD-10 coding and saved templates',
+      'Seamless appointments, billing, payments and reports',
+      'Connected ecosystem of hospitals, laboratories and pharmacies',
     ],
     link: 'Explore ClinicOS',
     href: '/clinicos',

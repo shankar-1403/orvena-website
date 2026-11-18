@@ -25,8 +25,10 @@ export default function Footer() {
                 <Logo />
               </div>
               <p className="mt-3 max-w-[34ch] text-sm leading-6 text-white/60">
-                One connected health record for patients, doctors and clinics. HealthOS, ClinicOS and
-                Disease Reversal.
+                Connected health intelligence for families, clinicians, and care teams, powered by{' '}
+                <strong className="font-semibold text-white/85">HealthOS</strong>,{' '}
+                <strong className="font-semibold text-white/85">ClinicOS</strong>, and{' '}
+                <strong className="font-semibold text-white/85">Disease Reversal</strong>.
               </p>
               <div className="mt-3 flex flex-wrap gap-2">
                 {[

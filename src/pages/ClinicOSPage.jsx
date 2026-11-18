@@ -44,34 +44,34 @@ const day = [
 ]
 
 const tools = [
-  { icon: CalendarDays, title: 'Appointments & OPD', text: 'Weekly OPD schedules by day, slot length, location and contact. In-clinic and video visits with tokens.' },
-  { icon: Search, title: 'Patient records', text: 'Search every assigned patient, register new ones and keep their history, vitals and reports together.' },
-  { icon: PenLine, tone: 'accent', title: 'Favorites & settings', text: 'Prescription templates, investigation bundles and which test categories show in SmartView.' },
-  { icon: Wallet, tone: 'accent', title: 'Billing & wallet', text: 'Bills, receipts, outstanding invoices with payment requests, daily transactions and a doctor wallet.' },
-  { icon: BarChart3, tone: 'teal', title: 'Reports & trends', text: 'Monthly consultation trends, appointment history, bill history and in-person vs video share.' },
-  { icon: Sparkles, tone: 'teal', title: 'Dynamic cohort reports', text: 'Find patients by lab values, for example everyone with high HbA1c and high LDL, to plan follow-ups.' },
+  { icon: CalendarDays, title: 'Appointments & OPD', text: 'Configure multi-location OPD slots, automated token queues, and seamless in-clinic or video consultations.' },
+  { icon: Search, title: 'Unified Patient Records', text: 'Instant search across your patient base with rapid walk-in registration, vitals, and longitudinal lab timelines.' },
+  { icon: PenLine, tone: 'accent', title: 'Templates & SmartView Setup', text: 'Save specialty Rx templates, lab panels, and priority biomarker views tailored to your practice.' },
+  { icon: Wallet, tone: 'accent', title: 'OPD Billing & Doctor Wallet', text: 'One-click invoices, digital receipts, pending-payment tracking, and transparent settlement in your doctor wallet.' },
+  { icon: BarChart3, tone: 'teal', title: 'Practice Analytics', text: 'Track monthly patient footfall, revenue trends, and in-clinic vs. teleconsultation performance at a glance.' },
+  { icon: Sparkles, tone: 'teal', title: 'Smart Patient Cohorts', text: 'Segment patients by out-of-range markers (e.g., high HbA1c or LDL) to automate chronic disease recalls.' },
 ]
 
 const modules = [
-  { icon: Users, title: 'Clinic team', text: 'Assistants, front desk and data operators, with roles and permissions.' },
-  { icon: Building2, title: 'Hospital (IPD)', text: 'Registration, admission, wards, beds, nursing station, OT and discharge.' },
-  { icon: FlaskConical, title: 'Labs & diagnostics', text: 'Lab appointments, radiology reports and turning paper reports into data.' },
-  { icon: Pill, tone: 'accent', title: 'Pharmacy', text: 'Chemists, prescription orders, invoices and home delivery.' },
-  { icon: Syringe, tone: 'accent', title: 'Vaccination', text: 'Vaccine schedules and a vaccine diary for every child patient.' },
-  { icon: ShieldCheck, tone: 'accent', title: 'Insurance & TPA', text: 'TPA agents, insurers and claim forms.' },
-  { icon: Briefcase, tone: 'teal', title: 'Corporate wellness', text: 'Health summaries and lifestyle analytics for companies and housing societies.' },
-  { icon: Utensils, tone: 'teal', title: 'Nutrition', text: 'Nutritionists, diet plans, dietary recall and nutrition appointments.' },
-  { icon: Video, tone: 'teal', title: 'Telemedicine', text: 'Video consultations with history and settings, alongside in-clinic visits.' },
-  { icon: IdCard, title: 'ABHA / ABDM', text: 'Create ABHA health IDs and link records to India’s national digital health stack.' },
-  { icon: Share2, title: 'Referrals & network', text: 'Refer patients between doctors and work with network partners.' },
-  { icon: Package, title: 'Inventory', text: 'Items, vendors, purchase orders, stock movement and reorder alerts.' },
+  { icon: Users, title: 'Clinic Team', text: 'Manage assistants, front-desk staff, and data operators with granular role-based access and permissions.' },
+  { icon: Building2, title: 'Hospital (IPD)', text: 'End-to-end inpatient workflows covering registration, admissions, bed management, nursing stations, OT, and discharge.' },
+  { icon: FlaskConical, title: 'Labs & Diagnostics', text: 'Schedule lab tests, attach radiology scans, and automatically convert paper reports into structured biomarkers.' },
+  { icon: Pill, tone: 'accent', title: 'Pharmacy', text: 'Connect directly with chemists for digital prescription orders, billing invoices, and doorstep medicine delivery.' },
+  { icon: Syringe, tone: 'accent', title: 'Vaccination', text: 'Automated immunization schedules and a lifetime digital vaccine diary for every pediatric patient.' },
+  { icon: ShieldCheck, tone: 'accent', title: 'Insurance & TPA', text: 'Keep health policies, TPA cards, and renewal dates organized in one place for quick hospital access.' },
+  { icon: Briefcase, tone: 'teal', title: 'Corporate Wellness', text: 'Deliver employee health summaries and workforce lifestyle analytics for partner companies and housing societies.' },
+  { icon: Utensils, tone: 'teal', title: 'Nutrition', text: 'Integrate clinical nutritionists, custom diet plans, dietary recalls, and follow-up nutrition consults.' },
+  { icon: Video, tone: 'teal', title: 'Telemedicine', text: 'Run video consultations with full patient history and custom settings right alongside your in-clinic visits.' },
+  { icon: IdCard, title: 'ABHA / ABDM', text: 'Generate ABHA Health IDs and link patient records directly to India’s national digital health stack.' },
+  { icon: Share2, title: 'Referrals & Network', text: 'Cross-refer patients between specialists and collaborate seamlessly with empaneled network partners.' },
+  { icon: Package, title: 'Inventory', text: 'Track medical consumables, vendors, purchase orders, stock movement, and automated reorder alerts.' },
 ]
 
 const connected = [
-  { icon: Upload, title: 'Patient uploads', text: 'Paper reports become digital records, read and ready in your SmartView.' },
-  { icon: CalendarDays, tone: 'accent', title: 'Patient books', text: 'Their full history reaches you before they walk in.' },
-  { icon: PenLine, tone: 'teal', title: 'You prescribe', text: 'A digital Rx goes straight to their app. Nothing to lose.' },
-  { icon: Bell, title: 'Follow-up', text: 'Dates and reminders in both apps, not on paper.' },
+  { icon: Upload, title: 'Patient Uploads', text: 'Paper reports become structured digital records, ready to review in your SmartView.' },
+  { icon: CalendarDays, tone: 'accent', title: 'Patient Books', text: 'Their complete, chronological health history reaches you before they walk in.' },
+  { icon: PenLine, tone: 'teal', title: 'You Prescribe', text: 'Your validated digital Rx lands directly in their HealthOS app, nothing to lose.' },
+  { icon: Bell, title: 'Follow-Up', text: 'Automated review dates and test reminders sync across both apps, never forgotten on paper.' },
 ]
 
 /** The modules as one board: a navy panel split into cells by hairlines, like plug-in blocks. */
@@ -211,7 +211,7 @@ export default function ClinicOSPage() {
 
       <Section id="practice-tools">
         <Reveal>
-          <SectionHeader eyebrow="Run your practice" title="Everything Your Clinic Needs, in One Place" />
+          <SectionHeader eyebrow="Run your practice" title="Run Your Entire OPD From One Dashboard" />
         </Reveal>
         <div className="mt-8 sm:mt-10">
           <IconCards items={tools} variant="sheen" />
@@ -222,8 +222,8 @@ export default function ClinicOSPage() {
         <Reveal>
           <SectionHeader
             eyebrow="One platform, every setting"
-            title="From a Single Clinic to a Full Hospital"
-            description="ClinicOS grows with you. The same system runs front desks, wards, labs, pharmacies and corporate wellness programs."
+            title="From a Solo Clinic to a Multi-Specialty Hospital"
+            description="ClinicOS scales seamlessly with your practice, powering front desks, inpatient wards, diagnostic labs, pharmacies, and corporate health programs on a single unified system."
           />
         </Reveal>
         <div className="mt-8 sm:mt-10">
@@ -235,11 +235,11 @@ export default function ClinicOSPage() {
         <Split
           eyebrow="Connected to HealthOS"
           title="No More Paper Files. Every Report Arrives Digital."
-          lead="Patients no longer need to carry folders of old reports or photos of lab results on their phone. They upload their reports in HealthOS, and they reach you in ClinicOS as digital records, already read and sorted. Your prescription goes back the same way."
+          lead="Patients no longer need to carry bulky folders or scroll through phone photos during consultations. Reports uploaded in HealthOS arrive in ClinicOS pre-structured and sorted by date, and your digital prescription flows right back to them."
           ticks={[
-            'No paper files to store, search or lose',
-            'Every past report and value on one screen',
-            'Prescriptions sent digitally, not handed over on paper',
+            'Zero paper files to store, search, or misplace',
+            'Every past report and lab trend visible on one screen',
+            'Prescriptions delivered digitally, never lost on paper',
           ]}
           media={<ConnectedFlow items={connected} />}
         >
@@ -250,11 +250,11 @@ export default function ClinicOSPage() {
       </Section>
 
       <CtaBand
-        title="See ClinicOS in Your Clinic"
-        text="Book a demo and we’ll show it with your own OPD schedule and prescription header. Plans and pricing on request."
+        title="Experience ClinicOS With Your Own OPD Workflow"
+        text="Schedule a live walkthrough set up with your clinic timings and custom Rx header. Flexible plans for solo clinics and multi-specialty hospitals."
       >
         <Button href="/contact?topic=clinicos" className="w-full sm:w-auto">
-          Book a Demo
+          Schedule Live Demo
         </Button>
       </CtaBand>
     </>
