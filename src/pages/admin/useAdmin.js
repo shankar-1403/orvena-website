@@ -8,10 +8,10 @@ export function useAdmin() {
   useEffect(() => {
     let unsub = () => {}
     let alive = true
-    watchAdmin(({ user, isAdmin }) => {
+    watchAdmin(({ user, isAdmin, reason }) => {
       if (!alive) return
       if (!user) setState({ status: 'signed-out', user: null, error: '' })
-      else setState({ status: isAdmin ? 'admin' : 'not-admin', user, error: '' })
+      else setState({ status: isAdmin ? 'admin' : 'not-admin', user, error: reason || '' })
     })
       .then((u) => {
         unsub = u

@@ -344,3 +344,22 @@ body {
     transform: translateX(-180%) skewX(-12deg);
   }
 }
+
+/* Blog article body (HTML from the CMS editor) */
+.o-prose { color: var(--color-navy); font-size: 16.5px; line-height: 1.85; }
+.o-prose > * + * { margin-top: 1.1em; }
+.o-prose h2 { margin-top: 1.8em; font-size: 26px; line-height: 1.25; font-weight: 800; letter-spacing: -0.03em; }
+.o-prose h3 { margin-top: 1.6em; font-size: 21px; line-height: 1.3; font-weight: 700; letter-spacing: -0.02em; }
+.o-prose h4 { margin-top: 1.4em; font-size: 18px; font-weight: 700; }
+.o-prose p { color: color-mix(in srgb, var(--color-navy) 82%, transparent); }
+.o-prose a { color: var(--color-teal); text-decoration: underline; text-underline-offset: 3px; }
+.o-prose ul, .o-prose ol { padding-left: 1.4em; }
+.o-prose ul { list-style: disc; }
+.o-prose ol { list-style: decimal; }
+.o-prose li + li { margin-top: 0.4em; }
+.o-prose li::marker { color: var(--color-accent); }
+.o-prose strong { font-weight: 700; color: var(--color-navy); }
+
+/* CMS editor sizing */
+.o-blog-editor .ck-editor__editable { min-height: 260px; }
+.o-blog-editor .ck.ck-editor__main > .ck-editor__editable, .o-blog-editor .ck.ck-toolbar { border-color: var(--color-line); }

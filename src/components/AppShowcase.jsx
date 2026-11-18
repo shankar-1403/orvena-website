@@ -10,16 +10,16 @@ import {
   Bell,
   CircleAlert,
   Droplet,
-  Files,
+  ChevronRight,
+  FileText,
   Folder,
   Hash,
   HeartPulse,
   House,
   LayoutGrid,
-  MessageCircle,
-  Moon,
   Search,
   Stethoscope,
+  Sun,
   Upload,
   User,
   Users,
@@ -52,12 +52,12 @@ const CHIPS = [
   [Droplet, 'B+ve'],
 ]
 
-const ALERTS = ['Obese', '?Metabolic Disease']
+const ALERTS = ['Over Weight', 'Low hemoglobin – anemia pattern', 'Microcytic anemia pattern detected']
 
 const NAV = [
   ['Home', House],
-  ['Reports', Files],
-  ['iView', HeartPulse],
+  ['Reports', FileText],
+  ['SmartView', HeartPulse],
   ['Doctors', Stethoscope],
   ['Menu', LayoutGrid],
 ]
@@ -68,45 +68,43 @@ function HomeScreen({ reduceMotion }) {
       initial={reduceMotion ? false : 'hidden'}
       animate="show"
       variants={{ hidden: {}, show: { transition: { staggerChildren: 0.09, delayChildren: 0.45 } } }}
-      className="relative h-full w-full bg-[#eaf2f5] text-[#12303b]"
+      className="relative h-full w-full bg-[#eef5f7] text-[#12303b]"
     >
       {/* app bar */}
-      <div className="flex h-[41px] items-center justify-between bg-white px-[12px]">
-        <img src="/orvena_logo.webp" alt="" width={186} height={50} className="h-[24px] w-auto" />
-        <span className="flex items-center gap-[16px] pr-[8px] text-[#12303b]">
-          <Search className="h-[14px] w-[14px]" strokeWidth={1.9} />
-          <Bell className="h-[14px] w-[14px]" strokeWidth={1.9} />
+      <div className="relative z-10 flex h-[37px] items-center justify-between bg-white px-[12px]">
+        <img src="/orvena_logo.webp" alt="" width={186} height={50} className="h-[22px] w-auto" />
+        <span className="flex items-center gap-[19px] pr-[6px] text-[#12303b]">
+          <Search className="h-[13px] w-[13px]" strokeWidth={1.9} />
+          <Bell className="h-[13px] w-[13px]" strokeWidth={1.9} />
         </span>
       </div>
 
-      {/* profile card */}
+      {/* profile band: full width, rounded at the bottom */}
       <motion.div
         variants={item}
-        className="relative mx-[12px] mt-[16px] h-[222px] overflow-hidden rounded-[15px] bg-gradient-to-br from-[#3f7f93] to-[#235b6f] px-[11.5px] pt-[16px] text-white shadow-[0_14px_26px_-14px_rgba(11,65,86,0.55)]"
+        className="relative h-[166px] overflow-hidden rounded-b-[22px] bg-gradient-to-br from-[#2a7488] to-[#1d6476] px-[13px] pt-[15px] text-white"
       >
         {/* the faint brand mark behind the profile */}
-        <span className="absolute -right-[14px] top-[8px] h-[112px] w-[104px] rounded-[38px_38px_54px_54px] border-[15px] border-white/[0.07]" />
+        <span className="absolute -right-[22px] top-[10px] h-[124px] w-[112px] rounded-[42px_42px_60px_60px] border-[16px] border-white/[0.06]" />
 
         <div className="relative flex items-center gap-[9px]">
-          <span className="grid h-[35px] w-[35px] shrink-0 place-items-center rounded-full bg-white text-[12px] font-extrabold tracking-tight text-accent-deep">
+          <span className="grid h-[37px] w-[37px] shrink-0 place-items-center rounded-full bg-white text-[12px] font-extrabold tracking-tight text-accent-deep">
             YN
           </span>
           <div>
-            <span className="inline-flex h-[13px] items-center gap-[3px] rounded-full border border-white/35 bg-white/10 px-[6px] text-[7.5px] font-medium leading-none">
-              <Moon className="h-[7px] w-[7px] text-[#f4c98a]" strokeWidth={2} />
-              Good evening
+            <span className="inline-flex h-[13px] items-center gap-[3px] rounded-full border border-white/35 bg-white/15 px-[6px] text-[7.5px] font-medium leading-none">
+              <Sun className="h-[7px] w-[7px]" strokeWidth={2} />
+              Good morning
             </span>
-            <p className="mt-[4px] text-[15px] font-extrabold leading-none tracking-tight">
-              Your Name
-            </p>
+            <p className="mt-[4px] text-[15px] font-extrabold leading-none tracking-tight">Your Name</p>
           </div>
         </div>
 
-        <div className="relative mt-[9px] flex gap-[5px]">
+        <div className="relative mt-[9px] flex gap-[4px]">
           {CHIPS.map(([Icon, label]) => (
             <span
               key={label}
-              className="inline-flex h-[14px] items-center gap-[3px] rounded-full bg-[#0b4156]/45 px-[6px] text-[8px] font-semibold leading-none"
+              className="inline-flex h-[14px] items-center gap-[3px] rounded-full border border-white/15 bg-[#0b4156]/35 px-[6px] text-[8px] font-medium leading-none"
             >
               <Icon className="h-[7px] w-[7px]" strokeWidth={2} />
               {label}
@@ -114,12 +112,12 @@ function HomeScreen({ reduceMotion }) {
           ))}
         </div>
 
-        <div className="relative mt-[7px] flex h-[32px] items-center gap-[7px] rounded-[9px] border border-white/25 bg-white/[0.14] px-[5px]">
-          <span className="grid h-[18px] w-[18px] shrink-0 place-items-center rounded-[5px] bg-gradient-to-br from-mint to-accent">
+        <div className="relative mt-[6px] flex h-[33px] items-center gap-[7px] rounded-[8px] border border-white/25 bg-white/[0.12] px-[5px]">
+          <span className="grid h-[18px] w-[18px] shrink-0 place-items-center rounded-[5px] bg-gradient-to-br from-[#f08a3c] to-accent">
             <Award className="h-[10px] w-[10px]" strokeWidth={2} />
           </span>
           <div className="min-w-0 flex-1">
-            <p className="text-[9.5px] font-bold leading-[11px]">HealthComplete</p>
+            <p className="text-[9.5px] font-bold leading-[11px]">HealthStart</p>
             <p className="text-[7.5px] leading-[10px] text-white/80">Your plan</p>
           </div>
           <div className="pr-[4px] text-right">
@@ -127,51 +125,48 @@ function HomeScreen({ reduceMotion }) {
             <p className="text-[8.5px] font-bold leading-[11px]">05/07/2027</p>
           </div>
         </div>
+      </motion.div>
 
-        <div className="relative mt-[12.5px] rounded-[13px] bg-white p-[9px]">
-          <span className="flex h-[32px] items-center justify-center gap-[6px] rounded-[11px] bg-gradient-to-r from-accent to-mint text-[11px] font-bold text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.3)]">
-            <Upload className="h-[11px] w-[11px]" strokeWidth={2.2} />
-            Upload Report
-          </span>
-          <span className="mt-[6px] flex h-[29px] items-center justify-center gap-[6px] rounded-[11px] border border-[#d3e2e7] bg-white text-[10.5px] font-semibold text-[#2a6b7a]">
-            <Folder className="h-[11px] w-[11px]" strokeWidth={1.9} />
-            Manage existing reports
-          </span>
-        </div>
+      {/* upload card, overlapping the bottom of the band */}
+      <motion.div
+        variants={item}
+        className="relative z-10 mx-[12px] -mt-[32px] rounded-[13px] bg-white p-[9px] shadow-[0_12px_24px_-14px_rgba(11,65,86,0.4)]"
+      >
+        <span className="flex h-[35px] items-center justify-center gap-[6px] rounded-[12px] bg-gradient-to-r from-[#d4590c] to-[#f08a3c] text-[11px] font-bold text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.35),0_8px_14px_-8px_rgba(217,95,20,0.7)]">
+          <Upload className="h-[11px] w-[11px]" strokeWidth={2.2} />
+          Upload Report
+        </span>
+        <span className="mt-[6px] flex h-[34px] items-center justify-center gap-[6px] rounded-[12px] border border-[#cfe0e5] bg-white text-[10.5px] font-semibold text-[#1d6476]">
+          <Folder className="h-[11px] w-[11px]" strokeWidth={1.9} />
+          Manage Existing Reports
+        </span>
       </motion.div>
 
       {/* alerts from your readings */}
       <motion.div variants={item}>
-        <div className="mx-[12px] mt-[20px] flex items-baseline justify-between">
-          <p className="text-[13.5px] font-extrabold leading-[16px] tracking-tight">
-            Alerts from your readings
+        <div className="mx-[12px] mt-[21px] flex items-baseline justify-between">
+          <p className="text-[13px] font-extrabold leading-[16px] tracking-tight">Alerts From Your Readings</p>
+          <p className="flex items-center text-[10.5px] font-semibold leading-none text-[#2a7386]">
+            Trends <ChevronRight className="h-[10px] w-[10px]" strokeWidth={2.4} />
           </p>
-          <p className="text-[10.5px] font-semibold leading-none text-[#2a7386]">Trends</p>
         </div>
         <p className="mx-[12px] mt-[9px] flex items-center gap-[5px] text-[8.5px] font-medium leading-none text-[#4d6670]">
-          <span className="h-[4px] w-[4px] rounded-full bg-[#b3353c]" />
-          2 need attention · 2 high
+          <span className="h-[4px] w-[4px] rounded-full bg-[#c62c38]" />
+          6 need attention · 6 high
         </p>
 
-        <ul className="mx-[12px] mt-[9px] space-y-[8px]">
+        <ul className="mx-[12px] mt-[9px] space-y-[7px]">
           {ALERTS.map((alert) => (
             <li
               key={alert}
-              className="flex h-[49px] items-center gap-[9px] rounded-[10px] border border-l-[3.5px] border-[#f3cfd2] border-l-[#b3353c] bg-gradient-to-r from-[#fdecec] to-white pl-[9px] pr-[9px]"
+              className="flex h-[50px] items-center gap-[9px] rounded-[12px] border border-l-[3.5px] border-[#f3d3d6] border-l-[#c62c38] bg-gradient-to-r from-[#fdeef0] to-[#fdf7f8] pl-[10px] pr-[9px]"
             >
               <span className="grid h-[31px] w-[31px] shrink-0 place-items-center rounded-full bg-white shadow-[0_3px_8px_-4px_rgba(11,65,86,0.25)]">
-                <CircleAlert className="h-[13px] w-[13px] text-[#b3353c]" strokeWidth={1.9} />
+                <CircleAlert className="h-[13px] w-[13px] text-[#c62c38]" strokeWidth={1.9} />
               </span>
-              <div className="min-w-0 flex-1">
-                <p className="truncate text-[11px] font-extrabold leading-[13px] tracking-tight">
-                  {alert}
-                </p>
-                <p className="mt-[1px] truncate text-[9px] leading-[11px] text-[#5c6e75]">
-                  Flagged from your reports
-                </p>
-              </div>
-              <span className="inline-flex h-[18px] shrink-0 items-center gap-[4px] rounded-full border border-[#f0c4c8] bg-[#fdeef0] px-[7px] text-[9px] font-bold leading-none text-[#a52c34]">
-                <span className="h-[3.5px] w-[3.5px] rounded-full bg-[#b3353c]" />
+              <p className="line-clamp-2 min-w-0 flex-1 text-[11.5px] font-bold leading-[14px] tracking-tight">{alert}</p>
+              <span className="inline-flex h-[18px] shrink-0 items-center gap-[4px] rounded-full border border-[#f0c4c8] bg-[#fdeef0] px-[7px] text-[9px] font-semibold leading-none text-[#c62c38]">
+                <span className="h-[3.5px] w-[3.5px] rounded-full bg-[#c62c38]" />
                 Alert
               </span>
             </li>
@@ -179,44 +174,20 @@ function HomeScreen({ reduceMotion }) {
         </ul>
       </motion.div>
 
-      {/* my health services — its cards sit under the tab bar, as in the app */}
-      <motion.div variants={item}>
-        <p className="mx-[12px] mt-[21px] text-[13.5px] font-extrabold leading-[16px] tracking-tight">
-          My health services
-        </p>
-        <div className="mx-[12px] mt-[9px] grid grid-cols-2 gap-[6px]">
-          <span className="h-[60px] rounded-t-[11px] bg-white" />
-          <span className="h-[60px] rounded-t-[11px] bg-white" />
-        </div>
-      </motion.div>
-
-      {/* chat button */}
-      <span className="absolute right-[9px] top-[441px] grid h-[41px] w-[41px] place-items-center rounded-full bg-gradient-to-br from-[#3f7f93] to-[#235b6f] text-white shadow-[0_8px_18px_-8px_rgba(11,65,86,0.6)]">
-        <MessageCircle className="h-[15px] w-[15px]" strokeWidth={1.9} />
-      </span>
-
       {/* floating tab bar */}
-      <div className="absolute inset-x-[9px] bottom-[9px] flex h-[42px] items-center rounded-[21px] border border-[#dbe7eb] bg-white px-[4px] shadow-[0_10px_26px_-8px_rgba(11,65,86,0.4)]">
+      <div className="absolute inset-x-[9px] bottom-[9px] flex h-[43px] items-center rounded-[21px] border border-[#dbe7eb] bg-white px-[4px] shadow-[0_10px_26px_-8px_rgba(11,65,86,0.4)]">
         {NAV.map(([label, Icon], index) => {
           const on = index === 0
           return (
             <span
               key={label}
-              className={`flex h-[34px] flex-1 flex-col items-center justify-center gap-[2.5px] rounded-[17px] ${
-                on ? 'bg-[#e6eff2]' : ''
-              }`}
+              className={`flex h-[35px] flex-1 flex-col items-center justify-center gap-[2.5px] rounded-[17px] ${on ? 'bg-[#e3eff2]' : ''}`}
             >
               <Icon
-                className={`h-[13px] w-[13px] ${on ? 'text-[#2a6b7a]' : 'text-[#2a7386]'}`}
-                strokeWidth={1.9}
+                className={`h-[13px] w-[13px] ${on ? 'fill-[#1d6476] text-[#1d6476]' : 'text-[#2a7386]'}`}
+                strokeWidth={on ? 1.6 : 1.9}
               />
-              <span
-                className={`text-[8px] leading-none ${
-                  on ? 'font-bold text-[#17404d]' : 'font-semibold text-[#2a7386]'
-                }`}
-              >
-                {label}
-              </span>
+              <span className={`text-[8px] leading-none ${on ? 'font-bold text-[#1d6476]' : 'font-medium text-[#4d6670]'}`}>{label}</span>
             </span>
           )
         })}
@@ -308,7 +279,7 @@ export default function AppShowcase() {
       <div className="relative mx-auto w-fit">
         <Satellite
           icon={CircleAlert}
-          title="2 need attention"
+          title="6 need attention"
           text="Alerts from your readings"
           side="right"
           shift={far}

@@ -16,12 +16,12 @@ const products = [
   {
     tag: 'For patients & families',
     title: 'HealthOS',
-    text: 'Your family’s health, decoded. Every report, reading and trend in one app.',
+    text: 'Your family’s health, decoded. Every report, biomarker, and trend in one place.',
     points: [
-      'Snap a report and get clear readings in 2 hours',
-      'See what is high, what is normal and what changed',
-      'Get alerted before a small change becomes a big problem',
-      'Keep your whole family’s health in one app',
+      'Scan any blood report and get structured, easy-to-read insights in under 2 hours',
+      'Track lab trends to see what’s normal, elevated, or changing',
+      'Catch early warning signs before they turn into medical emergencies',
+      'Keep your whole family’s health history connected in one app',
     ],
     link: 'Explore HealthOS',
     href: '/healthos',

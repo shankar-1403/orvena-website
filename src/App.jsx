@@ -14,6 +14,8 @@ import BlogPage from './pages/BlogPage'
 // Admin area (enquiries CMS). Loaded only when visited, so it adds nothing to the public pages.
 const AdminLoginPage = lazy(() => import('./pages/admin/AdminLoginPage'))
 const AdminEnquiriesPage = lazy(() => import('./pages/admin/AdminEnquiriesPage'))
+const AdminBlogsPage = lazy(() => import('./pages/admin/AdminBlogsPage'))
+const BlogPostPage = lazy(() => import('./pages/BlogPostPage'))
 
 // The site follows the new site map: Home, HealthOS, ClinicOS, Disease Reversal, Contact.
 // Old URLs redirect to the closest new page.
@@ -37,6 +39,14 @@ export default function App() {
           </Suspense>
         }
       />
+      <Route
+        path="/admin/blogs"
+        element={
+          <Suspense fallback={null}>
+            <AdminBlogsPage />
+          </Suspense>
+        }
+      />
       <Route element={<Layout />}>
         <Route path="/" element={<HomePage />} />
         <Route path="/healthos" element={<HealthOSAppPage />} />
@@ -48,6 +58,14 @@ export default function App() {
         <Route path="/terms" element={<TermsPage />} />
         {/* Blog: linked only from the footer for now */}
         <Route path="/blog" element={<BlogPage />} />
+        <Route
+          path="/blog/:id"
+          element={
+            <Suspense fallback={null}>
+              <BlogPostPage />
+            </Suspense>
+          }
+        />
 
         <Route path="/about" element={<Navigate to="/" replace />} />
         <Route path="/services" element={<Navigate to="/" replace />} />

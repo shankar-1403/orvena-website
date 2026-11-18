@@ -16,7 +16,7 @@ const config = {
 
 export const firebaseReady = Boolean(config.apiKey && config.databaseURL && config.appId)
 
-const app = firebaseReady ? (getApps()[0] ?? initializeApp(config)) : null
+export const app = firebaseReady ? (getApps()[0] ?? initializeApp(config)) : null
 
 export const db = app ? getDatabase(app) : null
 export const auth = app ? getAuth(app) : null

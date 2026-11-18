@@ -35,14 +35,14 @@ const badges = [
 ]
 
 const features = [
-  { icon: Droplet, title: 'Blood Reports', text: 'Every test across every report date, as a table or a bar chart against the normal range.' },
-  { icon: ScanLine, title: 'Diagnostic Reports', text: 'X-rays, scans and other reports, sorted by category and date.' },
-  { icon: Stethoscope, tone: 'accent', title: 'Doctors & Booking', text: 'Find doctors by specialty or area, book live slots and keep your favorites in My Doctors.' },
-  { icon: Pill, tone: 'accent', title: 'Prescriptions', text: 'Prescriptions from your doctor arrive in the app, with medicine history and PDFs.' },
-  { icon: Syringe, tone: 'teal', title: 'Vaccine Schedule', text: 'Every stage for your child, from birth, with alerts when the next one is due.' },
-  { icon: Users, tone: 'teal', title: 'Family Profiles', text: 'One login for the whole family. Each profile sees only its own records.' },
-  { icon: IdCard, title: 'Digital Health ID', text: 'Your Health ID card to show at any empaneled clinic or lab.' },
-  { icon: ShieldCheck, tone: 'accent', title: 'Insurance', text: 'Keep every policy, its dates and documents in one list.' },
+  { icon: Droplet, title: 'Blood Reports', text: 'Every test parameter across every report date, viewed as a clean table or trend bar chart against normal ranges.' },
+  { icon: ScanLine, title: 'Diagnostic Reports', text: 'X-rays, MRIs, sonography, and ECGs stored in full resolution and sorted by category and date.' },
+  { icon: Stethoscope, tone: 'accent', title: 'Doctors & Booking', text: 'Search verified specialists by specialty or area, book live slots, and save your family’s trusted doctors in My Doctors.' },
+  { icon: Pill, tone: 'accent', title: 'Prescriptions', text: 'Digital prescriptions from your doctor land directly in your app, complete with medicine history, dosages, and PDFs.' },
+  { icon: Syringe, tone: 'teal', title: 'Vaccine Schedule', text: 'Age-by-age immunization tracker for your child from birth, with due-date reminders and digital certificates.' },
+  { icon: Users, tone: 'teal', title: 'Family Profiles', text: 'One login for your entire household. Manage dedicated timelines for your spouse, kids, and parents, even from abroad.' },
+  { icon: IdCard, title: 'Digital Health ID', text: 'Ready to show at any hospital or lab for seamless, consent-based record linking.' },
+  { icon: ShieldCheck, tone: 'accent', title: 'Insurance Vault', text: 'Store every health and life policy, renewal date, and TPA card in one place so you’re never scrambling during an admission.' },
 ]
 
 const seals = [
@@ -94,21 +94,21 @@ function PrivacyPanel() {
 
 export default function HealthOSAppPage() {
   usePageMeta(
-    'HealthOS by Orvena | Your Family’s Health, Clearly Explained',
-    'Upload any medical report and HealthOS reads every value, shows what changed, flags what needs attention and keeps your whole family’s records in one secure place.',
+    'HealthOS by Orvena | Your Family’s Health, Decoded',
+    'Stop digging through paper folders and scattered PDFs. HealthOS reads your blood tests value by value, maps your health trends over time, and puts a doctor-ready summary in your pocket.',
   )
 
   return (
     <>
       <PageHero
         id="healthos"
-        eyebrow="HealthOS for patients and families"
+        eyebrow="For patients & families • HealthOS"
         title={
           <>
-            Your Family’s Health, <span className="text-accent">Clearly Explained.</span>
+            Your Family’s Health, Decoded. <span className="text-accent">Every Report and Trend in One App.</span>
           </>
         }
-        lead="Upload any medical report and HealthOS reads every value, shows what changed, flags what needs attention and keeps your whole family’s records in one secure place."
+        lead="Stop digging through paper folders and scattered PDFs. HealthOS reads your blood tests value by value, maps your health trends over time, and puts a doctor-ready summary in your pocket."
         actions={
           <>
             <Button href={healthosWebUrl} target="_blank" rel="noreferrer" variant="light" className="w-full sm:w-auto">

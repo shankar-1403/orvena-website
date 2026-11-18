@@ -1,4 +1,4 @@
-import { Download, Inbox, LogOut, Mail, Phone, Search, Trash2, X } from 'lucide-react'
+import { Download, Inbox, Mail, Phone, Search, Trash2, X } from 'lucide-react'
 import { useEffect, useMemo, useState } from 'react'
 import { Navigate } from 'react-router-dom'
 import {
@@ -6,9 +6,9 @@ import {
   TOPICS,
   deleteEnquiry,
   setEnquiryStatus,
-  signOutAdmin,
   watchEnquiries,
 } from '../../lib/enquiries'
+import AdminHeader from './AdminHeader'
 import { useAdmin, useNoIndex } from './useAdmin'
 
 const statusTone = {
@@ -217,20 +217,7 @@ export default function AdminEnquiriesPage() {
 
   return (
     <div className="min-h-svh bg-[#F3F6F8] text-navy">
-      <header className="sticky top-0 z-30 border-b border-line bg-white/90 backdrop-blur">
-        <div className="mx-auto flex max-w-[1200px] items-center gap-3 px-4 py-3 sm:px-6">
-          <img src="/orvena_logo.webp" alt="Orvena" className="h-7 w-auto" />
-          <span className="hidden rounded-full bg-soft px-2.5 py-0.5 text-[12px] font-semibold text-navy/70 sm:inline">Admin</span>
-          <span className="ml-auto hidden truncate text-[13px] text-muted sm:block">{user?.email}</span>
-          <button
-            type="button"
-            onClick={() => signOutAdmin()}
-            className="inline-flex items-center gap-2 rounded-xl px-3 py-2 text-[13px] font-semibold text-navy ring-1 ring-line hover:bg-pale max-sm:ml-auto"
-          >
-            <LogOut className="h-4 w-4" /> Sign out
-          </button>
-        </div>
-      </header>
+      <AdminHeader user={user} />
 
       <main className="mx-auto max-w-[1200px] px-4 py-6 sm:px-6 sm:py-8">
         <div className="flex flex-wrap items-end justify-between gap-4">

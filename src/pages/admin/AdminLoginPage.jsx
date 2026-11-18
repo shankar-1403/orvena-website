@@ -1,4 +1,4 @@
-import { Lock, Mail } from 'lucide-react'
+import { Eye, EyeOff, Lock, Mail } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { signIn, signOutAdmin } from '../../lib/enquiries'
@@ -9,22 +9,31 @@ const input =
 
 export default function AdminLoginPage() {
   useNoIndex('Sign in | Orvena Admin')
-  const { status } = useAdmin()
+  const { status, user, error: adminError } = useAdmin()
   const navigate = useNavigate()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [show, setShow] = useState(false)
   const [busy, setBusy] = useState(false)
   const [error, setError] = useState('')
 
+  const [notice, setNotice] = useState('')
+
   useEffect(() => {
     if (status === 'admin') navigate('/admin', { replace: true })
-  }, [status, navigate])
+    // signed in but not the admin: sign straight back out and say why
+    if (status === 'not-admin') {
+      setNotice(`${user?.email} can’t open the enquiries. The database said: ${adminError || 'not allowed'}.`)
+      signOutAdmin()
+    }
+  }, [status, navigate, user, adminError])
 
   const onSubmit = async (e) => {
     e.preventDefault()
     if (busy) return
     setBusy(true)
     setError('')
+    setNotice('')
     try {
       await signIn(email.trim(), password)
     } catch (err) {
@@ -50,12 +59,9 @@ export default function AdminLoginPage() {
           <h1 className="mt-6 text-[24px] font-extrabold tracking-tight text-navy">Admin sign in</h1>
           <p className="mt-1 text-[14px] text-muted">See and manage website enquiries.</p>
 
-          {status === 'not-admin' ? (
+          {notice ? (
             <div className="mt-6 rounded-xl bg-[#FDF1E1] px-4 py-3 text-[13px] text-[#8A5A00]">
-              This account isn’t an admin.{' '}
-              <button type="button" onClick={() => signOutAdmin()} className="font-semibold underline">
-                Sign out
-              </button>
+              {notice}
             </div>
           ) : null}
           {status === 'error' ? (
@@ -82,14 +88,22 @@ export default function AdminLoginPage() {
               <span className="sr-only">Password</span>
               <Lock className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-muted" aria-hidden="true" />
               <input
-                type="password"
+                type={show ? 'text' : 'password'}
                 autoComplete="current-password"
                 required
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="Password"
-                className={input}
+                className={`${input} pr-12`}
               />
+              <button
+                type="button"
+                onClick={() => setShow((v) => !v)}
+                aria-label={show ? 'Hide password' : 'Show password'}
+                className="absolute right-2 top-1/2 grid h-9 w-9 -translate-y-1/2 place-items-center rounded-lg text-muted transition-colors hover:text-navy"
+              >
+                {show ? <EyeOff className="h-4 w-4" aria-hidden="true" /> : <Eye className="h-4 w-4" aria-hidden="true" />}
+              </button>
             </label>
             {error ? (
               <p role="alert" className="text-[13px] text-[#B4232C]">

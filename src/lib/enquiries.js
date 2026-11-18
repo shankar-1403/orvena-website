@@ -85,14 +85,16 @@ export async function signOutAdmin() {
 export async function watchAdmin(callback) {
   const { auth, db } = await firebase()
   const { onAuthStateChanged } = await import('firebase/auth')
-  const { get, ref } = await import('firebase/database')
+  const { get, limitToFirst, query, ref } = await import('firebase/database')
   return onAuthStateChanged(auth, async (user) => {
     if (!user) return callback({ user: null, isAdmin: false })
     try {
-      const snap = await get(ref(db, `admins/${user.uid}`))
-      callback({ user, isAdmin: snap.val() === true })
-    } catch {
-      callback({ user, isAdmin: false })
+      // the rules only let the email saved at admin/email read enquiries
+      await get(query(ref(db, 'enquiries'), limitToFirst(1)))
+      callback({ user, isAdmin: true })
+    } catch (err) {
+      console.warn('[admin check]', user.email, err?.code || err?.message)
+      callback({ user, isAdmin: false, reason: err?.message || '' })
     }
   })
 }
