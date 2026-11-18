@@ -23,7 +23,11 @@ export default function AdminLoginPage() {
     if (status === 'admin') navigate('/admin', { replace: true })
     // signed in but not the admin: sign straight back out and say why
     if (status === 'not-admin') {
-      setNotice(`${user?.email} can’t open the enquiries. The database said: ${adminError || 'not allowed'}.`)
+      setNotice(
+        adminError === 'no sections assigned'
+          ? `${user?.email} has no CMS sections yet. Ask the main admin to give you access.`
+          : `${user?.email} can’t open the CMS. The database said: ${adminError || 'not allowed'}.`,
+      )
       signOutAdmin()
     }
   }, [status, navigate, user, adminError])
@@ -40,7 +44,7 @@ export default function AdminLoginPage() {
       const code = err?.code || ''
       setError(
         code.includes('invalid-credential') || code.includes('wrong-password') || code.includes('user-not-found')
-          ? 'That email and password don’t match an admin account.'
+          ? 'That email and password don’t match a CMS account.'
           : code.includes('too-many-requests')
             ? 'Too many attempts. Wait a few minutes and try again.'
             : err?.message || 'Sign-in failed. Try again.',
@@ -56,8 +60,8 @@ export default function AdminLoginPage() {
       <div className="relative w-full max-w-[400px]">
         <div className="rounded-[28px] bg-white p-7 shadow-[0_40px_80px_-30px_rgba(2,20,28,0.8)] sm:p-8">
           <img src="/orvena_logo.webp" alt="Orvena" className="h-9 w-auto" />
-          <h1 className="mt-6 text-[24px] font-extrabold tracking-tight text-navy">Admin sign in</h1>
-          <p className="mt-1 text-[14px] text-muted">See and manage website enquiries.</p>
+          <h1 className="mt-6 text-[24px] font-extrabold tracking-tight text-navy">CMS sign in</h1>
+          <p className="mt-1 text-[14px] text-muted">Manage enquiries, doctor onboarding and blogs.</p>
 
           {notice ? (
             <div className="mt-6 rounded-xl bg-[#FDF1E1] px-4 py-3 text-[13px] text-[#8A5A00]">

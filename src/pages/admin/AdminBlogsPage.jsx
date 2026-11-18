@@ -7,7 +7,7 @@ import { useEffect, useState } from 'react'
 import { Navigate } from 'react-router-dom'
 import { deleteBlog, saveBlog, watchBlogs } from '../../lib/blogs'
 import AdminHeader from './AdminHeader'
-import { useAdmin, useNoIndex } from './useAdmin'
+import { accessRedirect, useAdmin, useNoIndex } from './useAdmin'
 
 const emptyForm = { title: '', excerpt: '', category: '', author: '', date: '', readTime: '', featured: false, content: '' }
 const noFiles = { cover_image: null, inner_image: null }
@@ -177,13 +177,15 @@ function Editor({ editing, onClose, user }) {
 
 export default function AdminBlogsPage() {
   useNoIndex('Blogs | Orvena Admin')
-  const { status, user } = useAdmin()
+  const admin = useAdmin()
+  const { status, user } = admin
+  const allowed = !accessRedirect(admin, 'blogs')
   const [blogs, setBlogs] = useState(null)
   const [error, setError] = useState('')
   const [editing, setEditing] = useState(undefined) // undefined = closed, null = new, object = edit
 
   useEffect(() => {
-    if (status !== 'admin') return undefined
+    if (status !== 'admin' || !allowed) return undefined
     let unsub = () => {}
     let alive = true
     watchBlogs(
@@ -196,9 +198,10 @@ export default function AdminBlogsPage() {
       alive = false
       unsub()
     }
-  }, [status])
+  }, [status, allowed])
 
-  if (status === 'signed-out' || status === 'not-admin' || status === 'error') return <Navigate to="/login" replace />
+  const redirect = accessRedirect(admin, 'blogs')
+  if (redirect) return <Navigate to={redirect} replace />
 
   const onDelete = (b) => {
     if (!window.confirm(`Delete “${b.title || 'this blog'}”? This can’t be undone.`)) return
@@ -207,7 +210,7 @@ export default function AdminBlogsPage() {
 
   return (
     <div className="min-h-svh bg-[#F3F6F8] text-navy">
-      <AdminHeader user={user} />
+      <AdminHeader user={user} admin={admin} />
 
       <main className="mx-auto max-w-[1200px] px-4 py-6 sm:px-6 sm:py-8">
         <div className="flex flex-wrap items-end justify-between gap-4">

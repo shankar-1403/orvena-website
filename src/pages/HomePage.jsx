@@ -30,7 +30,7 @@ const products = [
   {
     tag: 'For doctors & clinics',
     title: 'ClinicOS',
-    text: 'The intelligent operating system for modern practices, saving consult time while growing your OPD.',
+    text: 'The intelligent system for modern practices, saving consult time while growing your OPD.',
     points: [
       'Smart patient summaries before every consultation',
       'Instant prescriptions with ICD-10 coding and saved templates',
@@ -77,7 +77,7 @@ const connects = [
 ]
 
 const numbers = [
-  { value: '1 Lakh+', label: 'Users across HealthOS and ClinicOS' },
+  { value: '100K+', label: 'Users across HealthOS and ClinicOS' },
   { value: '10,000+', label: 'Patients helped through Disease Reversal' },
   { value: '2 hours', label: 'To turn a blood report into readings' },
   { value: '100+', label: 'Doctors on the Orvena network' },

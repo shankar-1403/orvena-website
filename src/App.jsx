@@ -9,13 +9,17 @@ import HomePage from './pages/HomePage'
 import NotFoundPage from './pages/NotFoundPage'
 import PrivacyPage from './pages/PrivacyPage'
 import TermsPage from './pages/TermsPage'
-import BlogPage from './pages/BlogPage'
+// Blog is switched off for now. Uncomment these and the routes below to bring it back.
+// import BlogPage from './pages/BlogPage'
 
 // Admin area (enquiries CMS). Loaded only when visited, so it adds nothing to the public pages.
 const AdminLoginPage = lazy(() => import('./pages/admin/AdminLoginPage'))
 const AdminEnquiriesPage = lazy(() => import('./pages/admin/AdminEnquiriesPage'))
+const AdminDoctorsPage = lazy(() => import('./pages/admin/AdminDoctorsPage'))
 const AdminBlogsPage = lazy(() => import('./pages/admin/AdminBlogsPage'))
-const BlogPostPage = lazy(() => import('./pages/BlogPostPage'))
+const AdminUsersPage = lazy(() => import('./pages/admin/AdminUsersPage'))
+const AdminHome = lazy(() => import('./pages/admin/AdminHome'))
+// const BlogPostPage = lazy(() => import('./pages/BlogPostPage'))
 
 // The site follows the new site map: Home, HealthOS, ClinicOS, Disease Reversal, Contact.
 // Old URLs redirect to the closest new page.
@@ -31,11 +35,44 @@ export default function App() {
           </Suspense>
         }
       />
+      {/* CMS. Each page checks which sections the signed-in user may open. */}
       <Route
         path="/admin"
         element={
           <Suspense fallback={null}>
-            <AdminEnquiriesPage />
+            <AdminHome />
+          </Suspense>
+        }
+      />
+      <Route
+        path="/admin/hos"
+        element={
+          <Suspense fallback={null}>
+            <AdminEnquiriesPage key="hos" section="hos" />
+          </Suspense>
+        }
+      />
+      <Route
+        path="/admin/cos"
+        element={
+          <Suspense fallback={null}>
+            <AdminEnquiriesPage key="cos" section="cos" />
+          </Suspense>
+        }
+      />
+      <Route
+        path="/admin/dt"
+        element={
+          <Suspense fallback={null}>
+            <AdminEnquiriesPage key="dt" section="dt" />
+          </Suspense>
+        }
+      />
+      <Route
+        path="/admin/doctors"
+        element={
+          <Suspense fallback={null}>
+            <AdminDoctorsPage />
           </Suspense>
         }
       />
@@ -47,16 +84,26 @@ export default function App() {
           </Suspense>
         }
       />
+      <Route
+        path="/admin/users"
+        element={
+          <Suspense fallback={null}>
+            <AdminUsersPage />
+          </Suspense>
+        }
+      />
       <Route element={<Layout />}>
         <Route path="/" element={<HomePage />} />
         <Route path="/healthos" element={<HealthOSAppPage />} />
+        <Route path="/healthos2" element={<Navigate to="/healthos" replace />} />
         <Route path="/clinicos" element={<ClinicOSPage />} />
+        <Route path="/clinicos2" element={<Navigate to="/clinicos" replace />} />
         <Route path="/disease-reversal" element={<DiseaseReversalPage />} />
         <Route path="/disease-reversal-v2" element={<Navigate to="/disease-reversal" replace />} />
         <Route path="/contact" element={<ContactPage />} />
         <Route path="/privacy" element={<PrivacyPage />} />
         <Route path="/terms" element={<TermsPage />} />
-        {/* Blog: linked only from the footer for now */}
+        {/* Blog switched off for now.
         <Route path="/blog" element={<BlogPage />} />
         <Route
           path="/blog/:id"
@@ -66,6 +113,8 @@ export default function App() {
             </Suspense>
           }
         />
+        */}
+        <Route path="/blog/*" element={<Navigate to="/" replace />} />
 
         <Route path="/about" element={<Navigate to="/" replace />} />
         <Route path="/services" element={<Navigate to="/" replace />} />

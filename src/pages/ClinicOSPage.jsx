@@ -1,5 +1,9 @@
 import {
   BarChart3,
+  Brain,
+  LayoutDashboard,
+  Mic,
+  TrendingUp,
   Bell,
   Briefcase,
   Building2,
@@ -22,7 +26,10 @@ import {
   Video,
   Wallet,
 } from 'lucide-react'
-import { CtaBand, IconCards, Section, Split, Steps } from '../components/site/blocks'
+import { useCallback, useState } from 'react'
+import DemoModal from '../components/site/DemoModal'
+import { CtaBand, IconCards, Section, Split } from '../components/site/blocks'
+import { PillarOverview } from '../components/site/Pillars'
 import { ClinicOSWindow, RxCard, SmartViewCard } from '../components/site/ClinicOSVisuals'
 import PageHero from '../components/site/PageHero'
 import Button from '../components/ui/Button'
@@ -36,18 +43,11 @@ const badges = [
   { icon: IdCard, text: 'ABHA / ABDM ready' },
 ]
 
-const day = [
-  { title: 'See your day', text: 'Today’s appointments with token numbers, known conditions and a day-progress bar, plus monthly KPIs.' },
-  { title: 'Know the patient', text: 'Open SmartView: every report, out-of-range value, trend, allergy and history on one screen.' },
-  { title: 'Prescribe fast', text: 'Diagnosis with ICD-10, medicines, tests and follow-up. Renew the last visit or use a favorite in one click.' },
-  { title: 'Close the loop', text: 'The prescription lands in the patient’s HealthOS app, the bill is raised, and the follow-up is set.' },
-]
-
 const tools = [
   { icon: CalendarDays, title: 'Appointments & OPD', text: 'Configure multi-location OPD slots, automated token queues, and seamless in-clinic or video consultations.' },
   { icon: Search, title: 'Unified Patient Records', text: 'Instant search across your patient base with rapid walk-in registration, vitals, and longitudinal lab timelines.' },
   { icon: PenLine, tone: 'accent', title: 'Templates & SmartView Setup', text: 'Save specialty Rx templates, lab panels, and priority biomarker views tailored to your practice.' },
-  { icon: Wallet, tone: 'accent', title: 'OPD Billing & Doctor Wallet', text: 'One-click invoices, digital receipts, pending-payment tracking, and transparent settlement in your doctor wallet.' },
+  { icon: Wallet, tone: 'accent', title: 'OPD Billing', text: 'One-click invoices, digital receipts, pending-payment tracking, and transparent settlement.' },
   { icon: BarChart3, tone: 'teal', title: 'Practice Analytics', text: 'Track monthly patient footfall, revenue trends, and in-clinic vs. teleconsultation performance at a glance.' },
   { icon: Sparkles, tone: 'teal', title: 'Smart Patient Cohorts', text: 'Segment patients by out-of-range markers (e.g., high HbA1c or LDL) to automate chronic disease recalls.' },
 ]
@@ -58,12 +58,12 @@ const modules = [
   { icon: FlaskConical, title: 'Labs & Diagnostics', text: 'Schedule lab tests, attach radiology scans, and automatically convert paper reports into structured biomarkers.' },
   { icon: Pill, tone: 'accent', title: 'Pharmacy', text: 'Connect directly with chemists for digital prescription orders, billing invoices, and doorstep medicine delivery.' },
   { icon: Syringe, tone: 'accent', title: 'Vaccination', text: 'Automated immunization schedules and a lifetime digital vaccine diary for every pediatric patient.' },
-  { icon: ShieldCheck, tone: 'accent', title: 'Insurance & TPA', text: 'Keep health policies, TPA cards, and renewal dates organized in one place for quick hospital access.' },
-  { icon: Briefcase, tone: 'teal', title: 'Corporate Wellness', text: 'Deliver employee health summaries and workforce lifestyle analytics for partner companies and housing societies.' },
   { icon: Utensils, tone: 'teal', title: 'Nutrition', text: 'Integrate clinical nutritionists, custom diet plans, dietary recalls, and follow-up nutrition consults.' },
   { icon: Video, tone: 'teal', title: 'Telemedicine', text: 'Run video consultations with full patient history and custom settings right alongside your in-clinic visits.' },
-  { icon: IdCard, title: 'ABHA / ABDM', text: 'Generate ABHA Health IDs and link patient records directly to India’s national digital health stack.' },
+  { icon: Briefcase, tone: 'teal', title: 'Corporate Wellness', text: 'Deliver employee health summaries and workforce lifestyle analytics for partner companies and housing societies.' },
   { icon: Share2, title: 'Referrals & Network', text: 'Cross-refer patients between specialists and collaborate seamlessly with empaneled network partners.' },
+  { icon: IdCard, title: 'ABHA / ABDM', text: 'Generate ABHA Health IDs and link patient records directly to India’s national digital health stack.' },
+  { icon: ShieldCheck, tone: 'accent', title: 'Insurance & TPA', text: 'Keep health policies, TPA cards, and renewal dates organized in one place for quick hospital access.' },
   { icon: Package, title: 'Inventory', text: 'Track medical consumables, vendors, purchase orders, stock movement, and automated reorder alerts.' },
 ]
 
@@ -74,38 +74,40 @@ const connected = [
   { icon: Bell, title: 'Follow-Up', text: 'Automated review dates and test reminders sync across both apps, never forgotten on paper.' },
 ]
 
-/** The modules as one board: a navy panel split into cells by hairlines, like plug-in blocks. */
-const ringTone = {
-  accent: 'text-[#ffb27a] ring-accent/50 bg-accent/15',
-  teal: 'text-[#7fd3e3] ring-[#2a9db5]/50 bg-[#2a9db5]/15',
-  navy: 'text-white ring-white/30 bg-white/10',
+/**
+ * The modules as an open ruled index: same 3-column order as before, no boxes. Hairlines
+ * separate the rows, and a colored rule sweeps across the top of a module on hover.
+ */
+const softTone = {
+  accent: 'bg-accent/10 text-accent',
+  teal: 'bg-teal/10 text-teal',
+  navy: 'bg-navy/[0.07] text-navy',
 }
+const sweepTone = { accent: 'bg-accent', teal: 'bg-teal', navy: 'bg-navy' }
 
 function ModuleBoard({ items }) {
   return (
-    <div className="relative overflow-hidden rounded-[26px] bg-gradient-to-br from-navy via-[#0d4a5c] to-midnight shadow-[0_30px_60px_-30px_rgba(2,20,28,0.7)] sm:rounded-[30px]">
-      <div aria-hidden="true" className="bg-dot-grid pointer-events-none absolute inset-0 opacity-[0.08]" />
-      <ul className="relative grid gap-px bg-white/10 sm:grid-cols-2 lg:grid-cols-3">
-        {items.map(({ icon: Icon, tone = 'navy', title, text }) => (
-          <li
-            key={title}
-            className="group relative flex gap-4 bg-[#0c3b4c] p-5 transition-colors duration-300 hover:bg-[#10495c] sm:p-6"
-          >
+    <ul className="grid sm:grid-cols-2 sm:gap-x-8 lg:grid-cols-3 lg:gap-x-12">
+      {items.map(({ icon: Icon, tone = 'navy', title, text }, i) => (
+        <li key={title} className="group relative border-t border-navy/15 py-6 sm:py-7">
+          <span
+            aria-hidden="true"
+            className={`absolute -top-px left-0 h-[2px] w-full origin-left scale-x-0 transition-transform duration-500 group-hover:scale-x-100 ${sweepTone[tone]}`}
+          />
+          <Reveal delay={0.04 * (i % 3)} className="flex gap-4">
             <span
-              aria-hidden="true"
-              className="absolute inset-y-4 left-0 w-[3px] origin-center scale-y-0 rounded-r-full bg-accent transition-transform duration-300 group-hover:scale-y-100"
-            />
-            <span className={`grid h-11 w-11 shrink-0 place-items-center rounded-full ring-1 transition-transform duration-300 group-hover:-translate-y-0.5 ${ringTone[tone] ?? ringTone.navy}`}>
-              <Icon className="h-5 w-5" strokeWidth={1.7} aria-hidden="true" />
+              className={`grid h-12 w-12 shrink-0 place-items-center rounded-2xl transition-transform duration-300 group-hover:-rotate-6 ${softTone[tone]}`}
+            >
+              <Icon className="h-[22px] w-[22px]" strokeWidth={1.6} aria-hidden="true" />
             </span>
             <div className="min-w-0">
-              <h3 className="text-[16px] font-bold tracking-tight text-white">{title}</h3>
-              <p className="mt-1 text-[13.5px] leading-[22px] text-white/65">{text}</p>
+              <h3 className="text-[17px] font-bold tracking-tight text-navy">{title}</h3>
+              <p className="mt-1.5 text-[13.5px] leading-[22px] text-muted">{text}</p>
             </div>
-          </li>
-        ))}
-      </ul>
-    </div>
+          </Reveal>
+        </li>
+      ))}
+    </ul>
   )
 }
 
@@ -142,7 +144,38 @@ function ConnectedFlow({ items }) {
   )
 }
 
+const pillars = [
+  {
+    icon: Brain,
+    title: 'Synthesize',
+    tagline: 'Know the Patient Before the Consultation.',
+    text: 'Get a comprehensive view of the patient’s medical history before every consultation. Hospital records, laboratory reports, diagnostic scans and prescriptions are organized chronologically, with abnormal results highlighted for quicker clinical review.',
+  },
+  {
+    icon: Mic,
+    tone: 'accent',
+    title: 'Prescribe',
+    tagline: 'Effortless Documentation. Smarter Prescriptions.',
+    text: 'Create comprehensive clinical notes effortlessly through voice dictation or typing. Generate accurate, structured prescriptions instantly using intelligent templates, allowing doctors to focus more on patient care and less on documentation.',
+  },
+  {
+    icon: LayoutDashboard,
+    tone: 'teal',
+    title: 'Operate',
+    tagline: 'Your Entire Practice. One Connected Platform.',
+    text: 'Manage appointments, patient records, billing, digital payments and diagnostic orders through one seamless workflow. Connect with hospitals, laboratories and pharmacies without switching between multiple applications.',
+  },
+  {
+    icon: TrendingUp,
+    title: 'Grow',
+    tagline: 'Build a Smarter, More Connected Practice.',
+    text: 'Strengthen patient engagement and create opportunities for practice growth through automated follow-up reminders, diagnostic re-test notifications and second-opinion referral services.',
+  },
+]
+
 export default function ClinicOSPage() {
+  const [demoOpen, setDemoOpen] = useState(false)
+  const closeDemo = useCallback(() => setDemoOpen(false), [])
   usePageMeta(
     'ClinicOS by Orvena | The Operating System for Your Practice',
     'Appointments, a smart summary of every patient, prescriptions in a minute, billing and reports, all in one place and connected to your patients’ HealthOS app.',
@@ -161,7 +194,7 @@ export default function ClinicOSPage() {
         lead="Appointments, a smart summary of every patient, prescriptions in a minute, billing and reports, all in one place and connected to your patients’ HealthOS app."
         actions={
           <>
-            <Button href="/contact?topic=clinicos" variant="light" className="w-full sm:w-auto">
+            <Button as="button" onClick={() => setDemoOpen(true)} variant="light" className="w-full sm:w-auto">
               Book a Demo
             </Button>
           </>
@@ -170,39 +203,39 @@ export default function ClinicOSPage() {
         visual={<ClinicOSWindow />}
       />
 
-      <Section id="a-doctors-day">
-        <Reveal>
-          <SectionHeader eyebrow="A doctor’s day on ClinicOS" title="Spend Less Time Typing, More Time with Patients" />
-        </Reveal>
-        <div className="mt-8 sm:mt-10">
-          <Steps items={day} />
-        </div>
+      <Section id="four-pillars">
+        <PillarOverview
+          eyebrow="How ClinicOS works"
+          title="Four Pillars. One Intelligent Practice."
+          description="Designed around the way doctors actually work, ClinicOS brings clinical intelligence, effortless documentation and practice management together, so you can spend less time on administrative tasks and more time focusing on your patients."
+          pillars={pillars}
+        />
       </Section>
 
       <Section id="smartview" tone="soft">
         <div className="space-y-12 lg:space-y-14">
           <Split
             eyebrow="Patient SmartView"
-            title="The Whole Story Before They Sit Down"
-            lead="Reports your patient uploads in HealthOS appear in ClinicOS already read. You see out-of-range metrics, previous vs latest values against the reference range, what needs attention and suggested recommendations."
+            title="Complete Clinical Context Before the Consult Begins"
+            lead="Every report your patient uploads in HealthOS lands in ClinicOS structured and organized. Review out-of-range biomarkers, percentage changes since the last visit, and priority risk flags in seconds."
             ticks={[
-              'Allergy alerts at the top',
-              'Vitals, blood reports, vaccine diary and referrals in the patient hub',
-              'Personal, family, surgical and lifestyle history in one editor',
-              'Upload reports, add notes and manage bills from the same screen',
+              'High visibility allergy alerts anchored at the top of every chart',
+              'Longitudinal vitals, blood tests, immunization records, and referrals in one hub',
+              'Structured personal, family, surgical, and lifestyle history in one editor',
+              'Upload reports, dictate notes, and settle OPD billing from a single screen',
             ]}
             media={<SmartViewCard />}
           />
           <Split
             reverse
             eyebrow="Prescription writer"
-            title="A Complete Prescription in a Minute"
-            lead="One screen for complaint and clinical notes, diagnosis, medicines, investigations, follow-up, discharge card and billing, printed with your digital signature and your own header."
+            title="A Complete Prescription in Under a Minute"
+            lead="Capture complaints, ICD-10 diagnosis, medications, lab orders, and follow-up dates from a single screen. Print on your custom letterhead with your digital signature or sync directly to the patient’s HealthOS timeline."
             ticks={[
-              'ICD-10 diagnosis lookup',
-              '“Renew last visit” and saved Rx favorites',
-              'Favorite investigation bundles and lab referral',
-              'Refer the patient to another doctor in one tap',
+              'Instant ICD-10 diagnosis lookup',
+              'One click “Renew last visit” and saved specialty Rx templates',
+              'Favorite investigation bundles with direct partner lab referrals',
+              'Refer patients to specialist colleagues in a single tap',
             ]}
             media={<RxCard />}
           />
@@ -257,6 +290,7 @@ export default function ClinicOSPage() {
           Schedule Live Demo
         </Button>
       </CtaBand>
+      <DemoModal open={demoOpen} onClose={closeDemo} />
     </>
   )
 }

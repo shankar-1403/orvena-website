@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Mail, MapPin } from 'lucide-react'
+import { CheckCircle2, Mail, MapPin } from 'lucide-react'
 import { useSearchParams } from 'react-router-dom'
 import { contact, healthosWebUrl } from '../data/site'
 import { programs } from '../data/diseaseReversal'
@@ -157,8 +157,13 @@ export default function Contact() {
           >
             {submitted ? (
               <div role="status" className="py-10 text-center">
-                <p className="text-2xl font-semibold text-navy">Thank you.</p>
-                <p className="mt-3 text-muted">We have your details and will be in touch soon.</p>
+                <span className="mx-auto grid h-14 w-14 place-items-center rounded-full bg-teal/10 text-teal">
+                  <CheckCircle2 className="h-7 w-7" strokeWidth={1.75} aria-hidden="true" />
+                </span>
+                <p className="mt-5 text-[26px] font-extrabold tracking-[-0.03em] text-navy">We’re on it.</p>
+                <p className="mx-auto mt-2 max-w-[36ch] text-[15px] leading-7 text-muted">
+                  Your message is with the Orvena team. Expect a reply within 12 hours.
+                </p>
               </div>
             ) : (
               <div className="grid gap-4">

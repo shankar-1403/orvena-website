@@ -117,7 +117,7 @@ function HomeScreen({ reduceMotion }) {
             <Award className="h-[10px] w-[10px]" strokeWidth={2} />
           </span>
           <div className="min-w-0 flex-1">
-            <p className="text-[9.5px] font-bold leading-[11px]">HealthStart</p>
+            <p className="text-[9.5px] font-bold leading-[11px]">Basic</p>
             <p className="text-[7.5px] leading-[10px] text-white/80">Your plan</p>
           </div>
           <div className="pr-[4px] text-right">

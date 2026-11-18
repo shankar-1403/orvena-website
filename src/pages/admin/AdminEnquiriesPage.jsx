@@ -9,7 +9,14 @@ import {
   watchEnquiries,
 } from '../../lib/enquiries'
 import AdminHeader from './AdminHeader'
-import { useAdmin, useNoIndex } from './useAdmin'
+import { accessRedirect, useAdmin, useNoIndex } from './useAdmin'
+
+/** Each enquiries section shows one "I'm interested in" topic from the contact form. */
+const PAGES = {
+  hos: { topic: 'healthos', title: 'HealthOS Enquiries', sub: 'Contact-form messages from people interested in HealthOS.' },
+  cos: { topic: 'clinicos', title: 'ClinicOS Enquiries', sub: 'Contact-form messages from clinics and hospitals interested in ClinicOS.' },
+  dt: { topic: 'reversal', title: 'Disease Reversal Enquiries', sub: 'Contact-form messages about the Disease Reversal programs.' },
+}
 
 const statusTone = {
   new: 'bg-[#FDF0E6] text-accent',
@@ -52,7 +59,7 @@ function download(rows) {
   const url = URL.createObjectURL(blob)
   const a = document.createElement('a')
   a.href = url
-  a.download = `orvena-enquiries-${new Date().toISOString().slice(0, 10)}.csv`
+  a.download = `orvena-${rows[0]?.topic ?? 'enquiries'}-enquiries-${new Date().toISOString().slice(0, 10)}.csv`
   a.click()
   URL.revokeObjectURL(url)
 }
@@ -154,23 +161,26 @@ function Detail({ item, onClose, onStatus, onDelete }) {
   )
 }
 
-export default function AdminEnquiriesPage() {
-  useNoIndex('Enquiries | Orvena Admin')
-  const { status, user } = useAdmin()
+export default function AdminEnquiriesPage({ section = 'hos' }) {
+  const page = PAGES[section]
+  useNoIndex(`${page.title} | Orvena Admin`)
+  const admin = useAdmin()
+  const { status, user } = admin
+  const allowed = !accessRedirect(admin, section)
   const [items, setItems] = useState(null)
   const [error, setError] = useState('')
   const [q, setQ] = useState('')
-  const [topic, setTopic] = useState('all')
   const [filter, setFilter] = useState('all')
   const [openId, setOpenId] = useState(null)
   // the moment the page opened, for the "last 7 days" count
   const [openedAt] = useState(() => Date.now())
 
   useEffect(() => {
-    if (status !== 'admin') return undefined
+    if (status !== 'admin' || !allowed) return undefined
     let unsub = () => {}
     let alive = true
     watchEnquiries(
+      page.topic,
       (rows) => alive && setItems(rows),
       (e) => alive && setError(e.message),
     ).then((u) => {
@@ -180,17 +190,16 @@ export default function AdminEnquiriesPage() {
       alive = false
       unsub()
     }
-  }, [status])
+  }, [status, allowed, page.topic])
 
   const shown = useMemo(() => {
     const needle = q.trim().toLowerCase()
     return (items ?? []).filter(
       (r) =>
-        (topic === 'all' || r.topic === topic) &&
         (filter === 'all' || r.status === filter) &&
         (!needle || [r.name, r.email, r.mobile, r.message, r.condition].some((v) => String(v ?? '').toLowerCase().includes(needle))),
     )
-  }, [items, q, topic, filter])
+  }, [items, q, filter])
 
   const counts = useMemo(() => {
     const week = openedAt - 7 * 864e5
@@ -202,7 +211,8 @@ export default function AdminEnquiriesPage() {
     }
   }, [items, openedAt])
 
-  if (status === 'signed-out' || status === 'not-admin' || status === 'error') return <Navigate to="/login" replace />
+  const redirect = accessRedirect(admin, section)
+  if (redirect) return <Navigate to={redirect} replace />
 
   const open = items?.find((r) => r.id === openId) ?? null
   const onOpen = (r) => {
@@ -217,13 +227,13 @@ export default function AdminEnquiriesPage() {
 
   return (
     <div className="min-h-svh bg-[#F3F6F8] text-navy">
-      <AdminHeader user={user} />
+      <AdminHeader user={user} admin={admin} />
 
       <main className="mx-auto max-w-[1200px] px-4 py-6 sm:px-6 sm:py-8">
         <div className="flex flex-wrap items-end justify-between gap-4">
           <div>
-            <h1 className="text-[26px] font-extrabold tracking-tight sm:text-[30px]">Enquiries</h1>
-            <p className="text-[14px] text-muted">Every message sent from the website contact form.</p>
+            <h1 className="text-[26px] font-extrabold tracking-tight sm:text-[30px]">{page.title}</h1>
+            <p className="text-[14px] text-muted">{page.sub}</p>
           </div>
           <button
             type="button"
@@ -248,7 +258,7 @@ export default function AdminEnquiriesPage() {
           ))}
         </div>
 
-        <div className="mt-5 grid gap-2.5 sm:grid-cols-[minmax(0,1fr)_200px_160px]">
+        <div className="mt-5 grid gap-2.5 sm:grid-cols-[minmax(0,1fr)_160px]">
           <label className="relative">
             <span className="sr-only">Search</span>
             <Search className="pointer-events-none absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-muted" />
@@ -259,12 +269,6 @@ export default function AdminEnquiriesPage() {
               className="w-full rounded-xl border border-line bg-white py-2.5 pl-10 pr-3 text-[14px] outline-none focus:border-teal/60"
             />
           </label>
-          <select value={topic} onChange={(e) => setTopic(e.target.value)} aria-label="Interested in" className="rounded-xl border border-line bg-white px-3 py-2.5 text-[14px] outline-none focus:border-teal/60">
-            <option value="all">All topics</option>
-            {Object.entries(TOPICS).map(([v, l]) => (
-              <option key={v} value={v}>{l}</option>
-            ))}
-          </select>
           <select value={filter} onChange={(e) => setFilter(e.target.value)} aria-label="Status" className="rounded-xl border border-line bg-white px-3 py-2.5 text-[14px] outline-none focus:border-teal/60">
             <option value="all">All statuses</option>
             {STATUSES.map((s) => (

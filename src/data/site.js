@@ -42,7 +42,7 @@ export const footerColumns = [
     title: 'Company',
     links: [
       { label: 'Contact us', href: '/contact' },
-      { label: 'Blog', href: '/blog' },
+      // { label: 'Blog', href: '/blog' }, // blog switched off for now
       { label: 'Privacy Policy', href: '/privacy' },
       { label: 'Terms & Conditions', href: '/terms' },
     ],

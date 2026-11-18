@@ -5,11 +5,12 @@ import {
   ChevronDown,
   ChevronLeft,
   Download,
+  Dumbbell,
   Droplet,
   FileText,
   Folder,
   Heart,
-  HeartPulse,
+  LogOut,
   Pencil,
   Pill,
   Save,
@@ -221,18 +222,20 @@ function SmartViewScreen() {
 
 function InsightsScreen() {
   const chips = [
-    [AlertTriangle, 'Alerts'], [Activity, 'Vitals'], [Droplet, 'Out Of Range'], [Heart, 'History'],
-    [Pill, 'Medication'], [FileText, 'Blood Reports'],
+    [AlertTriangle, 'Alerts'], [Activity, 'Vitals'], [Droplet, 'Out Of Range'], [Heart, 'History'], [Dumbbell, 'Lifestyle'],
+    [Pill, 'Medication'], [FileText, 'Blood Reports'], [Folder, 'Other Reports'], [LogOut, 'Discharge'],
   ]
+  const alerts = [
+    'Over Weight', 'Low hemoglobin - anemia pattern', 'Microcytic anemia pattern detected', 'Impaired Glucose Tolerence',
+    'Uncontrolled Diabetes', 'Persistent hyperglycemia pattern',
+  ]
+  const amber = 'bg-[#FFF6E0] ring-[#F2D58A]'
   const vitals = [
-    ['Height', '172', 'cm', ''], ['Weight', '81', 'kg', ''], ['BMI', '27.4', '', 'high'], ['BP', '128/84', 'mmHg', 'low'], ['Pulse', '76', 'bpm', 'ok'],
-  ]
-  const vitalTone = { high: 'bg-[#FDECEE]', low: 'bg-[#FDF1E1]', ok: 'bg-[#E4F2EF]', '': 'bg-[#F1F6F8]' }
-  const vitalNote = { high: 'Overweight', low: 'Elevated', ok: 'Normal' }
-  const outOfRange = [
-    ['Blood Sugar Fasting', 'Normal 80 – 115 mg/dl', '131'],
-    ['HbA1c', 'Normal 0 – 6 %', '7.4'],
-    ['LDL Cholesterol', 'Normal 0 – 100 mg/dl', '142'],
+    ['Height', '189', 'Cm', null, 'bg-[#F1F6F8] ring-line'],
+    ['Weight', '90', 'Kg', null, 'bg-[#F1F6F8] ring-line'],
+    ['BMI', '25.2', '', 'Overweight', amber],
+    ['BP', '119/80', 'MmHg', 'Elevated', amber],
+    ['Pulse', '76', 'Bpm', 'Normal', 'bg-[#E9F4F1] ring-[#BFE0D6]'],
   ]
   return (
     <div className={page}>
@@ -246,64 +249,67 @@ function InsightsScreen() {
       <div className={`flex items-center gap-5 rounded-3xl p-5 ${tealCard}`}>
         <div className="min-w-0 flex-1">
           <p className="text-[22px] font-bold">Your Name</p>
-          <p className="text-[13px] text-white/75">HB-XXXXXXX · 44 yrs · Male · Blood B+ve</p>
+          <p className="text-[13px] text-white/75">HB-XXXXXXX · 53.5 yrs · Male · Blood B+ve</p>
           <div className="mt-3 flex gap-2.5 text-[14px] font-semibold">
-            <span className={`inline-flex items-center gap-1.5 rounded-xl px-5 py-2.5 ${cta}`}><Download className="h-4 w-4" /> Save As PDF</span>
-            <span className="inline-flex items-center gap-1.5 rounded-xl bg-white px-6 py-2.5 text-navy"><Share2 className="h-4 w-4" /> Share</span>
+            <span className={`inline-flex w-[200px] items-center justify-center gap-1.5 rounded-xl py-2.5 ${cta}`}><Download className="h-4 w-4" /> Save As PDF</span>
+            <span className="inline-flex w-[170px] items-center justify-center gap-1.5 rounded-xl bg-white py-2.5 text-navy"><Share2 className="h-4 w-4" /> Share</span>
           </div>
         </div>
         <div className="grid shrink-0 grid-cols-3 gap-2.5">
-          {[['4', 'Alerts'], ['3', 'Conditions'], ['6', 'Labs off range']].map(([v, l]) => (
-            <div key={l} className="w-[108px] rounded-xl border border-white/15 bg-white/10 py-2.5 text-center">
+          {[['6', 'Alerts'], ['7', 'Conditions'], ['11', 'Labs off range']].map(([v, l]) => (
+            <div key={l} className="w-[110px] rounded-xl border border-white/15 bg-white/10 py-2.5 text-center">
               <p className="text-[22px] font-extrabold leading-7">{v}</p>
               <p className="text-[11.5px] text-white/75">{l}</p>
             </div>
           ))}
         </div>
       </div>
-      <div className="flex flex-wrap gap-2">
+      <div className="flex gap-1.5 whitespace-nowrap">
         {chips.map(([Icon, c]) => (
-          <span key={c} className="inline-flex items-center gap-1.5 rounded-full bg-white px-3 py-1.5 text-[12.5px] font-semibold ring-1 ring-line">
+          <span key={c} className={`inline-flex shrink-0 items-center gap-1 rounded-full px-2.5 py-1.5 text-[11.5px] font-semibold ring-1 ring-line ${c === 'Medication' ? 'bg-[#E8F0F3]' : 'bg-white'}`}>
             <Icon className="h-3.5 w-3.5" /> {c}
           </span>
         ))}
       </div>
-      <div className="grid flex-1 grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)] gap-4">
-        <div className={card}>
-          <div className="flex items-center gap-2.5">
-            <span className="grid h-8 w-8 place-items-center rounded-lg bg-[#E2EEF1] text-teal"><HeartPulse className="h-4 w-4" /></span>
-            <p className="text-[16px] font-bold">Vital Trends</p>
+      <div className={card}>
+        <div className="flex items-center gap-2.5">
+          <span className="grid h-8 w-8 place-items-center rounded-lg bg-[#FDECEE] text-[#C42B3B] ring-1 ring-[#F4C7CC]"><AlertTriangle className="h-4 w-4" /></span>
+          <div>
+            <p className="text-[15px] font-bold leading-5">Needs Attention</p>
+            <p className="text-[11px] text-muted">PMA alerts</p>
           </div>
-          <div className="mt-3 grid grid-cols-5 gap-2">
-            {vitals.map(([l, v, u, t]) => (
-              <div key={l} className={`rounded-xl px-2.5 py-2.5 ${vitalTone[t]}`}>
-                <p className="text-[11px] text-muted">{l}</p>
-                <p className="text-[18px] font-extrabold leading-6">{v} <span className="text-[10px] font-medium text-muted">{u}</span></p>
-                {t ? <p className="text-[10.5px] font-semibold text-navy/70">• {vitalNote[t]}</p> : null}
-              </div>
-            ))}
+          <span className="ml-auto grid h-6 w-6 place-items-center rounded-full bg-[#FDECEE] text-[11px] font-bold text-[#B4232C] ring-1 ring-[#F4C7CC]">6</span>
+        </div>
+        <div className="mt-3 flex flex-wrap gap-1.5">
+          {alerts.map((a) => (
+            <span key={a} className="rounded-full bg-[#FDF0F1] px-2.5 py-1 text-[12px] font-medium text-[#B4232C] ring-1 ring-[#F4C7CC]">{a}</span>
+          ))}
+        </div>
+      </div>
+      <div className={`${card} flex-1`}>
+        <div className="flex items-center gap-2.5">
+          <span className="grid h-8 w-8 place-items-center rounded-lg bg-[#E2EEF1] text-teal ring-1 ring-[#C9DEE4]"><Activity className="h-4 w-4" /></span>
+          <div>
+            <p className="text-[15px] font-bold leading-5">Vital Trends</p>
+            <p className="text-[11px] text-muted">Recorded 17 Nov 2026</p>
           </div>
         </div>
-        <div className={card}>
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-2.5">
-              <span className="grid h-8 w-8 place-items-center rounded-lg bg-[#FDF1E1] text-[#C98A12]"><Droplet className="h-4 w-4" /></span>
-              <p className="text-[16px] font-bold">Values Out Of Range</p>
+        <div className="mt-3 grid grid-cols-5 gap-2.5">
+          {vitals.map(([l, v, u, note, tone]) => (
+            <div key={l} className={`rounded-xl px-3 py-3 ring-1 ${tone}`}>
+              <p className="text-[11.5px] text-navy/75">{l}</p>
+              <p className="mt-1.5 text-[20px] font-extrabold leading-6">{v} <span className="text-[10.5px] font-medium text-muted">{u}</span></p>
+              {note ? <span className="mt-1.5 inline-block rounded-full bg-white/70 px-2 py-0.5 text-[10px] font-semibold text-navy/80 ring-1 ring-current/10">• {note}</span> : <span className="mt-1.5 block h-[18px]" />}
             </div>
-            <span className="grid h-6 w-6 place-items-center rounded-full bg-[#FDF0E6] text-[12px] font-bold text-accent">6</span>
-          </div>
-          <ul className="mt-2.5 divide-y divide-line">
-            {outOfRange.map(([n, r, v]) => (
-              <li key={n} className="flex items-center gap-3 py-2">
-                <span className="min-w-0 flex-1">
-                  <span className="block text-[13px] font-bold uppercase">{n}</span>
-                  <span className="block text-[11.5px] text-muted">{r}</span>
-                </span>
-                <span className="text-[16px] font-bold text-[#B4232C]">{v}</span>
-                <span className="rounded-md bg-[#FDECEE] px-2 py-0.5 text-[11px] font-bold text-[#B4232C]">High</span>
-              </li>
-            ))}
-          </ul>
+          ))}
+        </div>
+        <div className="mt-3 overflow-hidden rounded-xl ring-1 ring-line">
+          {[['Height (Feet)', '6.2 ft'], ['Weight (Lbs)', '198.41 lbs']].map(([k, v], i) => (
+            <div key={k} className={`flex items-center justify-between bg-[#F6F9FA] px-3 py-2 text-[12px] ${i ? 'border-t border-line' : ''}`}>
+              <span className="text-navy/75">{k}</span>
+              <span className="font-bold">{v}</span>
+            </div>
+          ))}
         </div>
       </div>
     </div>
@@ -328,7 +334,7 @@ export function HealthOSSmartViewScreen() {
 
 export function HealthOSInsightsScreen() {
   return (
-    <ScreenCard caption="Insights" height={562}>
+    <ScreenCard caption="Insights" width={1040} height={720}>
       <InsightsScreen />
     </ScreenCard>
   )

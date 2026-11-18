@@ -130,29 +130,6 @@ export function IconCards({
   )
 }
 
-/** Numbered steps, in a row on large screens. */
-export function Steps({ items, cols = 'lg:grid-cols-4' }) {
-  return (
-    <ol className={`grid gap-3 sm:grid-cols-2 ${cols}`}>
-      {items.map((step, index) => (
-        <li key={step.title} className="h-full">
-          <Reveal delay={0.06 * index} className="h-full">
-            <div className="o-card o-card--frame h-full rounded-[22px] border border-line bg-pale/60 p-5 hover:border-accent/30 hover:bg-white sm:rounded-[24px]">
-              <p className="text-[11px] font-semibold tracking-[0.18em] text-accent">
-                {String(index + 1).padStart(2, '0')}
-              </p>
-              <h3 className="mt-3 text-[17px] font-semibold tracking-tight text-navy">
-                {step.title}
-              </h3>
-              <p className="mt-2 text-[13px] leading-5 text-muted">{step.text}</p>
-            </div>
-          </Reveal>
-        </li>
-      ))}
-    </ol>
-  )
-}
-
 /** The dark closing band, with its action buttons passed in as children. */
 export function CtaBand({ title, text, note, children }) {
   return (

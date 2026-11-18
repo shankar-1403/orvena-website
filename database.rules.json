@@ -1,12 +1,13 @@
 {
   "rules": {
     "enquiries": {
-      ".read": "auth != null",
+      ".read": "(auth != null && auth.token.email === 'orvena.developer@gmail.com') || (auth != null && query.orderByChild === 'topic' && ((query.equalTo === 'healthos' && (auth != null && root.child('users/' + auth.uid + '/sections/hos').val() === true)) || (query.equalTo === 'clinicos' && (auth != null && root.child('users/' + auth.uid + '/sections/cos').val() === true)) || (query.equalTo === 'reversal' && (auth != null && root.child('users/' + auth.uid + '/sections/dt').val() === true))))",
       ".indexOn": [
-        "createdAt"
+        "createdAt",
+        "topic"
       ],
       "$id": {
-        ".write": "(!data.exists() && newData.exists()) || (auth != null)",
+        ".write": "(!data.exists() && newData.exists()) || (auth != null && auth.token.email === 'orvena.developer@gmail.com') || (data.exists() && ((data.child('topic').val() === 'healthos' && (auth != null && root.child('users/' + auth.uid + '/sections/hos').val() === true)) || (data.child('topic').val() === 'clinicos' && (auth != null && root.child('users/' + auth.uid + '/sections/cos').val() === true)) || (data.child('topic').val() === 'reversal' && (auth != null && root.child('users/' + auth.uid + '/sections/dt').val() === true))))",
         ".validate": "newData.hasChildren(['name', 'email', 'mobile', 'topic', 'message', 'status', 'source', 'createdAt'])",
         "name": {
           ".validate": "newData.isString() && newData.val().length > 0 && newData.val().length <= 120"
@@ -18,7 +19,7 @@
           ".validate": "newData.isString() && newData.val().length <= 20"
         },
         "topic": {
-          ".validate": "newData.val() === 'healthos' || newData.val() === 'clinicos' || newData.val() === 'reversal' || newData.val() === 'other'"
+          ".validate": "data.exists() ? newData.val() === data.val() : (newData.val() === 'healthos' || newData.val() === 'clinicos' || newData.val() === 'reversal' || newData.val() === 'other')"
         },
         "condition": {
           ".validate": "newData.isString() && newData.val().length <= 100"
@@ -40,13 +41,89 @@
         }
       }
     },
+    "doctorOnboarding": {
+      ".read": "(auth != null && auth.token.email === 'orvena.developer@gmail.com') || (auth != null && root.child('users/' + auth.uid + '/sections/doctors').val() === true)",
+      ".indexOn": [
+        "createdAt"
+      ],
+      "$id": {
+        ".write": "(!data.exists() && newData.exists()) || (auth != null && auth.token.email === 'orvena.developer@gmail.com') || (auth != null && root.child('users/' + auth.uid + '/sections/doctors').val() === true)",
+        ".validate": "newData.hasChildren(['name', 'specialization', 'email', 'mobile', 'city', 'status', 'createdAt'])",
+        "name": {
+          ".validate": "newData.isString() && newData.val().length > 0 && newData.val().length <= 120"
+        },
+        "specialization": {
+          ".validate": "newData.isString() && newData.val().length > 0 && newData.val().length <= 120"
+        },
+        "email": {
+          ".validate": "newData.isString() && newData.val().length <= 200 && newData.val().matches(/^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$/)"
+        },
+        "mobile": {
+          ".validate": "newData.isString() && newData.val().length <= 20"
+        },
+        "city": {
+          ".validate": "newData.isString() && newData.val().length > 0 && newData.val().length <= 120"
+        },
+        "source": {
+          ".validate": "newData.isString() && newData.val().length <= 200"
+        },
+        "status": {
+          ".validate": "(!data.exists() && newData.val() === 'new') || (data.exists() && (newData.val() === 'new' || newData.val() === 'contacted' || newData.val() === 'demo-done' || newData.val() === 'onboarded'))"
+        },
+        "createdAt": {
+          ".validate": "newData.isNumber() && (data.exists() ? newData.val() === data.val() : newData.val() <= now)"
+        },
+        "$other": {
+          ".validate": false
+        }
+      }
+    },
     "blogs": {
       ".read": true,
       ".indexOn": [
         "createdAt"
       ],
       "$id": {
-        ".write": "auth != null"
+        ".write": "(auth != null && auth.token.email === 'orvena.developer@gmail.com') || (auth != null && root.child('users/' + auth.uid + '/sections/blogs').val() === true)"
+      }
+    },
+    "users": {
+      ".read": "(auth != null && auth.token.email === 'orvena.developer@gmail.com')",
+      "$uid": {
+        ".read": "auth != null && auth.uid === $uid",
+        ".write": "(auth != null && auth.token.email === 'orvena.developer@gmail.com')",
+        "name": {
+          ".validate": "newData.isString() && newData.val().length <= 120"
+        },
+        "email": {
+          ".validate": "newData.isString() && newData.val().length <= 200"
+        },
+        "createdAt": {
+          ".validate": "newData.isNumber()"
+        },
+        "sections": {
+          "hos": {
+            ".validate": "newData.isBoolean()"
+          },
+          "cos": {
+            ".validate": "newData.isBoolean()"
+          },
+          "dt": {
+            ".validate": "newData.isBoolean()"
+          },
+          "doctors": {
+            ".validate": "newData.isBoolean()"
+          },
+          "blogs": {
+            ".validate": "newData.isBoolean()"
+          },
+          "$other": {
+            ".validate": false
+          }
+        },
+        "$other": {
+          ".validate": false
+        }
       }
     }
   }

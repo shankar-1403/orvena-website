@@ -4,7 +4,7 @@ import { getDatabase } from 'firebase/database'
 
 // Keys come from .env.local (see .env.example). Firebase web keys are not secret:
 // access is controlled by the Realtime Database rules in database.rules.json.
-const config = {
+export const config = {
   apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
   authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
   projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
