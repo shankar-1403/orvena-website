@@ -12,8 +12,12 @@ export const contact = {
   office: 'Unit-511, Lodha Supremus, Off Mahakal Caves Road, Andheri East, Mumbai, Maharashtra 400069, India',
 }
 
+// HIPAA and DPDP compliance badges and mentions. Off until Orvena has them; set to true to bring them back.
+export const SHOW_COMPLIANCE = false
+
 export const navLinks = [
   { label: 'Home', href: '/' },
+  { label: 'About', href: '/about' },
   { label: 'HealthOS', href: '/healthos' },
   { label: 'ClinicOS', href: '/clinicos' },
   { label: 'Disease Reversal', href: '/disease-reversal' },
@@ -41,6 +45,7 @@ export const footerColumns = [
   {
     title: 'Company',
     links: [
+      { label: 'About Orvena', href: '/about' },
       { label: 'Contact us', href: '/contact' },
       // { label: 'Blog', href: '/blog' }, // blog switched off for now
       { label: 'Privacy Policy', href: '/privacy' },

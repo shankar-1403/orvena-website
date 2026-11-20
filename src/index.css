@@ -363,3 +363,22 @@ body {
 /* CMS editor sizing */
 .o-blog-editor .ck-editor__editable { min-height: 260px; }
 .o-blog-editor .ck.ck-editor__main > .ck-editor__editable, .o-blog-editor .ck.ck-toolbar { border-color: var(--color-line); }
+
+/* About page orbit: the ring turns slowly, nodes stay upright, light runs along the spokes */
+.o-orbit { animation: o-orbit 60s linear infinite; }
+.o-orbit-counter { animation: o-orbit 60s linear infinite reverse; }
+@keyframes o-orbit { to { transform: rotate(360deg); } }
+.o-spoke { stroke-dasharray: 4 60; animation: o-spoke 3.2s ease-in infinite; }
+@keyframes o-spoke {
+  from { stroke-dashoffset: 4; opacity: 0; }
+  20% { opacity: 1; }
+  to { stroke-dashoffset: -40; opacity: 0; }
+}
+.o-core-pulse { animation: o-core-pulse 3.2s ease-out infinite; }
+@keyframes o-core-pulse {
+  from { transform: scale(1); opacity: 0.8; }
+  to { transform: scale(1.5); opacity: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .o-orbit, .o-orbit-counter, .o-spoke, .o-core-pulse { animation: none; }
+}

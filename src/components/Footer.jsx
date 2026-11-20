@@ -1,6 +1,6 @@
 import { ArrowUpRight, Lock, Mail, ShieldCheck } from 'lucide-react'
 import { Link } from 'react-router-dom'
-import { contact, footerColumns } from '../data/site'
+import { SHOW_COMPLIANCE, contact, footerColumns } from '../data/site'
 import Logo from './ui/Logo'
 import Container from './ui/Container'
 import SectionCard from './ui/SectionCard'
@@ -30,6 +30,7 @@ export default function Footer() {
                 <strong className="font-semibold text-white/85">ClinicOS</strong>, and{' '}
                 <strong className="font-semibold text-white/85">Disease Reversal</strong>.
               </p>
+              {SHOW_COMPLIANCE ? (
               <div className="mt-3 flex flex-wrap gap-2">
                 {[
                   [ShieldCheck, 'HIPAA Compliant'],
@@ -44,6 +45,7 @@ export default function Footer() {
                   </span>
                 ))}
               </div>
+              ) : null}
             </div>
 
             <div className="flex flex-col gap-2 sm:flex-row sm:flex-wrap sm:items-center">

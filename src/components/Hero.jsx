@@ -2,12 +2,17 @@ import { Lock, ShieldCheck, Users } from 'lucide-react'
 import AppShowcase from './AppShowcase'
 import PageHero from './site/PageHero'
 import Button from './ui/Button'
+import { SHOW_COMPLIANCE } from '../data/site'
 
 // Compliance claims are the owner's statements about the product. Add or change one
 // only when the owner says so.
 const badges = [
-  { icon: ShieldCheck, text: 'HIPAA Compliant' },
-  { icon: Lock, text: 'DPDP Compliant' },
+  ...(SHOW_COMPLIANCE
+    ? [
+        { icon: ShieldCheck, text: 'HIPAA Compliant' },
+        { icon: Lock, text: 'DPDP Compliant' },
+      ]
+    : []),
   { icon: Users, text: '10,000+ patients helped' },
 ]
 

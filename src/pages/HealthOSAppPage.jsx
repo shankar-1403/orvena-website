@@ -27,12 +27,16 @@ import Button from '../components/ui/Button'
 import Reveal from '../components/ui/Reveal'
 import SectionHeader from '../components/ui/SectionHeader'
 import StoreButtons from '../components/ui/StoreButtons'
-import { healthosWebUrl } from '../data/site'
+import { SHOW_COMPLIANCE, healthosWebUrl } from '../data/site'
 import { usePageMeta } from '../hooks/usePageMeta'
 
 const badges = [
-  { icon: ShieldCheck, text: 'HIPAA Compliant' },
-  { icon: Lock, text: 'DPDP Compliant' },
+  ...(SHOW_COMPLIANCE
+    ? [
+        { icon: ShieldCheck, text: 'HIPAA Compliant' },
+        { icon: Lock, text: 'DPDP Compliant' },
+      ]
+    : []),
   { icon: Activity, text: 'Readings within 2 hours' },
 ]
 
@@ -107,7 +111,8 @@ function PrivacyPanel() {
     <div className="relative overflow-hidden rounded-[26px] bg-gradient-to-br from-navy via-[#0d4a5c] to-midnight p-5 text-white shadow-[0_30px_60px_-30px_rgba(2,20,28,0.7)] sm:rounded-[30px] sm:p-7">
       <div aria-hidden="true" className="bg-dot-grid pointer-events-none absolute inset-0 opacity-[0.1]" />
       <ShieldCheck aria-hidden="true" strokeWidth={1} className="pointer-events-none absolute -right-10 -top-10 h-56 w-56 text-white/[0.05]" />
-      <div className="relative grid grid-cols-2 gap-3 sm:gap-4">
+      {SHOW_COMPLIANCE ? (
+      <div className="relative mb-3 grid grid-cols-2 gap-3 sm:mb-4 sm:gap-4">
         {seals.map(({ icon: Icon, title, text }) => (
           <div key={title} className="flex flex-col items-center rounded-[22px] border border-white/10 bg-white/[0.06] px-3 py-6 text-center">
             <span className="relative grid h-16 w-16 place-items-center rounded-full bg-gradient-to-br from-white/20 to-white/5 ring-1 ring-white/25 sm:h-20 sm:w-20">
@@ -121,7 +126,8 @@ function PrivacyPanel() {
           </div>
         ))}
       </div>
-      <div className="relative mt-3 grid gap-3 sm:mt-4 sm:grid-cols-2 sm:gap-4">
+      ) : null}
+      <div className="relative grid gap-3 sm:grid-cols-2 sm:gap-4">
         {strips.map(({ icon: Icon, tone, title, text }) => (
           <div key={title} className="flex items-center gap-3.5 rounded-[20px] bg-white px-4 py-4 text-navy sm:flex-col sm:items-start sm:gap-3 sm:px-5 xl:flex-row xl:items-center xl:gap-3.5">
             <span className={`grid h-11 w-11 shrink-0 place-items-center rounded-2xl text-white ${tone}`}>
@@ -266,7 +272,7 @@ export default function HealthOSAppPage() {
         <Split
           eyebrow="Privacy"
           title="Your Records Stay Yours"
-          lead="HealthOS is built to HIPAA and DPDP standards. Each family profile sees only its own records, you choose who sees your summary, and you can delete your account at any time."
+          lead={`${SHOW_COMPLIANCE ? 'HealthOS is built to HIPAA and DPDP standards. ' : ''}Each family profile sees only its own records, you choose who sees your summary, and you can delete your account at any time.`}
           media={<PrivacyPanel />}
         />
       </Section>

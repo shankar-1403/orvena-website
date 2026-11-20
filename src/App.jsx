@@ -1,6 +1,7 @@
 import { lazy, Suspense } from 'react'
 import { Navigate, Route, Routes } from 'react-router-dom'
 import Layout from './components/Layout'
+import AboutPage from './pages/AboutPage'
 import ClinicOSPage from './pages/ClinicOSPage'
 import ContactPage from './pages/ContactPage'
 import DiseaseReversalPage from './pages/DiseaseReversalPage'
@@ -21,7 +22,7 @@ const AdminUsersPage = lazy(() => import('./pages/admin/AdminUsersPage'))
 const AdminHome = lazy(() => import('./pages/admin/AdminHome'))
 // const BlogPostPage = lazy(() => import('./pages/BlogPostPage'))
 
-// The site follows the new site map: Home, HealthOS, ClinicOS, Disease Reversal, Contact.
+// The site follows the new site map: Home, About, HealthOS, ClinicOS, Disease Reversal, Contact.
 // Old URLs redirect to the closest new page.
 
 export default function App() {
@@ -94,6 +95,7 @@ export default function App() {
       />
       <Route element={<Layout />}>
         <Route path="/" element={<HomePage />} />
+        <Route path="/about" element={<AboutPage />} />
         <Route path="/healthos" element={<HealthOSAppPage />} />
         <Route path="/healthos2" element={<Navigate to="/healthos" replace />} />
         <Route path="/clinicos" element={<ClinicOSPage />} />
@@ -116,7 +118,6 @@ export default function App() {
         */}
         <Route path="/blog/*" element={<Navigate to="/" replace />} />
 
-        <Route path="/about" element={<Navigate to="/" replace />} />
         <Route path="/services" element={<Navigate to="/" replace />} />
         <Route path="/services/:serviceId" element={<Navigate to="/" replace />} />
         <Route path="/doctors" element={<Navigate to="/" replace />} />

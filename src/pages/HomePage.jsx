@@ -6,7 +6,7 @@ import { JourneyRail, NumbersBand, TrustPlates } from '../components/site/HomeSe
 import Button from '../components/ui/Button'
 import Reveal from '../components/ui/Reveal'
 import SectionHeader from '../components/ui/SectionHeader'
-import { healthosWebUrl } from '../data/site'
+import { SHOW_COMPLIANCE, healthosWebUrl } from '../data/site'
 import { usePageMeta } from '../hooks/usePageMeta'
 
 // Home page of the Orvena website: content, flow and structure follow the new site map.
@@ -87,7 +87,9 @@ const trust = [
   {
     icon: ShieldCheck,
     title: 'Secure by design',
-    text: 'Encrypted, HIPAA and DPDP compliant. Each profile sees only its own records, and you choose who sees your summary.',
+    text: SHOW_COMPLIANCE
+      ? 'Encrypted, HIPAA and DPDP compliant. Each profile sees only its own records, and you choose who sees your summary.'
+      : 'Encrypted. Each profile sees only its own records, and you choose who sees your summary.',
   },
   {
     icon: Stethoscope,
