@@ -10,6 +10,11 @@ const doctorProxy = {
     changeOrigin: true,
     rewrite: () => '/appservice.asmx/getdoctorlist',
   },
+  '/api/otp': {
+    target: 'https://demo.orvenahealth.com',
+    changeOrigin: true,
+    rewrite: () => '/AppService.asmx/GetVerificationOTP',
+  },
 }
 
 export default defineConfig({

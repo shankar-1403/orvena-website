@@ -1,57 +1,44 @@
-// Phone number verification by SMS code (Firebase Phone Auth), used by the Book a Demo form.
-// It runs on its own Firebase app instance, so it never signs anyone in or out of the CMS.
+// Phone number verification by SMS code for the Book a Demo form, using the ClinicOS
+// GetVerificationOTP API. Locally it goes through the Vite proxy (/api/otp) to avoid CORS.
+// NOTE: the API returns the code itself, so the check happens in the browser for now.
+// When the backend adds a VerifyOTP(MobileNumber, OTP) method, move the check there.
 
-let verifier = null
+const OTP_URL = import.meta.env.DEV
+  ? '/api/otp'
+  : 'https://demo.orvenahealth.com/AppService.asmx/GetVerificationOTP'
 
-async function otpAuth() {
-  const mod = await import('./firebase')
-  if (!mod.firebaseReady) throw new Error('Firebase is not configured.')
-  const { getApps, initializeApp } = await import('firebase/app')
-  const { getAuth } = await import('firebase/auth')
-  const app = getApps().find((a) => a.name === 'phone-otp') ?? initializeApp(mod.config, 'phone-otp')
-  return getAuth(app)
-}
+/** Kept for the form's existing calls; nothing to clear with this provider. */
+export function resetOtp() {}
 
-/** Clears the invisible reCAPTCHA so a new one can be made (on resend or close). */
-export function resetOtp() {
+/** Sends a code to a 10-digit Indian mobile number. Resolves to a confirmation for verifyOtp. */
+export async function sendOtp(phone) {
+  let res
   try {
-    verifier?.clear()
+    res = await fetch(OTP_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: new URLSearchParams({ MobileNumber: phone }),
+    })
   } catch {
-    // already cleared
+    throw Object.assign(new Error('unreachable'), { code: 'unreachable' })
   }
-  verifier = null
+  if (!res.ok) throw Object.assign(new Error('unreachable'), { code: 'unreachable' })
+  const text = new DOMParser().parseFromString(await res.text(), 'text/xml').documentElement?.textContent || ''
+  const code = text.match(/\b\d{4,6}\b/)?.[0]
+  if (!code) throw Object.assign(new Error(text || 'no code'), { code: 'unreachable' })
+  return { phone, code }
 }
 
-/**
- * Sends a 6-digit code to `phone` (E.164, e.g. +919876543210). `containerId` is an empty
- * element the invisible reCAPTCHA attaches to. Returns a confirmation used by verifyOtp.
- */
-export async function sendOtp(phone, containerId) {
-  const auth = await otpAuth()
-  const { RecaptchaVerifier, signInWithPhoneNumber } = await import('firebase/auth')
-  resetOtp()
-  verifier = new RecaptchaVerifier(auth, containerId, { size: 'invisible' })
-  return signInWithPhoneNumber(auth, phone, verifier)
-}
-
-/** Checks the code. Resolves to the verified phone number, then signs that session out. */
+/** Checks the typed code. Resolves to the verified number in +91 form. */
 export async function verifyOtp(confirmation, code) {
-  const result = await confirmation.confirm(code)
-  const phone = result.user.phoneNumber
-  const { signOut } = await import('firebase/auth')
-  await signOut(await otpAuth()).catch(() => {})
-  return phone
+  if (!confirmation || code !== confirmation.code)
+    throw Object.assign(new Error('bad code'), { code: 'invalid-verification-code' })
+  return `+91${confirmation.phone}`
 }
 
-/** Plain-language messages for the Firebase phone errors people actually hit. */
+/** Plain-language messages for the errors people actually hit. */
 export function otpError(err) {
   const code = err?.code || ''
-  if (code.includes('invalid-phone-number')) return 'That phone number doesn’t look right. Check it and try again.'
-  if (code.includes('too-many-requests') || code.includes('quota-exceeded'))
-    return 'Too many attempts. Please wait a few minutes and try again.'
   if (code.includes('invalid-verification-code')) return 'That code is incorrect. Check the SMS and try again.'
-  if (code.includes('code-expired')) return 'That code has expired. Tap “Resend code” for a new one.'
-  if (code.includes('operation-not-allowed') || code.includes('billing'))
-    return 'Phone verification isn’t switched on yet. Please try again later.'
   return 'We couldn’t verify your number just now. Please try again.'
 }

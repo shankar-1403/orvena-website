@@ -80,13 +80,14 @@ export default function DemoModal({ open, onClose }) {
     setOtpBusy(true)
     setOtpErr('')
     try {
-      setConfirmation(await sendOtp(`+91${phone}`, 'demo-recaptcha'))
+      setConfirmation(await sendOtp(phone))
       setCode('')
       setStep('code')
       setWait(RESEND_AFTER)
-    } catch (err) {
-      resetOtp()
-      setOtpErr(otpError(err))
+    } catch {
+      // the SMS service is unreachable: don't lose the lead, carry on with the number marked unverified
+      setVerified(`+91${phone} NV`)
+      setStep('details')
     } finally {
       setOtpBusy(false)
     }
@@ -316,7 +317,8 @@ export default function DemoModal({ open, onClose }) {
                 </p>
                 <Progress at={2} />
                 <p className="mt-4 inline-flex items-center gap-1.5 rounded-full bg-teal/10 px-3 py-1 text-[12.5px] font-semibold text-teal">
-                  <BadgeCheck className="h-3.5 w-3.5" aria-hidden="true" /> {verified} verified
+                  <BadgeCheck className="h-3.5 w-3.5" aria-hidden="true" /> {verified.replace(' NV', '')}
+                  {verified.endsWith(' NV') ? '' : ' verified'}
                 </p>
 
                 <div className="mt-6 grid gap-4 sm:grid-cols-2">
