@@ -17,7 +17,7 @@ export const SHOW_COMPLIANCE = false
 
 export const navLinks = [
   { label: 'Home', href: '/' },
-  { label: 'About', href: '/about' },
+  // { label: 'About', href: '/about' },
   { label: 'HealthOS', href: '/healthos' },
   { label: 'ClinicOS', href: '/clinicos' },
   { label: 'Disease Reversal', href: '/disease-reversal' },
@@ -45,7 +45,7 @@ export const footerColumns = [
   {
     title: 'Company',
     links: [
-      { label: 'About Orvena', href: '/about' },
+      // { label: 'About Orvena', href: '/about' },
       { label: 'Contact us', href: '/contact' },
       // { label: 'Blog', href: '/blog' }, // blog switched off for now
       { label: 'Privacy Policy', href: '/privacy' },

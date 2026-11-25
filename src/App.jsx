@@ -1,7 +1,7 @@
 import { lazy, Suspense } from 'react'
 import { Navigate, Route, Routes } from 'react-router-dom'
 import Layout from './components/Layout'
-import AboutPage from './pages/AboutPage'
+// import AboutPage from './pages/AboutPage'
 import ClinicOSPage from './pages/ClinicOSPage'
 import ContactPage from './pages/ContactPage'
 import DiseaseReversalPage from './pages/DiseaseReversalPage'
@@ -95,7 +95,7 @@ export default function App() {
       />
       <Route element={<Layout />}>
         <Route path="/" element={<HomePage />} />
-        <Route path="/about" element={<AboutPage />} />
+        {/* <Route path="/about" element={<AboutPage />} /> */}
         <Route path="/healthos" element={<HealthOSAppPage />} />
         <Route path="/healthos2" element={<Navigate to="/healthos" replace />} />
         <Route path="/clinicos" element={<ClinicOSPage />} />
